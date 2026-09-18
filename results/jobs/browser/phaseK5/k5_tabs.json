@@ -3,7 +3,7 @@
     {
       "tab_id": 1201900671,
       "title": "Arena | Benchmark & Compare the Best AI Models",
-      "url": "https://arena.ai/agent/01a02938-81ec-7a38-86c5-d1b2b023fc05",
+      "url": "https://arena.ai/agent/01a0b3c5-588d-72a5-984c-da3038f7c521",
       "window_id": 1201900386,
       "active": false,
       "scope": "user"
@@ -153,10 +153,10 @@
       "scope": "user"
     },
     {
-      "tab_id": 1201901236,
+      "tab_id": 1201901246,
       "title": "about:blank",
       "url": "about:blank",
-      "window_id": 1201901235,
+      "window_id": 1201901245,
       "active": true,
       "scope": "agent"
     }
