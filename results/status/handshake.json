@@ -1,9 +1,9 @@
 {
-  "round": 31,
-  "arena_state": "accepted",
-  "local_state": "failed",
-  "arena_updated": "2026-09-18 07:05:10",
-  "local_updated": "2026-09-18 15:04:30",
-  "host": "LAPTOP-R77M5D6M",
-  "note": "hands-free: r31 closed - M2 re-borrow monitor"
+  "round": 32,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 07:05:13",
+  "local_updated": null,
+  "host": "",
+  "note": "stage6 M2: re-borrow and monitor the arena agent for the PS block"
 }
