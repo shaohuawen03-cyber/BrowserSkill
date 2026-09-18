@@ -1,9 +1,9 @@
 {
-    "round":  11,
-    "arena_state":  "awaiting_check",
-    "local_state":  "passed",
-    "arena_updated":  "2026-09-18 03:28:16",
-    "local_updated":  "2026-09-18 11:30:10",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "stage3 D3: Agent mode + click GitHub connect, record navigation"
+  "round": 12,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 03:31:49",
+  "local_updated": null,
+  "host": "",
+  "note": "stage3 D4: flip mode to Agent via keyboard, recon GitHub UI"
 }
