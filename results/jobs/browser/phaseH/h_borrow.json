@@ -1,0 +1,10 @@
+﻿bsk.exe : error: timed out waiting for human confirmation
+所在位置 E:\0github\git-sync\BrowserSkill-01a0b237\code\agent_task.ps1:58 字符: 8
++ $bo = (& $bsk tab borrow $tid --session $sid --timeout 150 2>&1 | Out ...
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: timed ou...an confirmation:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+hint: report the blocked step; do not automatically repeat the request or switch browser tools
+details: Timed out waiting for tab borrow confirmation
+
