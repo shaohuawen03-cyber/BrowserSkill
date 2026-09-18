@@ -1,9 +1,9 @@
 {
-    "round":  50,
-    "arena_state":  "awaiting_check",
-    "local_state":  "failed",
-    "arena_updated":  "2026-09-18 09:37:34",
-    "local_updated":  "2026-09-18 17:39:24",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "r50 K6: dispatch the 3-round plan (round 1 connect already counted) into the connected conversation; user will click the arena tab to warm it"
+  "round": 50,
+  "arena_state": "accepted",
+  "local_state": "failed",
+  "arena_updated": "2026-09-18 09:39:59",
+  "local_updated": "2026-09-18 17:39:24",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "r50 closed - expected cold-tab abort; hygiene+gate verified; retrying with 8min warm window"
 }
