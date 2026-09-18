@@ -1,0 +1,8 @@
+﻿@vom 1
+@view 1043x908
+@layers 1 focus=L1
+L1 page
+  RootWebArea "Arena AI: The Official AI Ranking & LLM Leaderboard"
+    alert
+@warning geometry incomplete: some page or frame content has no top-level coordinates.
+
