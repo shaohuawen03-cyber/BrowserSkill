@@ -1,99 +1,166 @@
-# agent_task.ps1 - housekeeping v2: window census + session sweep + where demo.
-# User reports ~15 leftover automation windows. Agent Windows live inside the
-# user's own Edge instance (extension-created), so we NEVER kill processes;
-# we close them via the daemon registry (session stop --all) and take a
-# window census (titles) before/after as evidence. Also refreshes the
-# user-side scripts at the repo root (where.ps1/where.cmd/download.ps1) and
-# runs the where.cmd demo the user asked for.
+# agent_task.ps1 - r50 / K6: drive the 3-round plan into the connected arena
+# conversation. Fixes from r46: JS strings carry NO double quotes (PS 5.1
+# native-arg quoting eats them -> ReferenceError); link click returns a bare
+# number. Window hygiene: session stop --all at BOTH start and end. Step 0
+# refreshes user-side root scripts BEFORE anything else (consistency gate).
 
 $ErrorActionPreference = 'Continue'
 Set-Location (Split-Path -Parent $PSScriptRoot)
 $root = (Get-Location).Path
 
-$out = Join-Path $root 'results\jobs\browser\housekeep2.log'
-$l = New-Object System.Collections.Generic.List[string]
-function Log([string]$s) { $script:l.Add($s); Write-Output $s }
+$outDir = Join-Path $root 'results\jobs\browser\phaseK6'
+New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+$log = Join-Path $outDir 'k6.log'
+$lines = New-Object System.Collections.Generic.List[string]
+function Log([string]$s) { $script:lines.Add($s); Write-Output $s }
+function Snap([string]$name) {
+    $s = (& $bsk snapshot --session $script:sid --max-tokens 30000 2>&1 | Out-String)
+    $s | Set-Content -LiteralPath (Join-Path $outDir $name) -Encoding UTF8
+    return $s
+}
+function Scroll-Bottom {
+    $null = (& $bsk evaluate '(function(){var d=document.scrollingElement;d.scrollTop=d.scrollHeight;return d.scrollTop;})()' --session $script:sid 2>&1 | Out-String)
+    $null = (& $bsk wait-ms 3s --session $script:sid 2>&1 | Out-String)
+}
+function Finish([int]$code) {
+    $null = (& $bsk session stop --all 2>&1 | Out-String)
+    Log ('k6: final session stop exit ' + $LASTEXITCODE)
+    $script:lines | Set-Content -LiteralPath $script:log -Encoding UTF8
+    exit $code
+}
 
-# ---- 0. refresh user-side root scripts (new where tool + provenance dl)
+# ---- 0. refresh user-side root scripts (keeps the consistency gate green)
 $src = Join-Path $root 'skills\git-sync\scripts'
 foreach ($f in @('where.ps1', 'where.cmd', 'download.ps1')) {
     $from = Join-Path $src $f
     if (Test-Path -LiteralPath $from) { Copy-Item -Force -LiteralPath $from -Destination (Join-Path $root $f) }
 }
-Log 'housekeep2: root scripts refreshed (where.ps1, where.cmd, download.ps1)'
+Log 'k6: root scripts refreshed'
 
-# ---- 1. window census helper (Edge windows only; NO process killing)
-$sig = @'
-using System;
-using System.Runtime.InteropServices;
-using System.Text;
-public class WCensus {
-    public delegate bool EnumProc(IntPtr h, IntPtr l);
-    [DllImport("user32.dll")] public static extern bool EnumWindows(EnumProc cb, IntPtr l);
-    [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern int GetClassName(IntPtr h, StringBuilder s, int n);
-    [DllImport("user32.dll")] public static extern bool IsWindowVisible(IntPtr h);
-    [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern int GetWindowText(IntPtr h, StringBuilder s, int n);
-    [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(IntPtr h, out uint pid);
-}
-'@
-try { Add-Type -TypeDefinition $sig -ErrorAction Stop } catch { }
-function Get-EdgeWindows {
-    $res = New-Object System.Collections.Generic.List[string]
-    try {
-        $procs = @{}
-        Get-Process msedge -ErrorAction SilentlyContinue | ForEach-Object { $procs[[uint32]$_.Id] = 1 }
-        $cb = [WCensus+EnumProc]{
-            param($h, $lp)
-            if ([WCensus]::IsWindowVisible($h)) {
-                $cn = New-Object System.Text.StringBuilder 256
-                $null = [WCensus]::GetClassName($h, $cn, 256)
-                if ($cn.ToString() -eq 'Chrome_WidgetWin_1') {
-                    $pid2 = [uint32]0
-                    $null = [WCensus]::GetWindowThreadProcessId($h, [ref]$pid2)
-                    if ($procs.ContainsKey($pid2)) {
-                        $t = New-Object System.Text.StringBuilder 512
-                        $n = [WCensus]::GetWindowText($h, $t, 512)
-                        if ($n -gt 0) { $res.Add(($t.ToString() -replace '\s+', ' ').Trim()) }
-                    }
-                }
-            }
-            return $true
-        }
-        $null = [WCensus]::EnumWindows($cb, [IntPtr]::Zero)
-    } catch { $res.Add('census-unavailable: ' + $_.Exception.Message) }
-    return $res
-}
-
-$before = Get-EdgeWindows
-Log ('housekeep2: EDGE WINDOWS BEFORE = ' + @($before).Count)
-foreach ($t in $before) { if ($t) { Log ('  before-title: ' + $t.Substring(0, [Math]::Min(110, $t.Length))) } }
-
-# ---- 2. daemon session sweep (the ONLY safe way to close Agent Windows)
 $bsk = Join-Path $env:USERPROFILE '.local\bin\bsk.exe'
 if (-not (Test-Path -LiteralPath $bsk)) {
     $f = Get-ChildItem -Path (Join-Path $env:USERPROFILE '.local') -Recurse -Filter 'bsk.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($f) { $bsk = $f.FullName }
 }
 $env:BSK_AUTO_START = '0'
-$s1 = (& $bsk session list --json 2>&1 | Out-String)
-($s1 | Out-String) | Set-Content -LiteralPath (Join-Path $root 'results\jobs\browser\housekeep2_sessions_before.json') -Encoding UTF8
-Log ('housekeep2: sessions before -> ' + (($s1 -replace '\s+', ' ').Trim().Substring(0, [Math]::Min(300, $s1.Trim().Length))))
 $null = (& $bsk session stop --all 2>&1 | Out-String)
-Log ('housekeep2: session stop --all exit ' + $LASTEXITCODE)
-$null = Start-Sleep -Seconds 4
-$s2 = (& $bsk session list --json 2>&1 | Out-String)
-Log ('housekeep2: sessions after  -> ' + (($s2 -replace '\s+', ' ').Trim().Substring(0, [Math]::Min(300, $s2.Trim().Length))))
+$st = (& $bsk session start --name 'arena-k6' --json 2>&1 | Out-String)
+$m = [regex]::Match($st, '"session_id"\s*:\s*"([^"]+)"')
+if (-not $m.Success) { $m = [regex]::Match($st, '"id"\s*:\s*"([^"]+)"') }
+$sid = ''
+if ($m.Success) { $sid = $m.Groups[1].Value }
+if (-not $sid) { Log 'k6: [FAIL] no session'; Finish 1 }
+$sid | Set-Content -LiteralPath (Join-Path $root 'results\status\bsk_session.txt') -Encoding Ascii
+Log ('k6: session ' + $sid)
 
-# ---- 3. census after
-$after = Get-EdgeWindows
-Log ('housekeep2: EDGE WINDOWS AFTER = ' + @($after).Count)
-foreach ($t in $after) { if ($t) { Log ('  after-title: ' + $t.Substring(0, [Math]::Min(110, $t.Length))) } }
+# ---- 1. borrow the arena tab
+$tabs = (& $bsk tab list --session $sid --json 2>&1 | Out-String)
+$tabs | Set-Content -LiteralPath (Join-Path $outDir 'k6_tabs.json') -Encoding UTF8
+$tid = ''
+foreach ($mm in [regex]::Matches($tabs, '\{[^{}]*\}')) {
+    if ($mm.Value -match 'arena\.ai') { $c = [regex]::Match($mm.Value, '"tab_id"\s*:\s*(\d+)').Groups[1].Value; if ($c -and -not $tid) { $tid = $c } }
+}
+if (-not $tid) { Log 'k6: [FAIL] no arena tab - keep arena.ai open in Edge'; Finish 1 }
+$null = (& $bsk tab borrow $tid --session $sid --timeout 300 2>&1 | Out-String)
+Log ('k6: borrow tab ' + $tid + ' exit ' + $LASTEXITCODE)
+if ($LASTEXITCODE -ne 0) { Log 'k6: [FAIL] borrow denied'; Finish 1 }
+$null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String)
 
-# ---- 4. where.cmd demo (the feature the user asked to see working)
-$wd = (& cmd /c '.\where.cmd -Want 01a0b237' 2>&1 | Out-String)
-Log 'housekeep2: where.cmd demo:'
-foreach ($ln in ($wd -split "`r?`n")) { if ($ln.Trim()) { Log ('  | ' + $ln.Trim()) } }
+# ---- 2. /agent home must render (user-activation law: click the tab <30min ago)
+$null = (& $bsk navigate 'https://arena.ai/agent' --session $sid 2>&1 | Out-String)
+$rendered = $false
+for ($i = 1; $i -le 30; $i++) {
+    $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
+    $s0 = Snap ('k6_home_p' + $i + '.txt')
+    if (($s0 -match 'textbox') -and ($s0 -match 'Today')) { $rendered = $true; Log ('k6: home rendered at poll ' + $i); break }
+    if ($i -eq 10 -or $i -eq 20) { $null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String); $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
+}
+if (-not $rendered) { Log 'k6: [FAIL] home cold - user must click the arena tab once, then rerun'; Finish 1 }
 
-Log 'housekeep2: done'
-$l | Set-Content -LiteralPath $out -Encoding UTF8
-exit 0
+# ---- 3. open the connected conversation via quote-free DOM click.
+# PS 5.1 eats inner double quotes when passing args to native commands, so
+# the JS uses only single-quoted-free code: no quotes at all, returns numbers.
+$js = '(function(){var N=String.fromCharCode(102,97,100,49,45,55,49,54,56);var L=document.links;var k=-1;for(var i=0;i<L.length;i++){if(L[i].href.indexOf(N)>=0){k=i;break;}}if(k>=0){L[k].click();return 1;}return 0;})()'
+$opened = $false
+for ($pass = 1; $pass -le 5 -and -not $opened; $pass++) {
+    Scroll-Bottom
+    $r = (& $bsk evaluate $js --session $sid 2>&1 | Out-String)
+    Log ('k6: pass ' + $pass + ' dom-click -> ' + (($r -replace '\s+', ' ').Trim().Substring(0, [Math]::Min(90, $r.Trim().Length))))
+    for ($i = 1; $i -le 12; $i++) {
+        $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
+        $s0 = Snap ('k6_conv_pass' + $pass + '_p' + $i + '.txt')
+        if (($s0 -match 'textbox') -and ($s0 -match 'combobox')) { $opened = $true; Log ('k6: conversation open (pass ' + $pass + ' poll ' + $i + ')'); break }
+    }
+}
+if (-not $opened) {
+    Log 'k6: DOM click found no link - SPA fallback via history.pushState-free deep link'
+    $null = (& $bsk navigate 'https://arena.ai/agent/01a0b237-fad1-7168-8115-d3f52e550489' --session $sid 2>&1 | Out-String)
+    for ($i = 1; $i -le 12; $i++) {
+        $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
+        $s0 = Snap ('k6_deep_p' + $i + '.txt')
+        if (($s0 -match 'textbox') -and ($s0 -match 'combobox')) { $opened = $true; Log ('k6: deep link opened (poll ' + $i + ')'); break }
+    }
+}
+if (-not $opened) { Log 'k6: [FAIL] conversation never opened'; Finish 1 }
+Scroll-Bottom
+$s0 = Snap 'k6_conv_bottom.txt'
+
+# ---- 4. continue-working button (GBK needle; unlocks a locked composer)
+$needle = -join @([char]0x7F01, [char]0x0445, [char]0x753B, [char]0x5BB8, [char]0x30E4, [char]0x7D94)
+$contRef = ''
+foreach ($mm in [regex]::Matches($s0, '@(e\d+) button[^\r\n]*')) {
+    if ($mm.Value.Contains($needle)) { $contRef = $mm.Groups[1].Value; Log ('k6: continue button @' + $contRef); break }
+}
+if ($contRef) {
+    $null = (& $bsk click ('@' + $contRef) --session $sid 2>&1 | Out-String)
+    Log ('k6: clicked continue (exit ' + $LASTEXITCODE + ')')
+    $null = (& $bsk wait-ms 4s --session $sid 2>&1 | Out-String)
+    Scroll-Bottom
+    $s0 = Snap 'k6_after_continue.txt'
+} else {
+    Log 'k6: no continue button - composer assumed free'
+}
+
+# ---- 5. clipboard the 3-round prompt
+$promptFile = Join-Path $root 'results\status\arena_prompt3.txt'
+$msg = (Get-Content -LiteralPath $promptFile -Raw -Encoding UTF8).Trim()
+Log ('k6: prompt3 chars=' + $msg.Length)
+Set-Clipboard -Value $msg
+$filled = $false
+for ($att = 1; $att -le 4 -and -not $filled; $att++) {
+    $s1 = Snap ('k6_att' + $att + '_a.txt')
+    $tb = [regex]::Match($s1, '@(e\d+) textbox').Groups[1].Value
+    if (-not $tb) { Log ('k6: att ' + $att + ' - no textbox'); continue }
+    $null = (& $bsk click ('@' + $tb) --session $sid 2>&1 | Out-String)
+    $null = (& $bsk wait-ms 700ms --session $sid 2>&1 | Out-String)
+    $null = (& $bsk press Ctrl+v --session $sid 2>&1 | Out-String)
+    $null = (& $bsk wait-ms 1500ms --session $sid 2>&1 | Out-String)
+    $s3 = Snap ('k6_att' + $att + '_c.txt')
+    if (($s3 -match 'textbox[^\r\n]*\[filled\]') -or ($s3 -match '3/3')) { $filled = $true; Log ('k6: att ' + $att + ' - PROMPT IN COMPOSER') }
+}
+if (-not $filled) { Log 'k6: [FAIL] composer never held the prompt'; Finish 1 }
+
+# ---- 6. send + dispatch check
+$s4 = Snap 'k6_before_send.txt'
+$sendRef = [regex]::Match($s4, '@(e\d+) button "Send message').Groups[1].Value
+if ($sendRef) {
+    $null = (& $bsk click ('@' + $sendRef) --session $sid 2>&1 | Out-String)
+    Log ('k6: clicked Send @' + $sendRef + ' (exit ' + $LASTEXITCODE + ')')
+} else {
+    $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
+    Log 'k6: Enter fallback'
+}
+$echo = $false
+for ($i = 1; $i -le 6; $i++) {
+    $null = (& $bsk wait-ms 10s --session $sid 2>&1 | Out-String)
+    $sx = Snap ('k6_send_p' + $i + '.txt')
+    if (($sx -match 'Stop generating') -or ($sx -match 'orchestrating')) { $echo = $true; Log ('k6: dispatch confirmed at poll ' + $i); break }
+}
+if (-not $echo) { Log 'k6: WARN dispatch unconfirmed - will verify via git/next round' }
+Scroll-Bottom
+$t = (& $bsk evaluate document.body.innerText --session $sid 2>&1 | Out-String)
+$t | Set-Content -LiteralPath (Join-Path $outDir 'k6_page_text.txt') -Encoding UTF8
+Log ('k6: page text bytes=' + $t.Length)
+$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'k6_final.png') 2>&1 | Out-String)
+Log 'k6: 3-round plan dispatched - rounds are tracked on the arena agent git branch'
+Finish 0

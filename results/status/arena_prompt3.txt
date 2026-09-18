@@ -1,0 +1,3 @@
+第二轮任务令：现在执行第 2/3 轮。第 1 轮（与本地终端打通：git-sync 安装、值守注册、双向验证）你已 passed，计入总数，不重做。
+第 2 轮要求：在你的克隆生成 deliverable\round2_report.docx + round2_slides.pptx（写明轮次、时间戳、第 1 轮 passed 状态），push 到你的分支后用 agent-handsfree 请求本机验收，本机 passed 后 --accept 收尾，随即自动开始第 3 轮：生成 deliverable\round3_summary.docx + round3_slides.pptx（三轮判定汇总 + 交付物清单 + 最终结论），同样验收收尾并输出 3/3 总结。
+规则：全程不得向我提问；每轮验收通过后不得停顿，立即下一轮；若本机值守离线就等待其恢复，不许跳过验收；完成 3/3 与总结后才允许停。
