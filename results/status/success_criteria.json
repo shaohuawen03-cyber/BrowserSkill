@@ -1,11 +1,13 @@
 {
-  "description": "self-loop test: both deliverables must exist on the LOCAL machine (pulled via git) with sane sizes",
+  "description": "arena.ai browser-control task: evidence report + screenshots must exist on the LOCAL machine",
   "require_files": [
-    "deliverable/selfloop_test_report.docx",
-    "deliverable/selfloop_test_report.pptx"
+    "deliverable/arena_chat_evidence.docx",
+    "deliverable/arena_chat_final_screenshot.png",
+    "deliverable/arena_agent_window_first_control.png"
   ],
   "min_bytes": {
-    "deliverable/selfloop_test_report.docx": 20000,
-    "deliverable/selfloop_test_report.pptx": 20000
+    "deliverable/arena_chat_evidence.docx": 50000,
+    "deliverable/arena_chat_final_screenshot.png": 40000,
+    "deliverable/arena_agent_window_first_control.png": 20000
   }
 }
