@@ -1,0 +1,89 @@
+﻿@vom 1
+@view 1043x907
+@layers 1 focus=L1
+L1 page
+  RootWebArea "Arena | Benchmark & Compare the Best AI Models"
+    region "Notifications alt+T"
+    @e1 button "Toggle Sidebar"
+    list
+      listitem
+        @e2 button
+    @e3 button
+    list
+      listitem
+        @e4 link "New Chat"
+      listitem
+        @e5 link "Leaderboard [has-submenu]"
+      listitem
+        @e6 link "Search"
+    StaticText "Today"
+    list
+      listitem
+        @e7 button "More options [has-submenu]"
+      listitem
+        @e8 button "More options [has-submenu]"
+      listitem
+        @e9 button "More options [has-submenu]"
+      listitem
+        @e10 button "More options [has-submenu]"
+    StaticText "Yesterday"
+    list
+      listitem
+        @e11 button "More options [has-submenu]"
+      listitem
+        @e12 button "More options [has-submenu]"
+      listitem
+        @e13 button "More options [has-submenu]"
+      listitem
+        @e14 button "More options [has-submenu]"
+    StaticText "Older"
+    list
+      listitem
+        @e15 button "More options [has-submenu]"
+      listitem
+        @e16 button "More options [has-submenu]"
+      listitem
+        @e17 button "More options [has-submenu]"
+      listitem
+        @e18 button "More options [has-submenu]"
+      listitem
+        @e19 button "More options [has-submenu]"
+      listitem
+        @e20 button "More options [has-submenu]"
+      listitem
+        @e21 button "More options [has-submenu]"
+      listitem
+        @e22 button "More options [has-submenu]"
+      listitem
+        @e23 button "More options [has-submenu]"
+      listitem
+        @e24 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+        @e25 button "More options [has-submenu]"
+      listitem
+        @e26 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+        @e27 button "More options [has-submenu]"
+      listitem
+        @e28 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?```"
+        @e29 button "More options [has-submenu]"
+    list
+      @e30 button "mqgg5630@gmail.com"
+    group
+      @e31 link "Terms of Use"
+      @e32 link "Privacy Policy"
+    main "Something went wrong We couldn't load this chat. Please try again. Trace ID: a9d5e2eb-4748 Visit ID: 01a0b33a-a820-720b-965b-fea774c3c1dc"
+      heading "Something went wrong"
+        StaticText "Something went wrong"
+      paragraph "We couldn't load this chat. Please try again."
+        StaticText "We couldn't load this chat. Please try again."
+      StaticText "Trace ID:"
+      StaticText "a9d5e2eb-4748"
+      @e33 button "Copy trace ID"
+      StaticText "Visit ID:"
+      StaticText "01a0b33a-a820-720b-965b-fea774c3c1dc"
+      @e34 button "Try again"
+      @e35 link "Still not working? Reset session and reload"
+    alert
+    group "grammarly-integration"
+      StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
+@warning geometry incomplete: some page or frame content has no top-level coordinates.
+
