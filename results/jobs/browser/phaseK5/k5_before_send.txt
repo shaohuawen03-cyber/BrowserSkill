@@ -1,0 +1,94 @@
+﻿@vom 1
+@view 1043x907
+@layers 1 focus=L1
+L1 page
+  RootWebArea "Agent Mode | Autonomous AI Agents for Real-World Tasks"
+    region "Notifications alt+T"
+    @e1 button "Toggle Sidebar"
+    list
+      listitem
+        @e2 button
+    @e3 button
+    list
+      listitem
+        @e4 link "New Chat"
+      listitem
+        @e5 link "Leaderboard [has-submenu]"
+      listitem
+        @e6 link "Search"
+    StaticText "Today"
+    list
+      listitem
+        @e7 button "More options [has-submenu]"
+      listitem
+        @e8 button "More options [has-submenu]"
+      listitem
+        @e9 button "More options [has-submenu]"
+      listitem
+        @e10 button "More options [has-submenu]"
+    StaticText "Yesterday"
+    list
+      listitem
+        @e11 button "More options [has-submenu]"
+      listitem
+        @e12 button "More options [has-submenu]"
+      listitem
+        @e13 button "More options [has-submenu]"
+      listitem
+        @e14 button "More options [has-submenu]"
+    StaticText "Older"
+    list
+      listitem
+        @e15 button "More options [has-submenu]"
+      listitem
+        @e16 button "More options [has-submenu]"
+      listitem
+        @e17 button "More options [has-submenu]"
+      listitem
+        @e18 button "More options [has-submenu]"
+      listitem
+        @e19 button "More options [has-submenu]"
+      listitem
+        @e20 button "More options [has-submenu]"
+      listitem
+        @e21 button "More options [has-submenu]"
+      listitem
+        @e22 button "More options [has-submenu]"
+      listitem
+        @e23 button "More options [has-submenu]"
+      listitem
+        @e24 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+        @e25 button "More options [has-submenu]"
+      listitem
+        @e26 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+        @e27 button "More options [has-submenu]"
+      listitem
+        @e28 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?```"
+        @e29 button "More options [has-submenu]"
+    list
+      @e30 button "mqgg5630@gmail.com"
+    group
+      @e31 link "Terms of Use"
+      @e32 link "Privacy Policy"
+    main "What would you like to do? 绗簩杞换鍔★細绗竴杞凡鎵撻€氾紙鎴戞湰鏈鸿窇瀹屼簡鍛戒护鍧楋紝doctor 鍏ㄧ豢锛夈€傜幇鍦ㄥ紑濮嬭嚜寰幆浠诲姟锛岃姹傝繛缁窇 3 杞€佷笉璁歌窇瀹?1 杞氨鍋滐細 姣忚疆鐢熸垚/鏇存柊涓€浠?deliverable 鎶ュ憡锛坉ocx + pptx锛屽唴瀹瑰惈璇ヨ疆杞銆佹椂闂存埑銆佷笂杞姸鎬侊級锛宲ush 鍒板垎鏀悗鐢?agent-handsfree 璇锋眰鏈満楠屾敹锛屾湰鏈?passed 骞?--accept 鏀跺熬鍚庯紝绔嬪嵆鑷姩寮€濮嬩笅涓€杞€? 杞叏閮ㄩ€氳繃鍚庤緭鍑虹畝鐭€荤粨锛堟瘡杞垽瀹?+ 浜?
+      @e33 button "Toggle workspace sidebar" [disabled]
+      heading "What would you like to do?"
+        StaticText "What would you like to do?"
+      @e34 button "閫夋嫨鏂囦欢"
+      @e35 textbox "绗簩杞换鍔★細绗竴杞凡鎵撻€氾紙鎴戞湰鏈鸿窇瀹屼簡鍛戒护鍧楋紝doctor 鍏ㄧ豢锛夈€傜幇鍦ㄥ紑濮嬭嚜寰幆浠诲姟锛岃姹傝繛缁窇 3 杞€佷笉璁歌窇瀹?1 杞氨鍋滐細 姣忚疆鐢熸垚/鏇存柊涓€浠?deliverable 鎶ュ憡锛坉ocx + pptx锛屽唴瀹瑰惈璇ヨ疆杞銆佹椂闂存埑銆佷笂杞姸鎬侊級锛宲ush 鍒板垎鏀悗鐢?agent-handsfree 璇锋眰鏈満楠屾敹锛屾湰鏈?passed 骞?--accept 鏀跺熬鍚庯紝绔嬪嵆鑷姩寮€濮嬩笅涓€杞€? 杞叏閮ㄩ€氳繃鍚庤緭鍑虹畝鐭€荤粨锛堟瘡杞垽瀹?+ 浜や粯鐗╂竻鍗曪級鍐嶅仠銆傚叏绋嬩笉瑕佸悜鎴戞彁闂紝鑷富瀹屾垚銆? [filled] ="绗簩杞换鍔★細绗竴杞凡鎵撻€氾紙鎴戞湰鏈鸿窇瀹屼簡鍛戒护鍧楋紝doctor 鍏ㄧ豢锛夈€傜幇鍦ㄥ紑濮嬭嚜寰幆浠诲姟锛岃姹傝繛缁窇 3 杞€佷笉璁歌窇瀹?1 杞氨鍋滐細 姣忚疆鐢熸垚/鏇存柊涓€浠?deliverable 鎶ュ憡锛坉ocx + pptx锛屽唴瀹瑰惈璇ヨ疆杞銆佹椂闂存埑銆佷笂杞姸鎬侊級锛宲ush 鍒板垎鏀悗鐢?agent-handsfree 璇锋眰鏈満楠屾敹锛屾湰鏈?passed 骞?--accept 鏀跺熬鍚庯紝绔嬪嵆鑷姩寮€濮嬩笅涓€杞€? 杞叏閮ㄩ€氳繃鍚庤緭鍑?
+        paragraph "绗簩杞换鍔★細绗竴杞凡鎵撻€氾紙鎴戞湰鏈鸿窇瀹屼簡鍛戒护鍧楋紝doctor 鍏ㄧ豢锛夈€傜幇鍦ㄥ紑濮嬭嚜寰幆浠诲姟锛岃姹傝繛缁窇 3 杞€佷笉璁歌窇瀹?1 杞氨鍋滐細"
+          StaticText "绗簩杞换鍔★細绗竴杞凡鎵撻€氾紙鎴戞湰鏈鸿窇瀹屼簡鍛戒护鍧楋紝doctor 鍏ㄧ豢锛夈€傜幇鍦ㄥ紑濮嬭嚜寰幆浠诲姟锛岃姹傝繛缁窇 3 杞€佷笉璁歌窇瀹?1 杞氨鍋滐細"
+        paragraph "姣忚疆鐢熸垚/鏇存柊涓€浠?deliverable 鎶ュ憡锛坉ocx + pptx锛屽唴瀹瑰惈璇ヨ疆杞銆佹椂闂存埑銆佷笂杞姸鎬侊級锛宲ush 鍒板垎鏀悗鐢?agent-handsfree 璇锋眰鏈満楠屾敹锛屾湰鏈?passed 骞?--accept 鏀跺熬鍚庯紝绔嬪嵆鑷姩寮€濮嬩笅涓€杞€? 杞叏閮ㄩ€氳繃鍚庤緭鍑虹畝鐭€荤粨锛堟瘡杞垽瀹?+ 浜や粯鐗╂竻鍗曪級鍐嶅仠銆傚叏绋嬩笉瑕佸悜鎴戞彁闂紝鑷富瀹屾垚銆?
+          StaticText "姣忚疆鐢熸垚/鏇存柊涓€浠?deliverable 鎶ュ憡锛坉ocx + pptx锛屽唴瀹瑰惈璇ヨ疆杞銆佹椂闂存埑銆佷笂杞姸鎬侊級锛宲ush 鍒板垎鏀悗鐢?agent-handsfree 璇锋眰鏈満楠屾敹锛屾湰鏈?passed 骞?--accept 鏀跺熬鍚庯紝绔嬪嵆鑷姩寮€濮嬩笅涓€杞€? 杞叏閮ㄩ€氳繃鍚庤緭鍑虹畝鐭€荤粨锛堟瘡杞垽瀹?+ 浜や粯鐗╂竻鍗曪級鍐嶅仠銆傚叏绋嬩笉瑕佸悜鎴戞彁闂紝鑷富瀹屾垚銆?
+      @e36 button "Add files and connections [has-submenu]"
+      @e37 combobox "Agent [has-submenu]" ="Agent"
+      @e38 button
+      @e39 button "Send message"
+      @e40 button "mqgg5630-cyber/BrowserSkill [has-submenu]"
+      @e41 button "main [has-submenu]"
+      @e42 button "GitHub settings [has-submenu]"
+    alert
+    group "grammarly-integration"
+      StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
+@warning geometry incomplete: some page or frame content has no top-level coordinates.
+
