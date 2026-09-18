@@ -1,7 +1,13 @@
-# agent_task.ps1 - stage 3 PHASE D3: land on arena.ai FIRST (D2 lesson: a
-# fresh session sits on the Edge new-tab page), then select Agent Mode
-# (inner button + keyboard fallback), then find and click the GitHub connect
-# control and record whether it redirects in place or opens a new tab.
+# agent_task.ps1 - stage 3 PHASE D4: Radix-aware mode switch.
+# Evidence: the mode control is a Radix Select (trigger combobox + portal
+# listbox). Previous failures: clicking inner elements does not select, and a
+# second trigger click CLOSED the menu before the keys landed. D4 does ONE
+# trigger click, then keyboard-only selection inside the open menu:
+#   attempt 1: ArrowDown + Enter   (Battle is active; Agent is the next item)
+#   attempt 2: typeahead "a" + Enter
+#   attempt 3: ArrowUp + Enter
+# Verified by the combobox value flipping to ="Agent". Then screenshot + recon
+# the agent-mode UI for the GitHub connect control.
 
 $ErrorActionPreference = 'Continue'
 Set-Location (Split-Path -Parent $PSScriptRoot)
@@ -11,9 +17,9 @@ if (-not (Test-Path -LiteralPath $bsk)) {
     $f = Get-ChildItem -Path (Join-Path $env:USERPROFILE '.local') -Recurse -Filter 'bsk.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($f) { $bsk = $f.FullName }
 }
-$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseD3'
+$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseD4'
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
-$logPath = Join-Path $outDir 'phaseD3.log'
+$logPath = Join-Path $outDir 'phaseD4.log'
 $lines = New-Object System.Collections.Generic.List[string]
 function Log([string]$s) { $script:lines.Add($s) | Out-Null; Write-Output $s }
 function Snap([string]$name) {
@@ -34,79 +40,82 @@ if (-not $sid -or $lst -notmatch [regex]::Escape($sid)) {
     if ($m.Success) { $sid = $m.Groups[1].Value } else { Log ('[FAIL] no session'); $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
     $sid | Set-Content -LiteralPath $sidFile -Encoding Ascii
 }
-Log ('phaseD3: session ' + $sid)
+Log ('phaseD4: session ' + $sid)
 
-# 0. ALWAYS navigate to arena.ai and wait for the app to render
+# 0. land on arena.ai fresh
 $null = (& $bsk navigate 'https://arena.ai' --session $sid 2>&1 | Out-String)
 $null = (& $bsk wait-ms 12s --session $sid 2>&1 | Out-String)
-$s0 = Snap 'd3_s0_home.txt'
-Log ('phaseD3: home bytes=' + $s0.Length)
-
-# 1. hide the promo card if present
+$s0 = Snap 'd4_s0_home.txt'
 $hideRef = [regex]::Match($s0, '@(e\d+) button "Hide this').Groups[1].Value
 if ($hideRef) {
     $null = (& $bsk click ('@' + $hideRef) --session $sid 2>&1 | Out-String)
     $null = (& $bsk wait-ms 2s --session $sid 2>&1 | Out-String)
-    Log ('phaseD3: hid promo @' + $hideRef)
-    $s0 = Snap 'd3_s0b_nopromo.txt'
+    Log ('phaseD4: hid promo @' + $hideRef)
+    $s0 = Snap 'd4_s0b_nopromo.txt'
 }
 
-# 2. switch to Agent Mode
-if ($s0 -match 'combobox[^\r\n]*="Agent"') {
-    Log 'phaseD3: already Agent mode'
+function Test-AgentMode([string]$s) {
+    return ($s -match 'combobox[^\r\n]*="Agent"') -or ($s -match '\[. active: Agent')
+}
+
+if (Test-AgentMode $s0) {
+    Log 'phaseD4: already Agent mode'
 } else {
     $cbRef = [regex]::Match($s0, '@(e\d+) combobox').Groups[1].Value
+    Log ('phaseD4: trigger @' + $cbRef)
+    # ONE click opens the menu; from here on keyboard only
     $null = (& $bsk click ('@' + $cbRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseD3: opened menu @' + $cbRef)
-    $null = (& $bsk wait-ms 2s --session $sid 2>&1 | Out-String)
-    $s1 = Snap 'd3_s1_menu.txt'
-    $btnRef = [regex]::Match($s1, '@(e\d+) button "Agent Mode').Groups[1].Value
-    $ok = $false
-    if ($btnRef) {
-        $null = (& $bsk click ('@' + $btnRef) --session $sid 2>&1 | Out-String)
-        Log ('phaseD3: clicked Agent Mode button @' + $btnRef + ' (exit ' + $LASTEXITCODE + ')')
-        $null = (& $bsk wait-ms 3s --session $sid 2>&1 | Out-String)
-        $s2 = Snap 'd3_s2_after_btn.txt'
-        $ok = ($s2 -match 'combobox[^\r\n]*="Agent"') -or ($s2 -match 'active: Agent')
-    }
-    if (-not $ok) {
-        Log 'phaseD3: keyboard fallback'
-        $cbRef2 = [regex]::Match($s2, '@(e\d+) combobox').Groups[1].Value
-        if ($cbRef2) {
-            $null = (& $bsk click ('@' + $cbRef2) --session $sid 2>&1 | Out-String)
-            $null = (& $bsk wait-ms 1s --session $sid 2>&1 | Out-String)
-        }
-        $null = (& $bsk press ArrowDown --session $sid 2>&1 | Out-String)
+    Log ('phaseD4: opened menu (exit ' + $LASTEXITCODE + ')')
+    $null = (& $bsk wait-ms 1500ms --session $sid 2>&1 | Out-String)
+
+    $flipped = $false
+    # attempt 1: ArrowDown then Enter
+    $null = (& $bsk press ArrowDown --session $sid 2>&1 | Out-String)
+    $null = (& $bsk wait-ms 400ms --session $sid 2>&1 | Out-String)
+    $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
+    $null = (& $bsk wait-ms 2500ms --session $sid 2>&1 | Out-String)
+    $s1 = Snap 'd4_s1_after_arrowdown_enter.txt'
+    if (Test-AgentMode $s1) { $flipped = $true; Log 'phaseD4: SUCCESS via ArrowDown+Enter' }
+
+    # attempt 2: reopen, typeahead "a", Enter
+    if (-not $flipped) {
+        Log 'phaseD4: attempt 2 - typeahead'
+        $cb2 = [regex]::Match($s1, '@(e\d+) combobox').Groups[1].Value
+        $null = (& $bsk click ('@' + $cb2) --session $sid 2>&1 | Out-String)
+        $null = (& $bsk wait-ms 1200ms --session $sid 2>&1 | Out-String)
+        $null = (& $bsk press a --session $sid 2>&1 | Out-String)
+        $null = (& $bsk wait-ms 400ms --session $sid 2>&1 | Out-String)
         $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
-        $null = (& $bsk wait-ms 3s --session $sid 2>&1 | Out-String)
-        $s2 = Snap 'd3_s3_after_keys.txt'
-        $ok = ($s2 -match 'combobox[^\r\n]*="Agent"') -or ($s2 -match 'active: Agent')
+        $null = (& $bsk wait-ms 2500ms --session $sid 2>&1 | Out-String)
+        $s2 = Snap 'd4_s2_after_typeahead.txt'
+        if (Test-AgentMode $s2) { $flipped = $true; Log 'phaseD4: SUCCESS via typeahead' } else { $s1 = $s2 }
     }
-    if ($ok) { Log 'phaseD3: SUCCESS - Agent mode selected' } else { Log 'phaseD3: WARN mode not flipped - dumped state' }
+
+    # attempt 3: reopen, ArrowUp + Enter (in case highlight starts below Agent)
+    if (-not $flipped) {
+        Log 'phaseD4: attempt 3 - ArrowUp'
+        $cb3 = [regex]::Match($s1, '@(e\d+) combobox').Groups[1].Value
+        $null = (& $bsk click ('@' + $cb3) --session $sid 2>&1 | Out-String)
+        $null = (& $bsk wait-ms 1200ms --session $sid 2>&1 | Out-String)
+        $null = (& $bsk press ArrowUp --session $sid 2>&1 | Out-String)
+        $null = (& $bsk wait-ms 400ms --session $sid 2>&1 | Out-String)
+        $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
+        $null = (& $bsk wait-ms 2500ms --session $sid 2>&1 | Out-String)
+        $s3 = Snap 'd4_s3_after_arrowup.txt'
+        if (Test-AgentMode $s3) { $flipped = $true; Log 'phaseD4: SUCCESS via ArrowUp' } else { $s1 = $s3 }
+    }
+    if (-not $flipped) { Log 'phaseD4: WARN all attempts failed - state dumped' }
 }
 
-# 3. recon the agent-mode UI for the GitHub control
-$s3 = Snap 'd3_s4_agent_ui.txt'
-$ghRef = ''
-foreach ($mm in [regex]::Matches($s3, '@(e\d+) (?:button|link|menuitem)[^\r\n]*')) {
-    if ($mm.Value -match 'GitHub|Connect|Repo') { $ghRef = $mm.Groups[1].Value; Log ('phaseD3: candidate control -> ' + $mm.Value.Trim().Substring(0, [Math]::Min(110, $mm.Value.Trim().Length))); if (-not $ghRef) { continue } }
+# 4. recon the (hopefully) agent-mode UI
+$s4 = Snap 'd4_s4_final.txt'
+$hits = @()
+foreach ($mm in [regex]::Matches($s4, '@e\d+ [^\r\n]*')) {
+    if ($mm.Value -match 'GitHub|Connect|Repo|repo|Install') { $hits += $mm.Value.Trim() }
 }
-$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'd3_agent_ui.png') 2>&1 | Out-String)
-
-# 4. click the first GitHub-ish control and record the navigation result
-if ($ghRef) {
-    $null = (& $bsk click ('@' + $ghRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseD3: clicked control @' + $ghRef + ' (exit ' + $LASTEXITCODE + ')')
-    $null = (& $bsk wait-ms 6s --session $sid 2>&1 | Out-String)
-    $s4 = Snap 'd3_s5_after_click.txt'
-    $url = (& $bsk evaluate location.href --session $sid 2>&1 | Out-String)
-    Log ('phaseD3: url now -> ' + $url.Trim().Substring(0, [Math]::Min(160, $url.Trim().Length)))
-    $ttl = (& $bsk evaluate document.title --session $sid 2>&1 | Out-String)
-    Log ('phaseD3: title now -> ' + $ttl.Trim().Substring(0, [Math]::Min(120, $ttl.Trim().Length)))
-    $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'd3_after_click.png') 2>&1 | Out-String)
-} else {
-    Log 'phaseD3: no GitHub control visible - full snapshot saved for analysis'
-}
-Log 'phaseD3: done'
+if ($hits.Count) { foreach ($h in $hits[0..([Math]::Min(8, $hits.Count - 1))]) { Log ('phaseD4: UI ' + $h.Substring(0, [Math]::Min(110, $h.Length))) } }
+else { Log 'phaseD4: no GitHub-ish control named in the snapshot' }
+$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'd4_final.png') 2>&1 | Out-String)
+Log 'phaseD4: done'
 $lines | Set-Content -LiteralPath $logPath -Encoding UTF8
 exit 0
