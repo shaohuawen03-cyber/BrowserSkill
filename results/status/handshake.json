@@ -1,9 +1,9 @@
 {
-  "round": 50,
-  "arena_state": "accepted",
-  "local_state": "failed",
-  "arena_updated": "2026-09-18 09:39:59",
-  "local_updated": "2026-09-18 17:39:24",
-  "host": "LAPTOP-R77M5D6M",
-  "note": "r50 closed - expected cold-tab abort; hygiene+gate verified; retrying with 8min warm window"
+  "round": 51,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 09:40:05",
+  "local_updated": null,
+  "host": "",
+  "note": "r51 K6: dispatch 3-round plan - USER WILL CLICK THE ARENA TAB within 8 min, hook waits for the warm-up"
 }
