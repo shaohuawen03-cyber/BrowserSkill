@@ -40,18 +40,24 @@ if (-not $sid) { Log '[FAIL] no session'; $lines | Set-Content -LiteralPath $log
 $sid | Set-Content -LiteralPath (Join-Path (Get-Location).Path 'results\status\bsk_session.txt') -Encoding Ascii
 Log ('phaseK3: session ' + $sid)
 
-# 1. open arena HOME in an OWN tab inside the Agent Window
+# 1. open arena HOME in an OWN tab; whenever the snapshot looks like the
+#    black empty shell (RootWebArea with no content), re-focus + reload it
 $null = (& $bsk tab create 'https://arena.ai/agent' --session $sid 2>&1 | Out-String)
 $rendered = $false
 for ($i = 1; $i -le 40; $i++) {
     $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
     $s0 = Snap ('k3_home_poll' + $i + '.txt')
-    if (($s0 -match 'textbox') -and ($s0 -match 'Today')) { $rendered = $true; Log ('phaseK3: home rendered at poll ' + $i); break }
-    if ($i -eq 12 -or $i -eq 26) { Log ('phaseK3: poll ' + $i + ' - reload'); $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
-    if ($i -eq 20) {
-        Log 'phaseK3: poll 20 - trying a brand-new second tab'
-        $null = (& $bsk tab create 'https://arena.ai/agent' --session $sid 2>&1 | Out-String)
+    $shell = ($s0 -match 'RootWebArea\s*(\r?\n|$)') -and ($s0.Length -lt 300)
+    if ($shell) {
+        Log ('phaseK3: poll ' + $i + ' - black shell, re-select + reload the tab')
+        $tl = (& $bsk tab list --session $sid --json 2>&1 | Out-String)
+        $tid = [regex]::Match($tl, '"tab_id"\s*:\s*(\d+)').Groups[1].Value
+        if ($tid) { $null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String) }
+        $null = (& $bsk wait-ms 1s --session $sid 2>&1 | Out-String)
+        $null = (& $bsk reload --session $sid 2>&1 | Out-String)
+        continue
     }
+    if (($s0 -match 'textbox') -and ($s0 -match 'Today')) { $rendered = $true; Log ('phaseK3: home rendered at poll ' + $i); break }
 }
 $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'k3_home.png') 2>&1 | Out-String)
 if (-not $rendered) { Log '[FAIL] arena home not rendering in own tab'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
