@@ -1,0 +1,87 @@
+﻿@vom 1
+@view 1043x907
+@layers 1 focus=L1
+L1 page
+  RootWebArea "Agent Mode | Autonomous AI Agents for Real-World Tasks"
+    region "Notifications alt+T"
+    list
+      listitem
+        @e1 button
+    list
+      listitem
+        @e2 link "New Chat"
+      listitem
+        @e3 link "Leaderboard"
+      listitem
+        @e4 link "Search"
+    list
+      listitem
+        @e5 link "Hello! This message was sent by BrowserSkill browser automation (bsk CLI) as a connectivity test. Pl"
+      listitem
+        @e6 link "瀹夎[[https://github.com/shaohuawen03-cyber/new/tree/arena%2F01a0aeb9-new鐨刔(https://github.com/shaohua鈥?
+      listitem
+        @e7 link "[spyder](base) PS E:\\0zhongqi&gt; ls E:\\0zhongqi\\闄勪欢 鐩綍: E:\\0zhongqi\\闄勪欢 Mode La鈥?
+    list
+      listitem
+        @e8 link "```markdown # 妫€鏌ュ皬缁勬垚鍛?缁勯暱锝滃紶鍏存檽锝滄暀鎺堬綔鐢熺墿宸ョ▼锝滅敓鍛界瀛﹀闄?缁勫憳锝滅▼浠曚紵锝滃壇鏁欐巿锝滅敓鐗╁伐绋嬶綔鐢熷懡绉戝瀛﹂櫌 缁勫憳锝滅墴钀嶏綔鍓暀鎺堬綔鐢熺墿鍒惰嵂锝滅敓鍛界瀛﹀闄?缁勫憳锝滄湵娲紵锝滃壇鏁欐巿锝溾€?
+      listitem
+        @e9 link "```markdown 瀹夎 https://arena.ai/agent/01a0aa00-2be7-7d55-a11d-2b5799e6a0b0 鐨?skills锛屼笌鏈満鎵撻€氥€?鎴戠殑鏈哄櫒鏄?W鈥?
+      listitem
+        @e10 link "瀹夎[https://arena.ai/agent/01a0a9f0-6097-7460-af9e-ead9486a0c0b](https://arena.ai/agent/01a0a9f0-6097鈥?
+      listitem
+        @e11 link "瀹夎 [https://github.com/mqgg5630-cyber/git-pull-arena](https://github.com/mqgg5630-cyber/git-pull-are鈥?
+    list
+      listitem
+        @e12 link "瀹夎[https://arena.ai/agent/01a0a98d-500f-793e-b803-ed52929b5ece](https://arena.ai/agent/01a0a98d-500f鈥?
+      listitem
+        @e13 link "```markdown https://arena.ai/agent/01a0a95e-a95d-76f0-a1a9-c8abd9f4f9dc 宸茬粡璺戝畬 agent 渚ц兘鍋氱殑鍏ㄩ儴锛屽惊鐜仠鍦╘"绛変綘鐨勬満鈥?
+      listitem
+        @e14 link "```markdown 瀹夎 https://github.com/mqgg5630-cyber/git-pull-arena 鍒嗘敮 arena/01a0a821-git-pull-arena 鐨?s鈥?
+      listitem
+        @e15 link "```markdown 瀹夎 https://github.com/mqgg5630-cyber/git-pull-arena 鍒嗘敮 arena/01a0a821-git-pull-arena 鐨?s鈥?
+      listitem
+        @e16 link "```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+      listitem
+        @e17 link "```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?```"
+      listitem
+        @e18 link "鎴愬姛浜?鈥斺€?鑰屼笖浣犺繖涓€璺戞妸 v2.6.8 鏈€鍏抽敭鐨勬湭楠岃瘉椤圭粰鐩栨帀浜嗐€傚厛纭杩滅鐘舵€併€?鏈湴纭瀹屼簡銆傚厛鍥炵瓟浣犵殑涓や釜闂銆?## 鎴愬姛浜嗗悧 鈥斺€?鎴愬姛浜嗭紝鑰屼笖鐩栨帀浜嗘渶瑕佸懡鐨勪竴椤?浣犺繖涓€璺戞妸 *`鈥?
+      listitem
+        @e19 link "鎻愬彇搴忓垪淇℃伅鍜屾鍏?
+      listitem
+        @e20 link "```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+      listitem
+        @e21 link "```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+      listitem
+        @e22 link "```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+      listitem
+        @e23 link "```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?```"
+      listitem
+        @e24 link "```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?```"
+    list
+      @e25 button "mqgg5630@gmail.com"
+    group
+      @e26 link "Terms of Use"
+      @e27 link "Privacy Policy"
+      @e28 button "Cookies"
+    @e29 button "Toggle Sidebar"
+    @e30 button
+    main "{\"@context\":\"https://schema.org\",\"@type\":\"SoftwareApplication\",\"name\":\"Agent Mode\",\"description\":\"Run autonomous AI agents that browse, research, code, and complete real-world tasks. Compare agent workflows and frontier models with Arena.\","
+      @e31 button "Toggle workspace sidebar" [disabled]
+      heading "What would you like to do?"
+      @e32 textbox [empty]
+      @e33 combobox "Agent"
+      @e34 textbox "What would you like to do?" [empty]
+      @e35 button "Add files and connections"
+      @e36 button
+      @e37 button "Send message" [disabled]
+      @e38 button "mqgg5630-cyber/BrowserSkill"
+      @e39 button "main"
+      @e40 button "GitHub settings"
+    alert "Agent Mode | Autonomous AI Agents for Real-World Tasks"
+    menu "GitHub settings"
+      @e41 menuitem "Manage repositories"
+      @e42 menuitem "Disconnect"
+    group "grammarly-integration"
+      StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
+@warning geometry incomplete: some page or frame content has no top-level coordinates.
+

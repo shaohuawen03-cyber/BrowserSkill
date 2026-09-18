@@ -1,0 +1,49 @@
+﻿@vom 1
+@view 1043x907
+@layers 1 focus=L1
+L1 page
+  RootWebArea "Arena AI: The Official AI Ranking & LLM Leaderboard"
+    region "Notifications alt+T"
+    @e1 button "Toggle Sidebar"
+    list
+      listitem
+        @e2 button
+    @e3 button
+    list
+      listitem
+        @e4 link "New Chat"
+      listitem
+        @e5 link "Leaderboard [has-submenu]"
+      listitem
+        @e6 link "Search"
+    list
+      @e7 button "mqgg5630@gmail.com"
+    group
+      @e8 link "Terms of Use"
+      @e9 link "Privacy Policy"
+      @e10 button "Cookies"
+    main "What would you like to do? Get started"
+      main "What would you like to do? Get started"
+        main "What would you like to do? Get started"
+          main "What would you like to do? Get started"
+            heading "What would you like to do?"
+              StaticText "What would you like to do?"
+            StaticText "Get started"
+            @e11 button "Create a landing page Create a sleek, modern landing page"
+            @e12 button "Build a dashboard Turn data into interactive charts"
+            @e13 button "Make a game Build a playable browser game"
+            @e14 button "Design to Code Upload an image and have AI build it"
+            @e15 button "Build a fullstack app Create a templated full-stack app"
+            @e16 button "Launch a storefront Create a beautiful online shop"
+            form "Inputs are processed by third-party AI and responses may be inaccurate."
+              @e17 textbox "Ask anything鈥? [empty] placeholder="Ask anything鈥?
+              @e18 button "Add files [has-submenu]"
+              @e19 combobox "Battle [has-submenu]" ="Battle"
+              @e20 button "Modality: Auto [has-submenu]"
+              @e21 button
+              @e22 button "Send message" [disabled]
+    alert
+    group "grammarly-integration"
+      StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
+@warning geometry incomplete: some page or frame content has no top-level coordinates.
+
