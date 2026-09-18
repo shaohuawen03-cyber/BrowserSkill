@@ -1,9 +1,9 @@
 {
-    "round":  23,
-    "arena_state":  "awaiting_check",
-    "local_state":  "failed",
-    "arena_updated":  "2026-09-18 06:41:02",
-    "local_updated":  "2026-09-18 14:42:10",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "stage5 H: borrow user arena tab, agent mode, repo, send round-1 prompt (APPROVE the borrow popup if it appears)"
+  "round": 23,
+  "arena_state": "accepted",
+  "local_state": "failed",
+  "arena_updated": "2026-09-18 06:45:34",
+  "local_updated": "2026-09-18 14:42:10",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "hands-free: r23 closed - switching to direct /agent route"
 }
