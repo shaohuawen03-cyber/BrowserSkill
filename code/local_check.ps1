@@ -311,5 +311,23 @@ if (Test-Path -LiteralPath $critAbs) {
     Write-Output ('== success criteria: (none at ' + $critRel + ' - skipped)')
 }
 
+# ------------------------------------------------------------------------
+# 5. agent task hook (local-runner pattern): when code\agent_task.ps1 is
+#    present, the agent has pushed a one-off task; it runs on every check
+#    until the agent removes it. Non-zero exit fails the round on purpose.
+$taskHook = Join-Path (Get-Location) 'code\agent_task.ps1'
+if (Test-Path -LiteralPath $taskHook) {
+    Write-Output '== agent task hook: running code\agent_task.ps1'
+    $taskOut = (& powershell -NoProfile -ExecutionPolicy Bypass -File $taskHook 2>&1 | Out-String)
+    $taskCode = $LASTEXITCODE
+    if ($taskOut) { Write-Output $taskOut.TrimEnd() }
+    if ($taskCode -ne 0) {
+        Write-Output ('[FAIL] agent task hook exit ' + $taskCode)
+        $fail = 1
+    } else {
+        Write-Output '== agent task hook: ok'
+    }
+}
+
 if ($fail -eq 0) { Write-Output '== local checks passed' }
 exit $fail
