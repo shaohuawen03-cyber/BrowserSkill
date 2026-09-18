@@ -1,0 +1,12 @@
+﻿bsk.exe : error: unexpected argument ')})' found
+所在位置 E:\0github\git-sync\BrowserSkill-01a0b237\code\agent_task.ps1:57 字符: 8
++ $v3 = (& $bsk evaluate $p3 --session $sid 2>&1 | Out-String)
++        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: unexpected argument ')})' found:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Usage: bsk.exe evaluate [OPTIONS] --session <SESSION> <EXPRESSION>
+
+For more information, try '--help'.
+
