@@ -1,8 +1,10 @@
 # arena-local-bridge — 最终版 skill（BrowserSkill 全家桶汇总）
 
-> 版本 **v1.0**（2026-09-18）。汇总：`git-sync`（git 打通+值守+自循环）、
+> 版本 **v2.0**（2026-09-18）。汇总：`git-sync`（git 打通+值守+自循环）、
 > `bsk` 浏览器操控（Agent Window/borrow/剪贴板/快照）、`arena` 对话编排
-> （continue-click、GBK needle、quote-free DOM click、黑壳检测）。
+> （continue-click、GBK needle、quote-free DOM click、黑壳检测），
+> 并整合 mattpocock/skills 精选协议（grilling/handoff/wait-what/
+> to-spec/diagnosing-bugs/code-review，见 `pack-mattpocock.md`）。
 > 全部规则来自 50+ 轮真机实测（本仓库 git log 即实验记录）。
 
 ## 0. 一句话
@@ -46,6 +48,7 @@ E:\0github\<clone>\（工作副本 + deliverable 回传区）
 | 8 | **列表 <a> 水合有延迟**：Today 条目可能只有「More options」按钮没有链接；等 3-5 秒再快照，或用 quote-free `document.links` 直点（href 匹配串用 `String.fromCharCode` 构造） | r45 |
 | 9 | ** `.ps1` 必须 ASCII**（gate 硬规）：中文提示词放 `results/status/*.txt`（UTF-8 数据文件），运行时 `Get-Content -Encoding UTF8` 读入再粘贴 | v2.6.8+ |
 | 10 | **每次会话重开窗口**：旧 Agent Window 会僵死（reload 救不回）；`session stop --all` 后重开 | E2/F1/F2 |
+| 11 | **反馈环第一**（diagnosing-bugs 定律）：排查先造紧的红/绿信号（census 日志/前后对比/exit code），禁止无信号盲跑迭代 | r49-r52 |
 
 ## 3. 标准作战流程（SOP）
 
@@ -71,6 +74,19 @@ git fetch && git reset --mixed origin/<branch> && git ls-files -d | xargs -r git
 4. `Set-Clipboard`（UTF-8 文件读入）→ click textbox → `press Ctrl+v` → 验证 `[filled]`
 5. 点最新 `button "Send message"` ref → 监视「Stop generating」消失 = 完成
 6. 产物/判定：`evaluate document.body.innerText` + 快照存证 + 截图
+
+### 派发前流程（v2.0，整合 mattpocock/skills —— 详见 pack-mattpocock.md）
+
+```
+第0步 GRILL   对用户跑 1-3 轮拷问（决策树+前沿+推荐答案）→ 共识
+第1步 SPEC    共识 → results/status/round_spec_N.md（问题/方案/故事/验收）
+第2步 PROMPT  规格机械翻译成 arena_promptN.txt（ASCII 落盘 UTF-8 数据）
+第3步 DISPATCH 派发钩子 → 等判定
+第4步 ACCEPT  双轴验收（STANDARDS=一致性门 / SPEC=交付物判据，分开陈述）
+第5步 HANDOFF 判定文件遵循交接纪律（引用产物路径、脱敏、三行"下一轮建议"）
+沟通红线：用户一旦说"不对啊/误解了"，立即 wait-what 复述确认，禁止继续执行。
+```
+
 
 ### 前置条件检查单
 
