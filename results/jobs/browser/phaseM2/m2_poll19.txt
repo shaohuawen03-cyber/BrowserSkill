@@ -1456,13 +1456,6 @@ L1 page
         @e83 button "Expand" [ctx: 绗竴杞换鍔★細鍏堝彧鍋氥€屼笌鏈満鎵撻€氥€嶈繖涓€浠朵簨锛氬畨瑁?鐨?skills锛堟垜鐨勬満鍣ㄦ槸 Windows锛屽厠闅嗙洰褰曟斁 E:\0github\锛屼笉瑕佽鐩栧凡鏈夌洰褰曪級锛屽畬鎴愬悗鎶婇渶瑕佹垜鍦ㄦ湰鏈?PowerShell 閲屾墽琛岀殑瀹屾暣鍛戒护鏀捐繘涓€涓唬鐮佸潡閲岃緭鍑猴紝鏂逛究鎴戠洿鎺ュ鍒讹紱鎵撻€氬畬鎴愬墠涓嶈寮€濮嬪叾浠栦换鍔°€俔
         StaticText "code/GIT_SYNC_NOTES.md"
         StaticText "+"
-bsk.exe : warning: snapshot truncated (refs=83, tab=1201898791). Increase --max-depth / --max-tokens if needed.
-所在位置 E:\0github\git-sync\BrowserSkill-01a0b237\code\agent_task.ps1:53 字符: 11
-+     $s = (& $bsk snapshot --session $sid --max-tokens 30000 2>&1 | Ou ...
-+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (warning: snapsh...kens if needed.:String) [], RemoteException
-    + FullyQualifiedErrorId : NativeCommandError
- 
         StaticText "111"
         StaticText "1"
         StaticText "+"
@@ -1471,6 +1464,13 @@ bsk.exe : warning: snapshot truncated (refs=83, tab=1201898791). Increase --max-
         StaticText "+"
         StaticText "3"
         StaticText "+"
+bsk.exe : warning: snapshot truncated (refs=83, tab=1201898791). Increase --max-depth / --max-tokens if needed.
+所在位置 E:\0github\git-sync\BrowserSkill-01a0b237\code\agent_task.ps1:53 字符: 11
++     $s = (& $bsk snapshot --session $sid --max-tokens 30000 2>&1 | Ou ...
++           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: snapsh...kens if needed.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
         StaticText "> 杩欎竴椤佃褰?**鏈粨搴撶壒鏈?* 鐨勯€傞厤銆傛妧鑳芥湰韬殑璇存槑涔﹀湪 `skills/git-sync/README.md`銆?
         StaticText "4"
         StaticText "+"

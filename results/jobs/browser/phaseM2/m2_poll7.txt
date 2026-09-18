@@ -1165,7 +1165,7 @@ L1 page
           StaticText ", and a repo notes doc. Let me check file sizes first for min_bytes."
         @e71 button "Expand" [ctx: 绗竴杞换鍔★細鍏堝彧鍋氥€屼笌鏈満鎵撻€氥€嶈繖涓€浠朵簨锛氬畨瑁?鐨?skills锛堟垜鐨勬満鍣ㄦ槸 Windows锛屽厠闅嗙洰褰曟斁 E:\0github\锛屼笉瑕佽鐩栧凡鏈夌洰褰曪級锛屽畬鎴愬悗鎶婇渶瑕佹垜鍦ㄦ湰鏈?PowerShell 閲屾墽琛岀殑瀹屾暣鍛戒护鏀捐繘涓€涓唬鐮佸潡閲岃緭鍑猴紝鏂逛究鎴戠洿鎺ュ鍒讹紱鎵撻€氬畬鎴愬墠涓嶈寮€濮嬪叾浠栦换鍔°€俔
         StaticText "Edit"
-        @e72 button "code/check_all.sh"
+        @e72 button "code/check_all.sh" [ctx: 绗竴杞换鍔★細鍏堝彧鍋氥€屼笌鏈満鎵撻€氥€嶈繖涓€浠朵簨锛氬畨瑁?鐨?skills锛堟垜鐨勬満鍣ㄦ槸 Windows锛屽厠闅嗙洰褰曟斁 E:\0github\锛屼笉瑕佽鐩栧凡鏈夌洰褰曪級锛屽畬鎴愬悗鎶婇渶瑕佹垜鍦ㄦ湰鏈?PowerShell 閲屾墽琛岀殑瀹屾暣鍛戒护鏀捐繘涓€涓唬鐮佸潡閲岃緭鍑猴紝鏂逛究鎴戠洿鎺ュ鍒讹紱鎵撻€氬畬鎴愬墠涓嶈寮€濮嬪叾浠栦换鍔°€俔
         StaticText "+"
         StaticText "45"
         StaticText "鈭?
@@ -1431,6 +1431,13 @@ L1 page
           StaticText "Now the notes file"
           StaticText ". It documents:"
         list "what was installed, from where (shaohuawen03-cyber/new @ arena/01a0aeb9-new, skill v2.9.2) branch: arena/01a0b352-browserskill the two collisions and how they're handled account policy: this repo belongs to mqgg5630-cyber 鈫?pin the local cl"
+bsk.exe : warning: snapshot truncated (refs=83, tab=1201898791). Increase --max-depth / --max-tokens if needed.
+所在位置 E:\0github\git-sync\BrowserSkill-01a0b237\code\agent_task.ps1:53 字符: 11
++     $s = (& $bsk snapshot --session $sid --max-tokens 30000 2>&1 | Ou ...
++           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: snapsh...kens if needed.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
           listitem "what was installed, from where (shaohuawen03-cyber/new @ arena/01a0aeb9-new, skill v2.9.2)"
             ListMarker "鈥?
             StaticText "what was installed, from where (shaohuawen03-cyber/new @ arena/01a0aeb9-new, skill v2.9.2)"
@@ -1453,54 +1460,67 @@ L1 page
             StaticText "upgrade note: after re-running agent-install.sh,"
         paragraph "Then run the gate."
           StaticText "Then run the gate."
-        @e83 button "Collapse"
-        StaticText "Untitled"
+        @e83 button "Expand" [ctx: 绗竴杞换鍔★細鍏堝彧鍋氥€屼笌鏈満鎵撻€氥€嶈繖涓€浠朵簨锛氬畨瑁?鐨?skills锛堟垜鐨勬満鍣ㄦ槸 Windows锛屽厠闅嗙洰褰曟斁 E:\0github\锛屼笉瑕佽鐩栧凡鏈夌洰褰曪級锛屽畬鎴愬悗鎶婇渶瑕佹垜鍦ㄦ湰鏈?PowerShell 閲屾墽琛岀殑瀹屾暣鍛戒护鏀捐繘涓€涓唬鐮佸潡閲岃緭鍑猴紝鏂逛究鎴戠洿鎺ュ鍒讹紱鎵撻€氬畬鎴愬墠涓嶈寮€濮嬪叾浠栦换鍔°€俔
+        StaticText "code/GIT_SYNC_NOTES.md"
         StaticText "+"
+        StaticText "111"
+        StaticText "1"
+        StaticText "+"
+        StaticText "# git-sync 鍦ㄦ湰浠撳簱锛圔rowserSkill锛夌殑瀹夎璇存槑"
+        StaticText "2"
+        StaticText "+"
+        StaticText "3"
+        StaticText "+"
+        StaticText "> 杩欎竴椤佃褰?**鏈粨搴撶壒鏈?* 鐨勯€傞厤銆傛妧鑳芥湰韬殑璇存槑涔﹀湪 `skills/git-sync/README.md`銆?
+        StaticText "4"
+        StaticText "+"
+        StaticText "5"
+        StaticText "+"
+        StaticText "## 1. 瑁呬簡浠€涔?
+        StaticText "6"
+        StaticText "+"
+        StaticText "7"
+        StaticText "+"
+        StaticText "| 椤?| 鍊?|"
         StaticText "8"
-        StaticText "81"
         StaticText "+"
-        StaticText "```"
-        StaticText "82"
+        StaticText "|---|---|"
+        StaticText "9"
         StaticText "+"
-        StaticText "83"
+        StaticText "| 鎶€鑳芥潵婧?| `https://github.com/shaohuawen03-cyber/new.git` 鍒嗘敮 `arena/01a0aeb9-new` |"
+        StaticText "10"
         StaticText "+"
-        StaticText "* `code/check_all.sh` 绗?3 鑺傦紙鏍圭洰褰曞壇鏈?鈫?`skills/git-sync/scripts/` 閫愬瓧鑺備竴鑷达級"
-        StaticText "84"
+        StaticText "| 鎶€鑳界増鏈?| `skills/git-sync/VERSION` = **2.9.2** |"
+        StaticText "11"
         StaticText "+"
-        StaticText "鍥犳鎶?`install` 鍒楀叆 `ROOT_SKIP`锛屽彧瀵硅繖涓€涓剼鏈墦鍗?NOTE銆佷笉鍋氭瘮杈冿紱鍏朵綑 11 涓収鏃т弗鏍兼瘮杈冦€?
-        StaticText "85"
+        StaticText "| 鏈細璇濆伐浣滃垎鏀?| `arena/01a0b352-browserskill`锛? `skills/git-sync/sync.config.json` 鐨?`branch`锛?|"
+        StaticText "12"
         StaticText "+"
-        StaticText "* **鍗囩骇鎶€鑳藉悗瑕佹敞鎰?*锛歚agent-install.sh` 姣忔閮戒細鎶婃妧鑳界殑 `install.ps1` 鎷峰埌鏍圭洰褰曪紝"
-        StaticText "86"
+        StaticText "| 杩滅 | `origin` = `https://github.com/mqgg5630-cyber/BrowserSkill.git` |"
+        StaticText "13"
         StaticText "+"
-        StaticText "閲嶈窇瀹夎鍣ㄥ悗璇风珛鍒?`git checkout -- install.ps1` 杩樺師锛堥椄闂ㄦ鏃朵篃浼?FAIL 鎻愰啋浣狅級銆?
-        StaticText "87"
+        StaticText "| 闂搁棬 | `bash code/check_all.sh`锛坄agent-sync.sh` 姣忔鎻愪氦鍓嶈窇锛涙湰鏈?`watch.ps1` 姣忚疆涔熻窇锛?|"
+        StaticText "14"
         StaticText "+"
-        StaticText "88"
+        StaticText "| 鏈満妫€鏌?| `code/local_check.ps1`锛坄sync.config.json` 鐨?`check_cmd`锛?|"
+        StaticText "15"
         StaticText "+"
-        StaticText "###"
-      @e84 button "Scroll to bottom"
-      @e85 button "閫夋嫨鏂囦欢"
-      @e86 textbox "What would you like to do?" [empty]
-        paragraph "What would you like to do?"
-          StaticText "What would you like to do?"
-      @e87 button "Add files and connections [has-submenu]"
-      @e88 combobox "Agent [has-submenu]" ="Agent"
-      @e89 button
-      @e90 button "Stop generating"
-      @e91 link "Open mqgg5630-cyber/BrowserSkill on GitHub" [鈫?github.com]
-      StaticText "arena/01a0b352-browserskill"
-      StaticText "No Changes"
-      @e92 button "Create pull request" [disabled]
-      tablist "Workspace card views"
-        @e93 tab "Diff"
-          [搂 active: Diff]
-            View all changes
-        @e94 tab "Checks"
-      @e95 button "View all changes"
-    alert "Arena | Benchmark & Compare the Best AI Models"
-      StaticText "Arena | Benchmark & Compare the Best AI Models"
-    group "grammarly-integration"
-      StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
+        StaticText "| 鎻℃墜鏂囦欢 | `results/status/handshake.json`锛屼竴杞竴妗ｆ棩蹇?`results/status/check_rN_<鏃堕棿>.txt` |"
+        StaticText "16"
+        StaticText "+"
+        StaticText "| 绗竴杞獙鏀舵爣鍑?| `results/status/success_criteria.json`锛堝彧楠屻€屾墦閫氥€嶏紝涓嶅惈浠讳綍涓氬姟浠诲姟锛?|"
+        StaticText "17"
+        StaticText "+"
+        StaticText "18"
+        StaticText "+"
+        StaticText "瀹夎鍛戒护锛堟矙绠变晶锛屼竴鏉★級锛?
+        StaticText "19"
+        StaticText "+"
+        StaticText "20"
+        StaticText "+"
+        StaticText "```bash"
+        StaticText "21"
+        StaticText "+"
+        StaticText "git clone --quiet --depth 1 -b arena/01a0aeb9-new \\"
 @warning geometry incomplete: some page or frame content has no top-level coordinates.
 
