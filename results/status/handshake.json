@@ -1,9 +1,9 @@
 {
-  "round": 25,
-  "arena_state": "accepted",
-  "local_state": "failed",
-  "arena_updated": "2026-09-18 06:50:03",
-  "local_updated": "2026-09-18 14:49:29",
-  "host": "LAPTOP-R77M5D6M",
-  "note": "hands-free: r25 closed - switching to user-tab borrow route"
+  "round": 26,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 06:51:54",
+  "local_updated": null,
+  "host": "",
+  "note": "stage5 H go: borrow live arena tab, /agent, send round-1 prompt"
 }
