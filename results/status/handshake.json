@@ -1,9 +1,9 @@
 {
-    "round":  19,
-    "arena_state":  "awaiting_check",
-    "local_state":  "passed",
-    "arena_updated":  "2026-09-18 03:49:34",
-    "local_updated":  "2026-09-18 11:51:32",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "stage4 F4: diagnostics - window control test + arena shell evidence"
+  "round": 19,
+  "arena_state": "accepted",
+  "local_state": "passed",
+  "arena_updated": "2026-09-18 03:52:10",
+  "local_updated": "2026-09-18 11:51:32",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "hands-free: diagnostics collected"
 }
