@@ -50,6 +50,8 @@ $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
 
 $found = $false
 for ($i = 1; $i -le 25; $i++) {
+    $null = (& $bsk evaluate '(function(){var d=document.scrollingElement;d.scrollTop=d.scrollHeight;return d.scrollTop;})()' --session $sid 2>&1 | Out-String)
+    $null = (& $bsk wait-ms 3s --session $sid 2>&1 | Out-String)
     $s = (& $bsk snapshot --session $sid --max-tokens 30000 2>&1 | Out-String)
     $s | Set-Content -LiteralPath (Join-Path $outDir ('m2_poll' + $i + '.txt')) -Encoding UTF8
     if ((($s -match 'Set-ExecutionPolicy') -and ($s -notmatch 'Stop generating')) -or ($s -match 'watch\.ps1 -Register')) { $found = $true; Log ('phaseM2: FOUND block markers at poll ' + $i); break }
@@ -57,6 +59,8 @@ for ($i = 1; $i -le 25; $i++) {
     $null = (& $bsk wait-ms 20s --session $sid 2>&1 | Out-String)
 }
 $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'm2_final.png') 2>&1 | Out-String)
+$null = (& $bsk evaluate '(function(){var d=document.scrollingElement;d.scrollTop=d.scrollHeight;return d.scrollTop;})()' --session $sid 2>&1 | Out-String)
+$null = (& $bsk wait-ms 3s --session $sid 2>&1 | Out-String)
 $t = (& $bsk evaluate document.body.innerText --session $sid 2>&1 | Out-String)
 $t | Set-Content -LiteralPath (Join-Path $outDir 'm2_page_text.txt') -Encoding UTF8
 Log ('phaseM2: page text bytes=' + $t.Length)
