@@ -89,9 +89,9 @@ git fetch && git reset --mixed origin/<branch> && git ls-files -d | xargs -r git
   其输出的 PowerShell 命令块被抓取回传（deliverable/arena_round1_psblock.txt）
 - 第二轮「3 轮自循环」提示词已成功注入对话（r46；执行监视见 K5b）
 
-## 5. 紧急停止（一键全停）
+## 5. 紧急停止（一键全停，两层）
 
-用户侧任意 PowerShell 粘贴运行（停钩子、删计划任务、收自动化窗口）：
+**第一层**（停本会话 237 + arena 352 的值守）：
 
 ```powershell
 schtasks /End /TN "git-sync-watch-BrowserSkill-01a0b237" 2>$null
@@ -104,7 +104,25 @@ Get-CimInstance Win32_Process -Filter "Name='powershell.exe'" |
 & "$env:USERPROFILE\.local\bin\bsk.exe" session stop --all 2>$null
 ```
 
-恢复（想再开时）：`cd E:\0github\git-sync\BrowserSkill-01a0b237 ; .\watch.ps1 -Register`
+**第二层**（机器上有多个 Arena 会话克隆时；2026-09-18 实测 15+ 弹窗就是
+多个会话的值守叠加所致。全量清扫所有 git-sync 家族）：
+
+```powershell
+Get-ScheduledTask -TaskName 'git-sync-watch-*' -ErrorAction SilentlyContinue |
+  ForEach-Object { schtasks /End /TN $_.TaskName 2>$null; schtasks /Delete /TN $_.TaskName /F 2>$null }
+Get-CimInstance Win32_Process -Filter "Name='powershell.exe' OR Name='pwsh.exe'" |
+  Where-Object { $_.ProcessId -ne $PID -and $_.CommandLine -match 'watch\.ps1|agent_task|local_check|bootstrap|sync\.ps1|agent-handsfree|agent-sync|download\.ps1|upload\.ps1|git-sync' } |
+  ForEach-Object { Stop-Process -Id $_.ProcessId -Force }
+```
+
+### 后台策略（用户明令，2026-09-18）
+
+> **默认零后台：任何 git-sync 值守/计划任务都不得常驻。只有用户明确
+> 说"用会话 X"，才注册会话 X 自己的值守；该会话任务结束即注销。
+> 其他会话的值守永远不唤醒、不批量重启。**
+
+恢复某个会话（仅当用户点名）：
+`cd <该会话克隆> ; .\watch.ps1 -Register`；用完注销：`.\watch.ps1 -Unregister`。
 
 ## 6. 故障速查
 
