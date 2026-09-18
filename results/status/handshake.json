@@ -1,9 +1,9 @@
 {
-    "round":  31,
-    "arena_state":  "awaiting_check",
-    "local_state":  "failed",
-    "arena_updated":  "2026-09-18 07:02:57",
-    "local_updated":  "2026-09-18 15:04:30",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "verify r30 done"
+  "round": 31,
+  "arena_state": "accepted",
+  "local_state": "failed",
+  "arena_updated": "2026-09-18 07:05:10",
+  "local_updated": "2026-09-18 15:04:30",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "hands-free: r31 closed - M2 re-borrow monitor"
 }
