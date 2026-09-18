@@ -2,7 +2,7 @@
 @view 1043x907
 @layers 1 focus=L1
 L1 page
-  RootWebArea "Agent Mode | Autonomous AI Agents for Real-World Tasks"
+  RootWebArea "Arena | Benchmark & Compare the Best AI Models"
     region "Notifications alt+T"
     @e1 button "Toggle Sidebar"
     list
@@ -70,23 +70,18 @@ L1 page
     group
       @e31 link "Terms of Use"
       @e32 link "Privacy Policy"
-    main "What would you like to do? Ask anything鈥?
-      @e33 button "Toggle workspace sidebar" [disabled]
-      heading "What would you like to do?"
-        StaticText "What would you like to do?"
-      @e34 button "閫夋嫨鏂囦欢"
-      @e35 textbox "Ask anything鈥? [empty]
-        paragraph "Ask anything鈥?
-          StaticText "Ask anything鈥?
-      @e36 button "Add files and connections [has-submenu]"
-      @e37 combobox "Agent [has-submenu]" ="Agent"
-      @e38 button
-      @e39 button "Send message" [disabled]
-      @e40 button "Loading鈥?[has-submenu]" [disabled]
-      @e41 button "main [has-submenu]" [disabled]
-      @e42 button "GitHub settings [has-submenu]"
+    main "Something went wrong We couldn't load this chat. Please try again. Trace ID: c09b8eb7-91b2 Visit ID: 01a0b33a-a820-720b-965b-fea774c3c1dc"
+      heading "Something went wrong"
+        StaticText "Something went wrong"
+      paragraph "We couldn't load this chat. Please try again."
+        StaticText "We couldn't load this chat. Please try again."
+      StaticText "Trace ID:"
+      StaticText "c09b8eb7-91b2"
+      @e33 button "Copy trace ID"
+      StaticText "Visit ID:"
+      StaticText "01a0b33a-a820-720b-965b-fea774c3c1dc"
+      @e34 button "Try again"
+      @e35 link "Still not working? Reset session and reload"
     alert
-    group "grammarly-integration"
-      StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
 @warning geometry incomplete: some page or frame content has no top-level coordinates.
 

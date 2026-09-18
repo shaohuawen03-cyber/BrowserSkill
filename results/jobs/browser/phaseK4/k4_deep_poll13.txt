@@ -1,0 +1,39 @@
+﻿@vom 1
+@view 1043x907
+@layers 1 focus=L1
+L1 page
+  RootWebArea "Arena | Benchmark & Compare the Best AI Models"
+    region "Notifications alt+T"
+    @e1 button "Toggle Sidebar"
+    list
+      listitem
+        @e2 button
+    @e3 button
+    list
+      listitem
+        @e4 link "New Chat"
+      listitem
+        @e5 link "Leaderboard [has-submenu]"
+      listitem
+        @e6 link "Search"
+    list
+      @e7 button "mqgg5630@gmail.com"
+    group
+      @e8 link "Terms of Use"
+      @e9 link "Privacy Policy"
+      @e10 button "Cookies"
+    main "Something went wrong We couldn't load this chat. Please try again. Trace ID: e0677b29-f358 Visit ID: 01a0b33a-a820-720b-965b-fea774c3c1dc"
+      heading "Something went wrong"
+        StaticText "Something went wrong"
+      paragraph "We couldn't load this chat. Please try again."
+        StaticText "We couldn't load this chat. Please try again."
+      StaticText "Trace ID:"
+      StaticText "e0677b29-f358"
+      @e11 button "Copy trace ID"
+      StaticText "Visit ID:"
+      StaticText "01a0b33a-a820-720b-965b-fea774c3c1dc"
+      @e12 button "Try again"
+      @e13 link "Still not working? Reset session and reload"
+    alert
+@warning geometry incomplete: some page or frame content has no top-level coordinates.
+
