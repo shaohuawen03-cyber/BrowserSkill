@@ -61,7 +61,7 @@
       "title": "Arena | Benchmark & Compare the Best AI Models",
       "url": "https://arena.ai/agent/01a0b25b-8d51-77fe-919b-482e34a801ca",
       "window_id": 1201900386,
-      "active": true,
+      "active": false,
       "scope": "user"
     },
     {
@@ -69,7 +69,7 @@
       "title": "Agent Mode | Autonomous AI Agents for Real-World Tasks",
       "url": "https://arena.ai/agent",
       "window_id": 1201900386,
-      "active": false,
+      "active": true,
       "scope": "user"
     },
     {
@@ -193,10 +193,10 @@
       "scope": "user"
     },
     {
-      "tab_id": 1201900942,
+      "tab_id": 1201900899,
       "title": "about:blank",
       "url": "about:blank",
-      "window_id": 1201900941,
+      "window_id": 1201900898,
       "active": true,
       "scope": "agent"
     }
