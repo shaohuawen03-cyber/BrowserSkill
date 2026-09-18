@@ -69,8 +69,8 @@ $null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String)
 # ---- 2. /agent home must render (user-activation law: click the tab <30min ago)
 $null = (& $bsk navigate 'https://arena.ai/agent' --session $sid 2>&1 | Out-String)
 $rendered = $false
-for ($i = 1; $i -le 30; $i++) {
-    $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
+for ($i = 1; $i -le 60; $i++) {
+    $null = (& $bsk wait-ms 8s --session $sid 2>&1 | Out-String)
     $s0 = Snap ('k6_home_p' + $i + '.txt')
     if (($s0 -match 'textbox') -and ($s0 -match 'Today')) { $rendered = $true; Log ('k6: home rendered at poll ' + $i); break }
     if ($i -eq 10 -or $i -eq 20) { $null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String); $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
