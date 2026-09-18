@@ -1,10 +1,32 @@
 ﻿@vom 1
-@view 1043x927
+@view 1043x923
 @layers 1 focus=L1
 L1 page
-  RootWebArea "Agent Mode | Autonomous AI Agents for Real-World Tasks"
-    alert
+  RootWebArea "璇风◢鍊欌€?
+    main "arena.ai 姝ｅ湪杩涜瀹夊叏楠岃瘉 鏈綉绔欎娇鐢ㄥ畨鍏ㄦ湇鍔￠槻鎶ゆ伓鎰忚嚜鍔ㄧ▼搴忋€傚湪楠岃瘉鎮ㄤ笉鏄嚜鍔ㄧ▼搴忔湡闂达紝灏嗘樉绀烘椤甸潰銆?
+      heading "arena.ai"
+        StaticText "arena.ai"
+      heading "姝ｅ湪杩涜瀹夊叏楠岃瘉"
+        StaticText "姝ｅ湪杩涜瀹夊叏楠岃瘉"
+      paragraph "鏈綉绔欎娇鐢ㄥ畨鍏ㄦ湇鍔￠槻鎶ゆ伓鎰忚嚜鍔ㄧ▼搴忋€傚湪楠岃瘉鎮ㄤ笉鏄嚜鍔ㄧ▼搴忔湡闂达紝灏嗘樉绀烘椤甸潰銆?
+        StaticText "鏈綉绔欎娇鐢ㄥ畨鍏ㄦ湇鍔￠槻鎶ゆ伓鎰忚嚜鍔ㄧ▼搴忋€傚湪楠岃瘉鎮ㄤ笉鏄嚜鍔ㄧ▼搴忔湡闂达紝灏嗘樉绀烘椤甸潰銆?
+      Iframe "鍖呭惈 Cloudflare 瀹夊叏璐ㄨ鐨勫皬缁勪欢"
+        StaticText "姝ｅ湪楠岃瘉鈥?
+        @e1 link "Cloudflare锛屽湪鏂版爣绛鹃〉涓墦寮€" [ctx: 姝ｅ湪楠岃瘉鈥?鍗′綇锛焆 [鈫?www.cloudflare.com]
+        group
+          @e2 link "闅愮锛屽湪鏂版爣绛鹃〉涓墦寮€" [鈫?www.cloudflare.com]
+          StaticText "鈥?
+          @e3 link "甯姪锛屽湪鏂版爣绛鹃〉涓墦寮€"
+        group "grammarly-integration"
+          StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
+    contentinfo "Ray ID: a3cf1c5f5f660644 鐢?鎻愪緵鐨勬€ц兘鍜屽畨鍏ㄦ湇鍔?
+      code "a3cf1c5f5f660644"
+        StaticText "a3cf1c5f5f660644"
+      StaticText "Ray ID:"
+      @e4 link "Cloudflare锛屽湪鏂版爣绛鹃〉涓墦寮€" [ctx: Ray ID: a3cf1c5f5f660644] [鈫?www.cloudflare.com]
+      StaticText "鐢?
+      StaticText "鎻愪緵鐨勬€ц兘鍜屽畨鍏ㄦ湇鍔?
+      @e5 link "闅愮锛屽湪鏂版爣绛鹃〉涓墦寮€" [ctx: 鐢?鎻愪緵鐨勬€ц兘鍜屽畨鍏ㄦ湇鍔 [鈫?www.cloudflare.com]
     group "grammarly-integration"
       StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
-@warning geometry incomplete: some page or frame content has no top-level coordinates.
 
