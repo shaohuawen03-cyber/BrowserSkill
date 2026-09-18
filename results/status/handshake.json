@@ -1,9 +1,9 @@
 {
-  "round": 29,
-  "arena_state": "awaiting_check",
-  "local_state": "pending",
-  "arena_updated": "2026-09-18 06:57:53",
-  "local_updated": null,
-  "host": "",
-  "note": "stage6 H3 go: borrow, wake, clipboard-paste the round-1 prompt, send"
+    "round":  29,
+    "arena_state":  "awaiting_check",
+    "local_state":  "failed",
+    "arena_updated":  "2026-09-18 06:57:53",
+    "local_updated":  "2026-09-18 14:59:23",
+    "host":  "LAPTOP-R77M5D6M",
+    "note":  "stage6 H3 go: borrow, wake, clipboard-paste the round-1 prompt, send"
 }
