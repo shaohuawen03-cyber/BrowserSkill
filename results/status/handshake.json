@@ -1,9 +1,9 @@
 {
-  "round": 48,
-  "arena_state": "accepted",
-  "local_state": "passed",
-  "arena_updated": "2026-09-18 09:21:46",
-  "local_updated": "2026-09-18 17:21:21",
-  "host": "LAPTOP-R77M5D6M",
-  "note": "r48 passed - leftover window closed, bridge watcher live after restore"
+  "round": 49,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 09:30:19",
+  "local_updated": null,
+  "host": "",
+  "note": "housekeep2: sweep leftover automation windows (census before/after), refresh root scripts, where.cmd demo"
 }

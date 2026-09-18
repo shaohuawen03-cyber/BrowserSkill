@@ -163,7 +163,15 @@ foreach ($rel in $folders) {
 
 Write-Host ""
 if ($fail -eq 0) {
-    Write-Host "== done. latest commit:" -ForegroundColor Green
+    $origin = (git -C $repo remote get-url origin 2>$null)
+    if (-not $origin) { $origin = '(unknown remote)' }
+    $branch = (git -C $repo rev-parse --abbrev-ref HEAD 2>$null)
+    $commit = (git -C $repo rev-parse --short HEAD 2>$null)
+    Write-Host "== done. provenance of what you just got:" -ForegroundColor Green
+    Write-Host ("   source repo : {0}" -f $origin)
+    Write-Host ("   branch      : {0}" -f $branch)
+    Write-Host ("   commit      : {0}" -f $commit)
+    Write-Host ("   copied to   : {0}  ({1} folder(s))" -f $Dest, @($folders).Count)
     git log -1 --oneline
 } else {
     Write-Host ("== finished with {0} error(s)" -f $fail) -ForegroundColor Red
