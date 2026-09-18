@@ -52,7 +52,7 @@ $found = $false
 for ($i = 1; $i -le 25; $i++) {
     $s = (& $bsk snapshot --session $sid --max-tokens 30000 2>&1 | Out-String)
     $s | Set-Content -LiteralPath (Join-Path $outDir ('m2_poll' + $i + '.txt')) -Encoding UTF8
-    if (($s -match 'git clone') -or ($s -match 'auth\.ps1') -or ($s -match 'bootstrap\.ps1')) { $found = $true; Log ('phaseM2: FOUND block markers at poll ' + $i); break }
+    if (($s -match 'Set-ExecutionPolicy') -or ($s -match 'watch\.ps1 -Register')) { $found = $true; Log ('phaseM2: FOUND block markers at poll ' + $i); break }
     Log ('phaseM2: poll ' + $i + ' - not yet (bytes=' + $s.Length + ')')
     $null = (& $bsk wait-ms 20s --session $sid 2>&1 | Out-String)
 }
