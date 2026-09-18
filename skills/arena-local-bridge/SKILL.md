@@ -89,7 +89,24 @@ git fetch && git reset --mixed origin/<branch> && git ls-files -d | xargs -r git
   其输出的 PowerShell 命令块被抓取回传（deliverable/arena_round1_psblock.txt）
 - 第二轮「3 轮自循环」提示词已成功注入对话（r46；执行监视见 K5b）
 
-## 5. 故障速查
+## 5. 紧急停止（一键全停）
+
+用户侧任意 PowerShell 粘贴运行（停钩子、删计划任务、收自动化窗口）：
+
+```powershell
+schtasks /End /TN "git-sync-watch-BrowserSkill-01a0b237" 2>$null
+schtasks /End /TN "git-sync-watch-BrowserSkill-01a0b352" 2>$null
+schtasks /Delete /TN "git-sync-watch-BrowserSkill-01a0b237" /F 2>$null
+schtasks /Delete /TN "git-sync-watch-BrowserSkill-01a0b352" 2>$null
+Get-CimInstance Win32_Process -Filter "Name='powershell.exe'" |
+  Where-Object { $_.ProcessId -ne $PID -and $_.CommandLine -match 'watch\.ps1|agent_task\.ps1|local_check\.ps1|bootstrap\.ps1' } |
+  ForEach-Object { Stop-Process -Id $_.ProcessId -Force }
+& "$env:USERPROFILE\.local\bin\bsk.exe" session stop --all 2>$null
+```
+
+恢复（想再开时）：`cd E:\0github\git-sync\BrowserSkill-01a0b237 ; .\watch.ps1 -Register`
+
+## 6. 故障速查
 
 | 症状 | 处置 |
 |---|---|
