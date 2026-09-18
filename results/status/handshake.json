@@ -1,9 +1,9 @@
 {
-    "round":  40,
-    "arena_state":  "awaiting_check",
-    "local_state":  "failed",
-    "arena_updated":  "2026-09-18 08:40:15",
-    "local_updated":  "2026-09-18 16:42:20",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "stage7 K3: own-tab arena run - home, connected chat, continue, 3-round prompt"
+  "round": 41,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 08:43:42",
+  "local_updated": null,
+  "host": "",
+  "note": "stage7 K3b: own tab with shell-detector, continue, 3-round prompt"
 }
