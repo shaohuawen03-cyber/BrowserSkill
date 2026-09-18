@@ -1,3 +1,1 @@
-安装 https://github.com/shaohuawen03-cyber/new/tree/arena%2F01a0aeb9-new 的 skills，与本机打通。
-
-我的机器是 Windows，克隆目录放 E:\0github\，不要覆盖已有目录。
+第一轮任务：先只做「与本机打通」这一件事：安装 https://github.com/shaohuawen03-cyber/new/tree/arena%2F01a0aeb9-new 的 skills（我的机器是 Windows，克隆目录放 E:\0github\，不要覆盖已有目录），完成后把需要我在本机 PowerShell 里执行的完整命令放进一个代码块里输出，方便我直接复制；打通完成前不要开始其他任务。
