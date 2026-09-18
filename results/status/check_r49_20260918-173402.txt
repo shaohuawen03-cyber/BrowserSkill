@@ -1,0 +1,108 @@
+check round 49 on LAPTOP-R77M5D6M - failed (exit 1)
+cmd: powershell -NoProfile -ExecutionPolicy Bypass -File code/local_check.ps1
+elapsed: 32s
+
+OK: all .ps1 files are ASCII-only
+OK: sync.config.json branch=arena/01a0b237-browserskill
+OK: sync.config.json branch matches HEAD (arena/01a0b237-browserskill)
+[FAIL] download.ps1 differs from skills/git-sync/scripts/download.ps1 - copy it over
+[FAIL] install.ps1 differs from skills/git-sync/scripts/install.ps1 - copy it over
+OK: no drive-style variable typos ($var:)
+== exits in Invoke-PollRound: 6
+OK: every exit path sets its closing summary
+== exits in Invoke-PollOnce: 2 (lock held / crashed / normal)
+OK: loop closing lines covered (6 exit paths, all with their own summary)
+OK: every .ps1 parses
+[FAIL] gate failed (exit 1)
+== accept 2a: silent push PROVEN (ls-remote + push --dry-run, prompts disabled)
+== auth: this clone is PINNED to gh account 'shaohuawen03-cyber' (other clones use the machine default)
+== accept 2b (fallback): one LONG-LIVED loop process - one brief flash per logon,
+   not per poll. For zero flash: admin PowerShell -> .\watch.ps1 -Unregister ;
+   .\watch.ps1 -Register -Headless   (or fix the launcher, see watch-*.log)
+== exits in Invoke-PollRound: 6
+OK: every exit path sets its closing summary
+== exits in Invoke-PollOnce: 2 (lock held / crashed / normal)
+OK: loop closing lines covered (6 exit paths, all with their own summary)
+== check_loop_summary PASSED
+== accept 2c: watcher closing lines verified (every exit path has its summary)
+== accept 2d: hands-free auto_pull/auto_push present in watch.ps1
+== success criteria: results/status/success_criteria.json
+   arena.ai browser-control task: evidence report + screenshots must exist on the LOCAL machine
+   OK   exists: deliverable/arena_chat_evidence.docx (90755 B)
+   OK   exists: deliverable/arena_chat_final_screenshot.png (58373 B)
+   OK   exists: deliverable/arena_agent_window_first_control.png (36175 B)
+   OK   size deliverable/arena_chat_evidence.docx: 90755 >= 50000
+   OK   size deliverable/arena_chat_final_screenshot.png: 58373 >= 40000
+   OK   size deliverable/arena_agent_window_first_control.png: 36175 >= 20000
+== agent task hook: running code\agent_task.ps1
+housekeep2: root scripts refreshed (where.ps1, where.cmd, download.ps1)
+housekeep2: EDGE WINDOWS BEFORE = 1
+  before-title: Arena | Benchmark & Compare the Best AI Models 和另外 18 个页面 - 个人 - Microsoft? Edge
+housekeep2: sessions before -> []
+housekeep2: session stop --all exit 0
+housekeep2: sessions after  -> []
+housekeep2: EDGE WINDOWS AFTER = 1
+  after-title: Arena | Benchmark & Compare the Best AI Models 和另外 18 个页面 - 个人 - Microsoft? Edge
+housekeep2: where.cmd demo:
+  | == local clones:
+  | [USE] E:\0github\git-sync\BrowserSkill-01a0b237
+  | branch: arena/01a0b237-browserskill    remote: https://github.com/shaohuawen03-cyber/BrowserSkill.git
+  | E:\0github\git-sync\agentarena
+  | branch: arena/01a0a356-agentarena    remote: https://github.com/mqgg5630-cyber/AgentArena.git
+  | E:\0github\git-sync\agentarena-int
+  | branch: arena/01a0a3f1-agentarena    remote: https://github.com/mqgg5630-cyber/AgentArena.git
+  | E:\0github\git-sync\agentarena-w1
+  | branch: arena/01a0a3ee-agentarena    remote: https://github.com/mqgg5630-cyber/AgentArena.git
+  | E:\0github\git-sync\agentarena-w2
+  | branch: arena/01a0a3d6-agentarena    remote: https://github.com/mqgg5630-cyber/AgentArena.git
+  | E:\0github\git-sync\BrowserSkill-01a0b25b
+  | branch: arena/01a0b25b-browserskill    remote: https://github.com/mqgg5630-cyber/BrowserSkill.git
+  | E:\0github\git-sync\git-pull-arena
+  | branch: v268-patch    remote: https://github.com/mqgg5630-cyber/git-pull-arena.git
+  | E:\0github\git-sync\git-pull-arena-01a0a9ba
+  | branch: arena/01a0a9ba-git-pull-arena    remote: https://github.com/mqgg5630-cyber/git-pull-arena.git
+  | E:\0github\git-sync\git-pull-arena-01a0a9f0
+  | branch: arena/01a0a9f0-git-pull-arena    remote: https://github.com/mqgg5630-cyber/git-pull-arena.git
+  | E:\0github\git-sync\git-pull-arena-01a0aa00
+  | branch: arena/01a0aa00-git-pull-arena    remote: https://github.com/mqgg5630-cyber/git-pull-arena.git
+  | E:\0github\git-sync\git-pull-arena-01a0ad15
+  | branch: arena/01a0ad15-git-pull-arena    remote: https://github.com/shaohuawen03-cyber/git-pull-arena.git
+  | E:\0github\git-sync\git-pull-arena-s2
+  | branch: arena/01a0a98d-git-pull-arena    remote: https://github.com/mqgg5630-cyber/git-pull-arena.git
+  | E:\0github\git-sync\git-pull-arena-v268
+  | branch: arena/01a0a7de-git-pull-arena    remote: https://github.com/mqgg5630-cyber/git-pull-arena.git
+  | E:\0github\git-sync\image-to-editable-pptx
+  | branch: arena/01a04caf-image-to-editable-pptx    remote: https://github.com/mqgg5630-cyber/image-to-editable-pptx.git
+  | E:\0github\git-sync\new-01a0a839
+  | branch: arena/01a0a839-new    remote: https://github.com/mqgg5630-cyber/new.git
+  | E:\0github\git-sync\new-01a0a90b
+  | branch: arena/01a0a90b-new    remote: https://github.com/mqgg5630-cyber/new.git
+  | E:\0github\git-sync\new-01a0ae7a
+  | branch: arena/01a0ae7a-new    remote: https://github.com/shaohuawen03-cyber/new.git
+  | E:\0github\git-sync\new-01a0aeb9
+  | branch: arena/01a0aeb9-new    remote: https://github.com/shaohuawen03-cyber/new.git
+  | E:\0github\git-sync\ppt-master
+  | branch: main    remote: https://github.com/hugohe3/ppt-master.git
+  | E:\0github\git-sync\zhongqi-01a0a95e
+  | branch: arena/01a0a95e-zhongqi    remote: https://github.com/mqgg5630-cyber/zhongqi.git
+  | E:\0github\git-sync\zhongqi-01a0a984
+  | branch: arena/01a0a984-zhongqi    remote: https://github.com/mqgg5630-cyber/zhongqi.git
+  | E:\0github\BrowserSkill-01a0b352
+  | branch: arena/01a0b352-browserskill    remote: https://github.com/mqgg5630-cyber/BrowserSkill.git
+  | E:\0github\new-01a0ae7a
+  | branch: arena/01a0ae7a-new    remote: https://github.com/shaohuawen03-cyber/new.git
+  | E:\0anti
+  | branch: arena/01a08f54-new    remote: git@github.com:shaohuawen03-cyber/new.git
+  | E:\0mcp-agv
+  | branch: arena/01a0328a-illustrator-mcp    remote: https://github.com/mqgg5630-cyber/Illustrator_MCP.git
+  | E:\Git
+  | branch: HEAD    remote: (no origin)
+  | E:\opencodex
+  | branch: main    remote: https://github.com/lidge-jun/opencodex.git
+  | E:\0zhongqi\zhongqi
+  | branch: arena/01a0a949-zhongqi    remote: https://github.com/mqgg5630-cyber/zhongqi.git
+  | E:\0zhongqi\zhongqi-arena
+  | branch: arena/01a09d79-zhongqi    remote: https://github.com/mqgg5630-cyber/zhongqi.git
+  | == for "01a0b237" use THIS folder:  E:\0github\git-sync\BrowserSkill-01a0b237
+housekeep2: done
+== agent task hook: ok

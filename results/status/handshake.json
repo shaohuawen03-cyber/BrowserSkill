@@ -1,9 +1,9 @@
 {
-  "round": 49,
-  "arena_state": "awaiting_check",
-  "local_state": "pending",
-  "arena_updated": "2026-09-18 09:30:19",
-  "local_updated": null,
-  "host": "",
-  "note": "housekeep2: sweep leftover automation windows (census before/after), refresh root scripts, where.cmd demo"
+    "round":  49,
+    "arena_state":  "awaiting_check",
+    "local_state":  "failed",
+    "arena_updated":  "2026-09-18 09:30:19",
+    "local_updated":  "2026-09-18 17:34:34",
+    "host":  "LAPTOP-R77M5D6M",
+    "note":  "housekeep2: sweep leftover automation windows (census before/after), refresh root scripts, where.cmd demo"
 }
