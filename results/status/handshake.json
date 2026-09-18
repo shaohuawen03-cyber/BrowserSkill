@@ -1,9 +1,9 @@
 {
-    "round":  8,
-    "arena_state":  "awaiting_check",
-    "local_state":  "passed",
-    "arena_updated":  "2026-09-18 03:16:46",
-    "local_updated":  "2026-09-18 11:17:51",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "final round: verify evidence deliverables on local disk + close the Agent Window"
+  "round": 8,
+  "arena_state": "accepted",
+  "local_state": "passed",
+  "arena_updated": "2026-09-18 03:18:05",
+  "local_updated": "2026-09-18 11:17:51",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "hands-free: criteria met"
 }
