@@ -78,6 +78,9 @@ Arena 沙箱 agent
 - **整合 mattpocock/skills**：grilling / handoff / wait-what / to-spec /
   diagnosing-bugs / code-review（原文见 pack 文档出处表）。
 - **紧急停止两层**（用户可随时一键全停，见其 SKILL.md 第 5 节）。
+- **对话回路模式（默认推荐）**：用户只对 arena 对话说话，agent 自管
+  值守（按需注册/注销）、每轮报计划等批准、动态轮次；启动词模板
+  `skills/arena-local-bridge/templates/chatloop_startup.txt`，用户粘贴即用。
 
 ## 5. 安装与日常使用
 
@@ -113,6 +116,7 @@ auth/doctor/… + gate 脚本 + **本文件（SKILLS.md）**。
 | 09-18 | r46：剪贴板路线把 3 轮自循环任务令成功注入连接对话（composer [filled] + Send） |
 | 09-18 | 15+ 弹窗事故复盘 → 零后台政策 + 两层紧急停止 + 窗口普查工具 |
 | 09-18 | v2.0：整合 mattpocock/skills 六协议（grill/spec/handoff/wait-what/两轴/反馈环） |
+| 09-18 | **对话回路模式定稿**（GRILL 共识）：用户只对话、git 回路自动轮询、按需值守、动态轮次、粘贴启动 |
 
 ## 7. 维护说明
 
