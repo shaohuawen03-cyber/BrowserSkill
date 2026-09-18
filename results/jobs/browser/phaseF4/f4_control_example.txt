@@ -1,0 +1,12 @@
+﻿@vom 1
+@view 834x727
+@layers 1 focus=L1
+L1 page
+  RootWebArea "Example Domain"
+    heading "Example Domain"
+      StaticText "Example Domain"
+    paragraph "This domain is for use in documentation examples without needing permission. Avoid use in operations."
+      StaticText "This domain is for use in documentation examples without needing permission. Avoid use in operations."
+    paragraph
+      @e1 link "Learn more" [鈫?iana.org]
+
