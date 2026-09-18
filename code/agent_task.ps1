@@ -1,8 +1,8 @@
-# agent_task.ps1 - stage 3 PHASE E2: render-robust Agent mode + GitHub recon.
-# E1 failed because the SPA sometimes never renders (only a loading shell).
-# E2 polls the aria snapshot until the composer actually appears (max ~70s,
-# one reload retry), THEN flips to Agent mode (3 keyboard recipes) and opens
-# the GitHub settings menu + Add-connections menu with captures.
+# agent_task.ps1 - stage 3 PHASE E3: foreground session + render diagnostics.
+# E2 hypothesis: the --no-focus Agent Window gets JS-throttled by Edge and the
+# SPA never finishes rendering. E3 opens a FOCUSED session (visible window),
+# polls render state with readyState/title/href diagnostics + screenshots,
+# reloads once, then flips Agent mode and captures the GitHub menus.
 
 $ErrorActionPreference = 'Continue'
 Set-Location (Split-Path -Parent $PSScriptRoot)
@@ -12,9 +12,9 @@ if (-not (Test-Path -LiteralPath $bsk)) {
     $f = Get-ChildItem -Path (Join-Path $env:USERPROFILE '.local') -Recurse -Filter 'bsk.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($f) { $bsk = $f.FullName }
 }
-$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseE2'
+$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseE3'
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
-$logPath = Join-Path $outDir 'phaseE2.log'
+$logPath = Join-Path $outDir 'phaseE3.log'
 $lines = New-Object System.Collections.Generic.List[string]
 function Log([string]$s) { $script:lines.Add($s) | Out-Null; Write-Output $s }
 function Snap([string]$name) {
@@ -30,50 +30,55 @@ function Test-Rendered([string]$s) {
 }
 
 $env:BSK_AUTO_START = '0'
-$sid = ''
-$sidFile = Join-Path (Get-Location).Path 'results\status\bsk_session.txt'
-if (Test-Path -LiteralPath $sidFile) { $sid = (Get-Content -LiteralPath $sidFile -Raw).Trim() }
-$lst = (& $bsk session list --json 2>&1 | Out-String)
-if (-not $sid -or $lst -notmatch [regex]::Escape($sid)) {
-    $st = (& $bsk session start --no-focus --name 'arena-agent-mode' --json 2>&1 | Out-String)
-    $m = [regex]::Match($st, '"session_id"\s*:\s*"([^"]+)"')
-    if (-not $m.Success) { $m = [regex]::Match($st, '"id"\s*:\s*"([^"]+)"') }
-    if ($m.Success) { $sid = $m.Groups[1].Value } else { Log ('[FAIL] no session'); $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
-    $sid | Set-Content -LiteralPath $sidFile -Encoding Ascii
-}
-Log ('phaseE2: session ' + $sid)
 
-# 0. navigate + wait for a REAL render (poll, reload once)
+# 0. stop any old sessions, start ONE FOCUSED session
+$null = (& $bsk session stop --all 2>&1 | Out-String)
+$st = (& $bsk session start --name 'arena-agent-mode' --json 2>&1 | Out-String)
+$st | Set-Content -LiteralPath (Join-Path $outDir 'session_start.json') -Encoding UTF8
+$m = [regex]::Match($st, '"session_id"\s*:\s*"([^"]+)"')
+if (-not $m.Success) { $m = [regex]::Match($st, '"id"\s*:\s*"([^"]+)"') }
+$sid = ''
+if ($m.Success) { $sid = $m.Groups[1].Value }
+if (-not $sid) { Log ('[FAIL] no session: ' + (($st -replace '\s+', ' ').Trim().Substring(0, [Math]::Min(200, $st.Trim().Length)))); $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
+$sid | Set-Content -LiteralPath (Join-Path (Get-Location).Path 'results\status\bsk_session.txt') -Encoding Ascii
+Log ('phaseE3: focused session ' + $sid)
+
+# 1. navigate + poll render with diagnostics
 $rendered = $false
 for ($try = 1; $try -le 2 -and -not $rendered; $try++) {
     $null = (& $bsk navigate 'https://arena.ai' --session $sid 2>&1 | Out-String)
-    for ($i = 1; $i -le 7; $i++) {
+    for ($i = 1; $i -le 6; $i++) {
         $null = (& $bsk wait-ms 10s --session $sid 2>&1 | Out-String)
-        $s0 = Snap ('e2_s0_try' + $try + '_poll' + $i + '.txt')
+        $rs = (& $bsk evaluate document.readyState --session $sid 2>&1 | Out-String)
+        $ttl = (& $bsk evaluate document.title --session $sid 2>&1 | Out-String)
+        $s0 = Snap ('e3_s_try' + $try + '_poll' + $i + '.txt')
+        Log ('phaseE3: try' + $try + ' poll' + $i + ' ready=' + $rs.Trim() + ' title=' + $ttl.Trim().Substring(0, [Math]::Min(40, $ttl.Trim().Length)) + ' bytes=' + $s0.Length)
+        if ($i -eq 2) { $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir ('e3_try' + $try + '_early.png')) 2>&1 | Out-String) }
         if (Test-Rendered $s0) { $rendered = $true; Log ('phaseE2: rendered on try ' + $try + ' poll ' + $i); break }
     }
-    if (-not $rendered) { Log ('phaseE2: try ' + $try + ' - still a loading shell, reloading'); }
+    if (-not $rendered) { Log ('phaseE3: try ' + $try + ' failed - reloading'); $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
 }
-if (-not $rendered) { Log '[FAIL] arena.ai never rendered'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
+$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'e3_rendered.png') 2>&1 | Out-String)
+if (-not $rendered) { Log '[FAIL] arena.ai still not rendering - evidence captured'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
 
-# 1. promo
+# 2. promo
 $hideRef = [regex]::Match($s0, '@(e\d+) button "Hide this').Groups[1].Value
 if ($hideRef) {
     $null = (& $bsk click ('@' + $hideRef) --session $sid 2>&1 | Out-String)
     $null = (& $bsk wait-ms 2s --session $sid 2>&1 | Out-String)
-    $s0 = Snap 'e2_s0b_nopromo.txt'
-    Log ('phaseE2: hid promo @' + $hideRef)
+    $s0 = Snap 'e3_s0b_nopromo.txt'
+    Log ('phaseE3: hid promo @' + $hideRef)
 }
 
-# 2. Agent mode (three recipes)
+# 3. Agent mode (three recipes)
 if (Test-AgentMode $s0) {
-    Log 'phaseE2: already Agent'
+    Log 'phaseE3: already Agent'
 } else {
     $done = $false
     foreach ($recipe in @('AD', 'TA', 'AU')) {
         $cbRef = [regex]::Match($s0, '@(e\d+) combobox').Groups[1].Value
-        if (-not $cbRef) { $s0 = Snap 'e2_refind_trigger.txt'; $cbRef = [regex]::Match($s0, '@(e\d+) combobox').Groups[1].Value }
-        if (-not $cbRef) { Log 'phaseE2: WARN no combobox trigger in the tree'; break }
+        if (-not $cbRef) { $s0 = Snap 'e3_refind.txt'; $cbRef = [regex]::Match($s0, '@(e\d+) combobox').Groups[1].Value }
+        if (-not $cbRef) { Log 'phaseE3: no combobox trigger'; break }
         $null = (& $bsk click ('@' + $cbRef) --session $sid 2>&1 | Out-String)
         $null = (& $bsk wait-ms 1500ms --session $sid 2>&1 | Out-String)
         if ($recipe -eq 'AD') { $null = (& $bsk press ArrowDown --session $sid 2>&1 | Out-String) }
@@ -82,45 +87,45 @@ if (Test-AgentMode $s0) {
         $null = (& $bsk wait-ms 400ms --session $sid 2>&1 | Out-String)
         $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
         $null = (& $bsk wait-ms 2500ms --session $sid 2>&1 | Out-String)
-        $s0 = Snap ('e2_s1_after_' + $recipe + '.txt')
-        if (Test-AgentMode $s0) { $done = $true; Log ('phaseE2: Agent mode via ' + $recipe); break }
-        Log ('phaseE2: recipe ' + $recipe + ' did not stick')
+        $s0 = Snap ('e3_s1_after_' + $recipe + '.txt')
+        if (Test-AgentMode $s0) { $done = $true; Log ('phaseE3: Agent mode via ' + $recipe); break }
+        Log ('phaseE3: recipe ' + $recipe + ' did not stick')
     }
-    if (-not $done) { Log 'phaseE2: WARN mode flip failed - capturing evidence and continuing' }
+    if (-not $done) { Log 'phaseE3: WARN mode flip failed - continuing with evidence' }
 }
 
-# 3. GitHub settings menu
-$s2 = Snap 'e2_s2_agent.txt'
+# 4. GitHub settings menu
+$s2 = Snap 'e3_s2_agent.txt'
 $ghRef = [regex]::Match($s2, '@(e\d+) button "GitHub settings').Groups[1].Value
-Log ('phaseE2: GitHub settings @' + $ghRef)
+Log ('phaseE3: GitHub settings @' + $ghRef)
 if ($ghRef) {
     $null = (& $bsk click ('@' + $ghRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseE2: clicked GitHub settings (exit ' + $LASTEXITCODE + ')')
+    Log ('phaseE3: clicked GitHub settings (exit ' + $LASTEXITCODE + ')')
     $null = (& $bsk wait-ms 4s --session $sid 2>&1 | Out-String)
-    $null = Snap 'e2_s3_gh_menu.txt'
-    $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'e2_gh_menu.png') 2>&1 | Out-String)
+    $null = Snap 'e3_s3_gh_menu.txt'
+    $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'e3_gh_menu.png') 2>&1 | Out-String)
     $tabs = (& $bsk tab list --session $sid --json 2>&1 | Out-String)
-    $tabs | Set-Content -LiteralPath (Join-Path $outDir 'e2_tabs.json') -Encoding UTF8
-    Log ('phaseE2: tabs -> ' + (($tabs -replace '\s+', ' ').Trim().Substring(0, [Math]::Min(240, $tabs.Trim().Length))))
+    $tabs | Set-Content -LiteralPath (Join-Path $outDir 'e3_tabs.json') -Encoding UTF8
+    Log ('phaseE3: tabs -> ' + (($tabs -replace '\s+', ' ').Trim().Substring(0, [Math]::Min(240, $tabs.Trim().Length))))
     $url = (& $bsk evaluate location.href --session $sid 2>&1 | Out-String)
-    Log ('phaseE2: url -> ' + $url.Trim().Substring(0, [Math]::Min(140, $url.Trim().Length)))
+    Log ('phaseE3: url -> ' + $url.Trim().Substring(0, [Math]::Min(140, $url.Trim().Length)))
     $null = (& $bsk press Escape --session $sid 2>&1 | Out-String)
     $null = (& $bsk wait-ms 1200ms --session $sid 2>&1 | Out-String)
 }
 
-# 4. Add files and connections menu
-$s3 = Snap 'e2_s4_fresh.txt'
+# 5. Add files and connections menu
+$s3 = Snap 'e3_s4_fresh.txt'
 $addRef = [regex]::Match($s3, '@(e\d+) button "Add files and connections').Groups[1].Value
-Log ('phaseE2: Add files and connections @' + $addRef)
+Log ('phaseE3: Add files and connections @' + $addRef)
 if ($addRef) {
     $null = (& $bsk click ('@' + $addRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseE2: clicked Add files and connections (exit ' + $LASTEXITCODE + ')')
+    Log ('phaseE3: clicked Add files and connections (exit ' + $LASTEXITCODE + ')')
     $null = (& $bsk wait-ms 3s --session $sid 2>&1 | Out-String)
-    $null = Snap 'e2_s5_add_menu.txt'
-    $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'e2_add_menu.png') 2>&1 | Out-String)
+    $null = Snap 'e3_s5_add_menu.txt'
+    $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'e3_add_menu.png') 2>&1 | Out-String)
     $null = (& $bsk press Escape --session $sid 2>&1 | Out-String)
     $null = (& $bsk wait-ms 1s --session $sid 2>&1 | Out-String)
 }
-Log 'phaseE2: done'
+Log 'phaseE3: done'
 $lines | Set-Content -LiteralPath $logPath -Encoding UTF8
 exit 0
