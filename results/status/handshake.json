@@ -1,9 +1,9 @@
 {
-    "round":  32,
-    "arena_state":  "awaiting_check",
-    "local_state":  "passed",
-    "arena_updated":  "2026-09-18 07:05:13",
-    "local_updated":  "2026-09-18 15:07:04",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "stage6 M2: re-borrow and monitor the arena agent for the PS block"
+  "round": 32,
+  "arena_state": "accepted",
+  "local_state": "passed",
+  "arena_updated": "2026-09-18 07:07:31",
+  "local_updated": "2026-09-18 15:07:04",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "hands-free: r32 monitor done"
 }
