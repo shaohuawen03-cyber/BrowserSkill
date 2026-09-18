@@ -1,9 +1,9 @@
 {
-  "round": 34,
-  "arena_state": "accepted",
-  "local_state": "passed",
-  "arena_updated": "2026-09-18 07:13:10",
-  "local_updated": "2026-09-18 15:13:00",
-  "host": "LAPTOP-R77M5D6M",
-  "note": "stage6 M2c: wait for the finished PS block"
+  "round": 35,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 07:14:16",
+  "local_updated": null,
+  "host": "",
+  "note": "stage6 M3: scroll-to-bottom monitor, capture the finished PS block text"
 }
