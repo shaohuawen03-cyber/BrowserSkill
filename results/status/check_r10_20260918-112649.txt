@@ -1,0 +1,44 @@
+check round 10 on LAPTOP-R77M5D6M - passed (exit 0)
+cmd: powershell -NoProfile -ExecutionPolicy Bypass -File code/local_check.ps1
+elapsed: 33s
+
+OK: all .ps1 files are ASCII-only
+OK: sync.config.json branch=arena/01a0b237-browserskill
+OK: sync.config.json branch matches HEAD (arena/01a0b237-browserskill)
+OK: root scripts identical to skills/git-sync/scripts
+OK: no drive-style variable typos ($var:)
+== exits in Invoke-PollRound: 6
+OK: every exit path sets its closing summary
+== exits in Invoke-PollOnce: 2 (lock held / crashed / normal)
+OK: loop closing lines covered (6 exit paths, all with their own summary)
+OK: every .ps1 parses
+   (gate ran via E:\hermes\git\bin\bash.exe [git])
+== accept 2a: silent push PROVEN (ls-remote + push --dry-run, prompts disabled)
+== auth: this clone is PINNED to gh account 'shaohuawen03-cyber' (other clones use the machine default)
+== accept 2b (fallback): one LONG-LIVED loop process - one brief flash per logon,
+   not per poll. For zero flash: admin PowerShell -> .\watch.ps1 -Unregister ;
+   .\watch.ps1 -Register -Headless   (or fix the launcher, see watch-*.log)
+== exits in Invoke-PollRound: 6
+OK: every exit path sets its closing summary
+== exits in Invoke-PollOnce: 2 (lock held / crashed / normal)
+OK: loop closing lines covered (6 exit paths, all with their own summary)
+== check_loop_summary PASSED
+== accept 2c: watcher closing lines verified (every exit path has its summary)
+== accept 2d: hands-free auto_pull/auto_push present in watch.ps1
+== success criteria: results/status/success_criteria.json
+   arena.ai browser-control task: evidence report + screenshots must exist on the LOCAL machine
+   OK   exists: deliverable/arena_chat_evidence.docx (90755 B)
+   OK   exists: deliverable/arena_chat_final_screenshot.png (58373 B)
+   OK   exists: deliverable/arena_agent_window_first_control.png (36175 B)
+   OK   size deliverable/arena_chat_evidence.docx: 90755 >= 50000
+   OK   size deliverable/arena_chat_final_screenshot.png: 58373 >= 40000
+   OK   size deliverable/arena_agent_window_first_control.png: 36175 >= 20000
+== agent task hook: running code\agent_task.ps1
+phaseD2: session yzjr
+phaseD2: opened menu @ (exit 3)
+phaseD2: button click did not flip the mode - keyboard fallback
+phaseD2: WARN mode still not Agent - state dumped
+phaseD2: no GitHub/repo UI visible yet in the snapshot
+phaseD2: done
+== agent task hook: ok
+== local checks passed
