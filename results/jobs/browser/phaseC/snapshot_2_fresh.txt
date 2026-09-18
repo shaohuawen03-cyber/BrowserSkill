@@ -1,0 +1,127 @@
+﻿@vom 1
+@view 1910x914
+@layers 2 focus=L1
+L1 modal cover=87%
+  @e1 button "Toggle Sidebar"
+  list
+    listitem
+      @e2 button
+  @e3 button
+  list
+    listitem
+      @e4 link "New Chat"
+    listitem
+      @e5 link "Leaderboard [has-submenu]"
+    listitem
+      @e6 link "Search"
+  StaticText "Today"
+  list
+    listitem
+      @e7 link "Hello! This message was sent by BrowserSkill browser automation (bsk CLI) as a connectivity test. Pl"
+      @e8 button "More options [has-submenu]"
+    listitem
+      @e9 link "Coding session 瀹夎[[https://github.com/shaohuawen03-cyber/new/tree/arena%2F01a0aeb9-new鐨刔(https://github.com/shaohua鈥?
+      @e10 button "More options [has-submenu]"
+    listitem
+      @e11 link "Coding session [spyder](base) PS E:\\0zhongqi&gt; ls E:\\0zhongqi\\闄勪欢 鐩綍: E:\\0zhongqi\\闄勪欢 Mode La鈥?
+      @e12 button "More options [has-submenu]"
+  StaticText "Yesterday"
+  list
+    listitem
+      @e13 link "Coding session ```markdown # 妫€鏌ュ皬缁勬垚鍛?缁勯暱锝滃紶鍏存檽锝滄暀鎺堬綔鐢熺墿宸ョ▼锝滅敓鍛界瀛﹀闄?缁勫憳锝滅▼浠曚紵锝滃壇鏁欐巿锝滅敓鐗╁伐绋嬶綔鐢熷懡绉戝瀛﹂櫌 缁勫憳锝滅墴钀嶏綔鍓暀鎺堬綔鐢熺墿鍒惰嵂锝滅敓鍛界瀛﹀闄?缁勫憳锝滄湵娲紵锝滃壇鏁欐巿锝溾€?
+      @e14 button "More options [has-submenu]"
+    listitem
+      @e15 link "Coding session ```markdown 瀹夎 https://arena.ai/agent/01a0aa00-2be7-7d55-a11d-2b5799e6a0b0 鐨?skills锛屼笌鏈満鎵撻€氥€?鎴戠殑鏈哄櫒鏄?W鈥?
+      @e16 button "More options [has-submenu]"
+    listitem
+      @e17 link "Pull request merged 瀹夎[https://arena.ai/agent/01a0a9f0-6097-7460-af9e-ead9486a0c0b](https://arena.ai/agent/01a0a9f0-6097鈥?
+      @e18 button "More options [has-submenu]"
+    listitem
+      @e19 link "Coding session 瀹夎 [https://github.com/mqgg5630-cyber/git-pull-arena](https://github.com/mqgg5630-cyber/git-pull-are鈥?
+      @e20 button "More options [has-submenu]"
+  StaticText "Older"
+  list
+    listitem
+      @e21 link "Coding session 瀹夎[https://arena.ai/agent/01a0a98d-500f-793e-b803-ed52929b5ece](https://arena.ai/agent/01a0a98d-500f鈥?
+      @e22 button "More options [has-submenu]"
+    listitem
+      @e23 link "Coding session ```markdown https://arena.ai/agent/01a0a95e-a95d-76f0-a1a9-c8abd9f4f9dc 宸茬粡璺戝畬 agent 渚ц兘鍋氱殑鍏ㄩ儴锛屽惊鐜仠鍦╘"绛変綘鐨勬満鈥?
+      @e24 button "More options [has-submenu]"
+    listitem
+      @e25 link "Coding session ```markdown 瀹夎 https://github.com/mqgg5630-cyber/git-pull-arena 鍒嗘敮 arena/01a0a821-git-pull-arena 鐨?s鈥?
+      @e26 button "More options [has-submenu]"
+    listitem
+      @e27 link "Coding session ```markdown 瀹夎 https://github.com/mqgg5630-cyber/git-pull-arena 鍒嗘敮 arena/01a0a821-git-pull-arena 鐨?s鈥?
+      @e28 button "More options [has-submenu]"
+    listitem
+      @e29 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+      @e30 button "More options [has-submenu]"
+    listitem
+      @e31 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?```"
+      @e32 button "More options [has-submenu]"
+    listitem
+      @e33 link "Coding session 鎴愬姛浜?鈥斺€?鑰屼笖浣犺繖涓€璺戞妸 v2.6.8 鏈€鍏抽敭鐨勬湭楠岃瘉椤圭粰鐩栨帀浜嗐€傚厛纭杩滅鐘舵€併€?鏈湴纭瀹屼簡銆傚厛鍥炵瓟浣犵殑涓や釜闂銆?## 鎴愬姛浜嗗悧 鈥斺€?鎴愬姛浜嗭紝鑰屼笖鐩栨帀浜嗘渶瑕佸懡鐨勪竴椤?浣犺繖涓€璺戞妸 *`鈥?
+      @e34 button "More options [has-submenu]"
+    listitem
+      @e35 link "鎻愬彇搴忓垪淇℃伅鍜屾鍏?
+      @e36 button "More options [has-submenu]"
+    listitem
+      @e37 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+      @e38 button "More options [has-submenu]"
+    listitem
+      @e39 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+      @e40 button "More options [has-submenu]"
+    listitem
+      @e41 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+      @e42 button "More options [has-submenu]"
+    listitem
+      @e43 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?```"
+      @e44 button "More options [has-submenu]"
+    listitem
+      @e45 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?```"
+      @e46 button "More options [has-submenu]"
+  list
+    @e47 button "mqgg5630@gmail.com"
+  group
+    @e48 link "Terms of Use"
+    @e49 link "Privacy Policy"
+    @e50 button "Cookies"
+  @e51 button "Hello! This message was sent by BrowserSkill browser automation (bsk CLI) as a connectivity test. Pl [has-submenu]"
+  list "鍔╂墜 A Connectivity confirmed, your test was successful. 鍔╂墜 B Hello, your connectivity test was received successfully. Hello! This message was sent by BrowserSkill browser automation (bsk CLI) as a connectivity test. Please reply with one sho"
+    region "鍔╂墜 A Connectivity confirmed, your test was successful. 鍔╂墜 B Hello, your connectivity test was received successfully."
+      group "鍔╂墜 A Connectivity confirmed, your test was successful."
+        StaticText "鍔╂墜 A"
+        @e52 button
+        @e53 button
+        @e54 button
+        paragraph "Connectivity confirmed, your test was successful."
+          StaticText "Connectivity confirmed, your test was successful."
+      group "鍔╂墜 B Hello, your connectivity test was received successfully."
+        StaticText "鍔╂墜 B"
+        @e55 button
+        @e56 button
+        @e57 button
+        paragraph "Hello, your connectivity test was received successfully."
+          StaticText "Hello, your connectivity test was received successfully."
+    paragraph "Hello! This message was sent by BrowserSkill browser automation (bsk CLI) as a connectivity test. Please reply with one short sentence."
+      StaticText "Hello! This message was sent by BrowserSkill browser automation (bsk CLI) as a connectivity test. Please reply with one short sentence."
+    @e58 button
+  @e59 button "A 鏇村ソ"
+  @e60 button "閮藉ソ"
+  @e61 button "閮戒笉濂?
+  @e62 button "B 鏇村ソ"
+  form "Inputs are processed by third-party AI and responses may be inaccurate."
+    @e63 textbox "Ask followup鈥? [empty] placeholder="Ask followup鈥?
+    @e64 button "Add files [has-submenu]"
+    @e65 combobox "Battle [has-submenu]" ="Battle"
+    @e66 button "Modality: Text [has-submenu]"
+    @e67 button
+    @e68 button "Send message" [disabled]
+    paragraph "Inputs are processed by third-party AI and responses may be inaccurate."
+      StaticText "Inputs are processed by third-party AI and responses may be inaccurate."
+  alert
+  group "grammarly-integration"
+    StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
+L2 page 鈥?occluded by L1 (~6 nodes, not actionable)
+@warning geometry incomplete: some page or frame content has no top-level coordinates.
+
