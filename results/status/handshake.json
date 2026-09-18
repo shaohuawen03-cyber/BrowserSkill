@@ -1,9 +1,9 @@
 {
-  "round": 28,
+  "round": 29,
   "arena_state": "awaiting_check",
   "local_state": "pending",
-  "arena_updated": "2026-09-18 06:57:45",
+  "arena_updated": "2026-09-18 06:57:53",
   "local_updated": null,
   "host": "",
-  "note": "verify r27 done"
+  "note": "stage6 H3 go: borrow, wake, clipboard-paste the round-1 prompt, send"
 }
