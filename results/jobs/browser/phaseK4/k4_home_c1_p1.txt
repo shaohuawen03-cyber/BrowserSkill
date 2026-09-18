@@ -1,40 +1,8 @@
 ﻿@vom 1
-@view 1043x907
+@view 1043x914
 @layers 1 focus=L1
 L1 page
   RootWebArea "Agent Mode | Autonomous AI Agents for Real-World Tasks"
-    region "Notifications alt+T"
-    @e1 button "Toggle Sidebar"
-    list
-      listitem
-        @e2 button
-    @e3 button
-    list
-      listitem
-        @e4 link "New Chat"
-      listitem
-        @e5 link "Leaderboard [has-submenu]"
-      listitem
-        @e6 link "Search"
-    list
-      @e7 button "mqgg5630@gmail.com"
-    group
-      @e8 link "Terms of Use"
-      @e9 link "Privacy Policy"
-      @e10 button "Cookies"
-    main "What would you like to do? Ask anything鈥?
-      @e11 button "Toggle workspace sidebar" [disabled]
-      heading "What would you like to do?"
-        StaticText "What would you like to do?"
-      @e12 button "閫夋嫨鏂囦欢"
-      @e13 textbox "Ask anything鈥? [empty]
-        paragraph "Ask anything鈥?
-          StaticText "Ask anything鈥?
-      @e14 button "Add files and connections [has-submenu]"
-      @e15 combobox "Agent [has-submenu]" ="Agent"
-      @e16 button
-      @e17 button "Send message" [disabled]
-      status "Loading GitHub repository controls"
     alert
     group "grammarly-integration"
       StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"

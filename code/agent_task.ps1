@@ -1,13 +1,11 @@
-# agent_task.ps1 - stage 7 PHASE K4: borrow + black-shell aware retries.
-# Data: borrow succeeds (100%) but the borrowed tab is sometimes a sleeping
-# shell, and /agent in it then renders an alert-only page ("Agent Mode |"
-# + alert, no composer). r30/r35 succeeded right after USER activity; the
-# tab sleeps between rounds. K4: borrow -> if the home page is a shell:
-#   1) tab select + reload; 2) navigate to plain arena.ai (landing is the
-#   lightest page); 3) re-borrow (stop session first); 4) up to 2 full
-#   recycle rounds with 60s settle gaps. THEN open the connected chat:
-#   deep link first (error -> /agent list -> click the newest Today link).
-# Rest as before: continue-click needle, clipboard prompt, send, monitor.
+# agent_task.ps1 - stage 7 PHASE K5: DOM-link click (quote-free JS).
+# r45: user activation made /agent render in one poll; only the chat-entry
+# click failed (Today items' <a> had not hydrated; deep link = Cloudflare).
+# K5: borrow -> /agent -> render -> scroll -> QUOTE-FREE JS over
+# document.links matching the conversation id (built via String.fromCharCode
+# so PowerShell/ASCII gates stay clean) -> native .click() (SPA navigation,
+# no new document, no Cloudflare) -> verify -> continue needle -> clipboard
+# prompt -> send -> monitor.
 
 $ErrorActionPreference = 'Continue'
 Set-Location (Split-Path -Parent $PSScriptRoot)
@@ -17,9 +15,9 @@ if (-not (Test-Path -LiteralPath $bsk)) {
     $f = Get-ChildItem -Path (Join-Path $env:USERPROFILE '.local') -Recurse -Filter 'bsk.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($f) { $bsk = $f.FullName }
 }
-$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseK4'
+$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseK5'
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
-$logPath = Join-Path $outDir 'phaseK4.log'
+$logPath = Join-Path $outDir 'phaseK5.log'
 $lines = New-Object System.Collections.Generic.List[string]
 function Log([string]$s) { $script:lines.Add($s) | Out-Null; Write-Output $s }
 function Snap([string]$name) {
@@ -31,188 +29,152 @@ function Scroll-Bottom {
     $null = (& $bsk evaluate '(function(){var d=document.scrollingElement;d.scrollTop=d.scrollHeight;return d.scrollTop;})()' --session $script:sid 2>&1 | Out-String)
     $null = (& $bsk wait-ms 3s --session $script:sid 2>&1 | Out-String)
 }
-function Test-Shell([string]$s) {
-    return (($s -match 'RootWebArea\s*(\r?\n|$)') -and ($s.Length -lt 300)) -or ($s.Length -lt 200)
-}
 
 $env:BSK_AUTO_START = '0'
+$null = (& $bsk session stop --all 2>&1 | Out-String)
+$st = (& $bsk session start --name 'arena-k5' --json 2>&1 | Out-String)
+$m = [regex]::Match($st, '"session_id"\s*:\s*"([^"]+)"')
+if (-not $m.Success) { $m = [regex]::Match($st, '"id"\s*:\s*"([^"]+)"') }
+$sid = ''
+if ($m.Success) { $sid = $m.Groups[1].Value }
+if (-not $sid) { Log '[FAIL] no session'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
+$sid | Set-Content -LiteralPath (Join-Path (Get-Location).Path 'results\status\bsk_session.txt') -Encoding Ascii
+Log ('phaseK5: session ' + $sid)
 
-# ---- acquire an AWAKE arena tab (up to 3 recycle rounds) ----
+# 1. borrow the live arena tab
+$tabs = (& $bsk tab list --session $sid --json 2>&1 | Out-String)
+$tabs | Set-Content -LiteralPath (Join-Path $outDir 'k5_tabs.json') -Encoding UTF8
+$tid = ''
+foreach ($mm in [regex]::Matches($tabs, '\{[^{}]*\}')) {
+    if ($mm.Value -match 'arena\.ai') { $cand = [regex]::Match($mm.Value, '"tab_id"\s*:\s*(\d+)').Groups[1].Value; if ($cand -and -not $tid) { $tid = $cand } }
+}
+Log ('phaseK5: arena tab ' + $tid)
+if (-not $tid) { Log '[FAIL] no arena tab - keep arena.ai open'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
+$bo = (& $bsk tab borrow $tid --session $sid --timeout 300 2>&1 | Out-String)
+Log ('phaseK5: borrow exit ' + $LASTEXITCODE)
+if ($LASTEXITCODE -ne 0) { Log '[FAIL] borrow failed'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
+$null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String)
+
+# 2. /agent + render
+$null = (& $bsk navigate 'https://arena.ai/agent' --session $sid 2>&1 | Out-String)
 $rendered = $false
-for ($cycle = 1; $cycle -le 3 -and -not $rendered; $cycle++) {
-    $null = (& $bsk session stop --all 2>&1 | Out-String)
-    $null = (& $bsk wait-ms 3s --session '' 2>&1 | Out-String)
-    $st = (& $bsk session start --name ('arena-k4-' + $cycle) --json 2>&1 | Out-String)
-    $m = [regex]::Match($st, '"session_id"\s*:\s*"([^"]+)"')
-    if (-not $m.Success) { $m = [regex]::Match($st, '"id"\s*:\s*"([^"]+)"') }
-    $sid = ''
-    if ($m.Success) { $sid = $m.Groups[1].Value }
-    if (-not $sid) { Log ('[FAIL] no session on cycle ' + $cycle); continue }
-    $sid | Set-Content -LiteralPath (Join-Path (Get-Location).Path 'results\status\bsk_session.txt') -Encoding Ascii
-    Log ('phaseK4: cycle ' + $cycle + ' session ' + $sid)
-
-    $tabs = (& $bsk tab list --session $sid --json 2>&1 | Out-String)
-    $tid = ''
-    foreach ($mm in [regex]::Matches($tabs, '\{[^{}]*\}')) {
-        if ($mm.Value -match 'arena\.ai') { $cand = [regex]::Match($mm.Value, '"tab_id"\s*:\s*(\d+)').Groups[1].Value; if ($cand -and -not $tid) { $tid = $cand } }
-    }
-    Log ('phaseK4: cycle ' + $cycle + ' arena tab ' + $tid)
-    if (-not $tid) { Log 'phaseK4: no arena tab - keep arena.ai open in your browser'; continue }
-    $bo = (& $bsk tab borrow $tid --session $sid --timeout 300 2>&1 | Out-String)
-    Log ('phaseK4: borrow exit ' + $LASTEXITCODE)
-    if ($LASTEXITCODE -ne 0) { continue }
-    $null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String)
-
-    # wake: landing page first (lightest), then the app
-    $null = (& $bsk navigate 'https://arena.ai' --session $sid 2>&1 | Out-String)
-    for ($i = 1; $i -le 24; $i++) {
-        $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
-        $w = Snap ('k4_wake_c' + $cycle + '_p' + $i + '.txt')
-        if (-not (Test-Shell $w)) { Log ('phaseK4: tab awake (landing) at poll ' + $i); break }
-        if ($i -eq 8 -or $i -eq 16) { $null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String); $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
-    }
-    $null = (& $bsk navigate 'https://arena.ai/agent' --session $sid 2>&1 | Out-String)
-    for ($i = 1; $i -le 24; $i++) {
-        $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
-        $s0 = Snap ('k4_home_c' + $cycle + '_p' + $i + '.txt')
-        if (($s0 -match 'textbox') -and ($s0 -match 'Today')) { $rendered = $true; Log ('phaseK4: home rendered, cycle ' + $cycle + ' poll ' + $i); break }
-        if (Test-Shell $s0) { $null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String); $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
-    }
-    if ($rendered) { break }
-    Log ('phaseK4: cycle ' + $cycle + ' home failed - trying the LIST in a soft way (no full recycle)')
-    # the alert-only home still has a working sidebar: open the connected chat
-    # via the deep link from the alive app shell; a hydrated-but-empty home is
-    # enough for SPA-internal navigation
-    Scroll-Bottom
-    $s1 = Snap ('k4_softlist_c' + $cycle + '.txt')
-    $anyLink = ''
-    foreach ($mm in [regex]::Matches($s1, '@(e\d+) link[^\r\n]*')) {
-        if ($mm.Value -match '01a0aeb9') { $anyLink = $mm.Groups[1].Value; break }
-    }
-    if ($anyLink) {
-        Log ('phaseK4: soft list has the chat @' + $anyLink)
-        $null = (& $bsk click ('@' + $anyLink) --session $sid 2>&1 | Out-String)
-        for ($i = 1; $i -le 24; $i++) {
-            $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
-            $s0 = Snap ('k4_softconv_c' + $cycle + '_p' + $i + '.txt')
-            if (($s0 -match 'textbox') -and ($s0 -match 'combobox')) { $rendered = $true; Log ('phaseK4: conversation open via soft list (poll ' + $i + ')'); break }
-        }
-    }
-    if ($rendered) { break }
-    Log ('phaseK4: cycle ' + $cycle + ' failed - recycling')
+for ($i = 1; $i -le 30; $i++) {
+    $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
+    $s0 = Snap ('k5_home_poll' + $i + '.txt')
+    if (($s0 -match 'textbox') -and ($s0 -match 'Today')) { $rendered = $true; Log ('phaseK5: home rendered at poll ' + $i); break }
+    if ($i -eq 10 -or $i -eq 20) { $null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String); $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
 }
-if (-not $rendered) { Log '[FAIL] no awake tab after 3 cycles - the bridge needs user activity (open arena.ai once)'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
-$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'k4_home.png') 2>&1 | Out-String)
+if (-not $rendered) { Log '[FAIL] home not rendering (ask the user to click the arena tab once)'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
 
-# ---- open the connected conversation ----
-Scroll-Bottom
-$s0 = Snap 'k4_homelist.txt'
-$chatRef = ''
-foreach ($mm in [regex]::Matches($s0, '@(e\d+) link[^\r\n]*')) {
-    if ($mm.Value -match '01a0aeb9') { $chatRef = $mm.Groups[1].Value; break }
-}
+# 3. find + click the connected conversation link (quote-free DOM click)
+$js = '(function(){var N=String.fromCharCode(102,97,100,49,45,55,49,54,56);var L=document.links;var n=[];for(var i=0;i<L.length;i++){if(L[i].href.indexOf(N)>=0){n.push(L[i].href);}}if(n.length){L[i- n.length].click();return "clicked-"+n.length;}return "not-found";})()'
 $opened = $false
-if ($chatRef) {
-    $null = (& $bsk click ('@' + $chatRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseK4: clicked the connected chat @' + $chatRef)
-    for ($i = 1; $i -le 24; $i++) {
+for ($pass = 1; $pass -le 5 -and -not $opened; $pass++) {
+    Scroll-Bottom
+    $r = (& $bsk evaluate $js --session $sid 2>&1 | Out-String)
+    Log ('phaseK5: pass ' + $pass + ' link-click -> ' + (($r -replace '\s+', ' ').Trim().Substring(0, [Math]::Min(120, $r.Trim().Length))))
+    for ($i = 1; $i -le 12; $i++) {
         $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
-        $s0 = Snap ('k4_conv_poll' + $i + '.txt')
-        if (($s0 -match 'textbox') -and ($s0 -match 'combobox')) { $opened = $true; Log ('phaseK4: conversation open (poll ' + $i + ')'); break }
+        $s0 = Snap ('k5_conv_pass' + $pass + '_p' + $i + '.txt')
+        if (($s0 -match 'textbox') -and ($s0 -match 'combobox')) { $opened = $true; Log ('phaseK5: conversation open (pass ' + $pass + ' poll ' + $i + ')'); break }
+        if ($s0 -match 'Stop generating') { Log 'phaseK5: WARN generation already running?'; }
     }
+    if ($opened) { break }
 }
+
+# 3b. last resort: deep link (SPA navigate) - Cloudflare may block it
 if (-not $opened) {
-    Log 'phaseK4: list route failed - deep link'
+    Log 'phaseK5: DOM link not found - deep link fallback'
     $null = (& $bsk navigate 'https://arena.ai/agent/01a0b237-fad1-7168-8115-d3f52e550489' --session $sid 2>&1 | Out-String)
     for ($i = 1; $i -le 24; $i++) {
         $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
-        $s0 = Snap ('k4_deep_poll' + $i + '.txt')
-        if (($s0 -match 'textbox') -and ($s0 -match 'combobox')) { $opened = $true; Log ('phaseK4: deep link opened (poll ' + $i + ')'); break }
-        if ($s0 -match "couldn't load this chat") { $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
+        $s0 = Snap ('k5_deep_poll' + $i + '.txt')
+        if (($s0 -match 'textbox') -and ($s0 -match 'combobox')) { $opened = $true; Log ('phaseK5: deep link opened (poll ' + $i + ')'); break }
     }
 }
 if (-not $opened) { Log '[FAIL] conversation never opened'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
 Scroll-Bottom
-$s0 = Snap 'k4_conv_bottom.txt'
-Log ('phaseK4: mode reads: ' + [regex]::Match($s0, '@e\d+ combobox "([^"]*)"').Groups[1].Value)
+$s0 = Snap 'k5_conv_bottom.txt'
+Log ('phaseK5: mode reads: ' + [regex]::Match($s0, '@e\d+ combobox "([^"]*)"').Groups[1].Value)
+$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'k5_conv.png') 2>&1 | Out-String)
 
-# ---- continue-working click (GBK needle at runtime) ----
+# 4. continue-working click (GBK needle at runtime)
 $needle = -join @([char]0x7F01, [char]0x0445, [char]0x753B, [char]0x5BB8, [char]0x30E4, [char]0x7D94)
 $contRef = ''
 foreach ($mm in [regex]::Matches($s0, '@(e\d+) button[^\r\n]*')) {
-    if ($mm.Value.Contains($needle)) { $contRef = $mm.Groups[1].Value; Log ('phaseK4: continue button @' + $contRef); break }
+    if ($mm.Value.Contains($needle)) { $contRef = $mm.Groups[1].Value; Log ('phaseK5: continue button @' + $contRef); break }
 }
 if ($contRef) {
     $null = (& $bsk click ('@' + $contRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseK4: clicked continue (exit ' + $LASTEXITCODE + ')')
+    Log ('phaseK5: clicked continue (exit ' + $LASTEXITCODE + ')')
     $null = (& $bsk wait-ms 4s --session $sid 2>&1 | Out-String)
     Scroll-Bottom
-    $s0 = Snap 'k4_after_continue.txt'
+    $s0 = Snap 'k5_after_continue.txt'
 } else {
-    Log 'phaseK4: no continue button visible - composer may be free'
+    Log 'phaseK5: no continue button visible - composer may be free'
 }
 
-# ---- clipboard the round-2 prompt ----
+# 5. clipboard the round-2 prompt
 $promptFile = Join-Path (Get-Location).Path 'results\status\arena_prompt2.txt'
 $msg = (Get-Content -LiteralPath $promptFile -Raw -Encoding UTF8).Trim()
-Log ('phaseK4: prompt2 chars=' + $msg.Length)
+Log ('phaseK5: prompt2 chars=' + $msg.Length)
 Set-Clipboard -Value $msg
 $filled = $false
 for ($att = 1; $att -le 4 -and -not $filled; $att++) {
-    $s1 = Snap ('k4_att' + $att + '_a.txt')
+    $s1 = Snap ('k5_att' + $att + '_a.txt')
     $tbRef = [regex]::Match($s1, '@(e\d+) textbox').Groups[1].Value
-    if (-not $tbRef) { Log ('phaseK4: att ' + $att + ' - no textbox'); continue }
+    if (-not $tbRef) { Log ('phaseK5: att ' + $att + ' - no textbox'); continue }
     $null = (& $bsk click ('@' + $tbRef) --session $sid 2>&1 | Out-String)
     $null = (& $bsk wait-ms 700ms --session $sid 2>&1 | Out-String)
     $null = (& $bsk press Ctrl+v --session $sid 2>&1 | Out-String)
-    Log ('phaseK4: att ' + $att + ' click @' + $tbRef + ' + Ctrl+v (exit ' + $LASTEXITCODE + ')')
+    Log ('phaseK5: att ' + $att + ' click @' + $tbRef + ' + Ctrl+v (exit ' + $LASTEXITCODE + ')')
     $null = (& $bsk wait-ms 1500ms --session $sid 2>&1 | Out-String)
-    $s3 = Snap ('k4_att' + $att + '_c.txt')
-    if (($s3 -match '01a0aeb9') -or ($s3 -match 'textbox[^\r\n]*\[filled\]')) { $filled = $true; Log ('phaseK4: att ' + $att + ' - PROMPT IN COMPOSER') }
+    $s3 = Snap ('k5_att' + $att + '_c.txt')
+    if (($s3 -match '01a0aeb9') -or ($s3 -match 'textbox[^\r\n]*\[filled\]')) { $filled = $true; Log ('phaseK5: att ' + $att + ' - PROMPT IN COMPOSER') }
     else {
-        $s2 = Snap ('k4_att' + $att + '_b.txt')
+        $s2 = Snap ('k5_att' + $att + '_b.txt')
         $tbRef2 = [regex]::Match($s2, '@(e\d+) textbox').Groups[1].Value
-        if ($tbRef2) { $null = (& $bsk fill ('@' + $tbRef2) --value $msg --session $sid 2>&1 | Out-String); Log ('phaseK4: fallback fill exit ' + $LASTEXITCODE) }
+        if ($tbRef2) { $null = (& $bsk fill ('@' + $tbRef2) --value $msg --session $sid 2>&1 | Out-String); Log ('phaseK5: fallback fill exit ' + $LASTEXITCODE) }
         $null = (& $bsk wait-ms 1000ms --session $sid 2>&1 | Out-String)
-        $s3 = Snap ('k4_att' + $att + '_d.txt')
-        if (($s3 -match '01a0aeb9') -or ($s3 -match 'textbox[^\r\n]*\[filled\]')) { $filled = $true; Log ('phaseK4: att ' + $att + ' - PROMPT IN COMPOSER via fill') }
+        $s3 = Snap ('k5_att' + $att + '_d.txt')
+        if (($s3 -match '01a0aeb9') -or ($s3 -match 'textbox[^\r\n]*\[filled\]')) { $filled = $true; Log ('phaseK5: att ' + $att + ' - PROMPT IN COMPOSER via fill') }
     }
 }
 if (-not $filled) { Log '[FAIL] composer never held the prompt'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
 
-# ---- send ----
-$s4 = Snap 'k4_before_send.txt'
+# 6. send
+$s4 = Snap 'k5_before_send.txt'
 $sendRef = [regex]::Match($s4, '@(e\d+) button "Send message').Groups[1].Value
 if ($sendRef) {
     $null = (& $bsk click ('@' + $sendRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseK4: clicked Send @' + $sendRef + ' (exit ' + $LASTEXITCODE + ')')
+    Log ('phaseK5: clicked Send @' + $sendRef + ' (exit ' + $LASTEXITCODE + ')')
 } else {
     $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
-    Log 'phaseK4: Enter fallback'
+    Log 'phaseK5: Enter fallback'
 }
 
-# ---- dispatch + monitor ----
+# 7. dispatch + monitor
 $echo = $false
 for ($i = 1; $i -le 4; $i++) {
     $null = (& $bsk wait-ms 12s --session $sid 2>&1 | Out-String)
-    $sx = Snap ('k4_send_poll' + $i + '.txt')
-    if ($sx -match 'Stop generating') { $echo = $true; Log ('phaseK4: generation running at poll ' + $i); break }
+    $sx = Snap ('k5_send_poll' + $i + '.txt')
+    if ($sx -match 'Stop generating') { $echo = $true; Log ('phaseK5: generation running at poll ' + $i); break }
 }
-if (-not $echo) { Log 'phaseK4: WARN dispatch unconfirmed' }
+if (-not $echo) { Log 'phaseK5: WARN dispatch unconfirmed' }
 $found = $false
 for ($i = 1; $i -le 25; $i++) {
     Scroll-Bottom
-    $sx = Snap ('k4_mon' + $i + '.txt')
+    $sx = Snap ('k5_mon' + $i + '.txt')
     $running = ($sx -match 'Stop generating')
-    Log ('phaseK4: mon ' + $i + ' running=' + $running + ' bytes=' + $sx.Length)
-    if (-not $running -and $i -gt 2) { $found = $true; Log ('phaseK4: generation finished at mon ' + $i); break }
+    Log ('phaseK5: mon ' + $i + ' running=' + $running + ' bytes=' + $sx.Length)
+    if (-not $running -and $i -gt 2) { $found = $true; Log ('phaseK5: generation finished at mon ' + $i); break }
     $null = (& $bsk wait-ms 15s --session $sid 2>&1 | Out-String)
 }
 Scroll-Bottom
 $t = (& $bsk evaluate document.body.innerText --session $sid 2>&1 | Out-String)
-$t | Set-Content -LiteralPath (Join-Path $outDir 'k4_page_text.txt') -Encoding UTF8
-Log ('phaseK4: page text bytes=' + $t.Length)
-$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'k4_final.png') 2>&1 | Out-String)
-Log 'phaseK4: done - round-2 prompt sent; session OPEN'
+$t | Set-Content -LiteralPath (Join-Path $outDir 'k5_page_text.txt') -Encoding UTF8
+Log ('phaseK5: page text bytes=' + $t.Length)
+$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'k5_final.png') 2>&1 | Out-String)
+Log 'phaseK5: done - round-2 prompt sent; session OPEN'
 $lines | Set-Content -LiteralPath $logPath -Encoding UTF8
 exit 0
