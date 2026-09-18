@@ -1,0 +1,95 @@
+﻿#38 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮€濮嬮噸杩?Error: Could not establish connection. Receiving end does not exist.
+#39 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#40 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#41 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#42 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#43 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#44 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#45 error exception chrome-extension://mjhlabbcmjflkpjknnicihkfnmbdfced/isolated.js:50:7508 Error: Could not establish connection. Receiving end does not exist.
+#46 error log about:blank Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#47 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#48 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#49 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#50 error log https://arena.ai/:21 Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#51 error log https://arena.ai/:21 Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#52 error log https://www.googletagmanager.com/gtag/js?id=G-L5C4D55WJJ Failed to load resource: net::ERR_CONNECTION_CLOSED
+#53 error log https://arena.ai/:23 Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#54 error log https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495 Failed to load resource: net::ERR_CONNECTION_CLOSED
+#55 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#56 error log chrome-extension://invalid/ Failed to load resource: net::ERR_FAILED
+#57 error exception chrome-extension://mjhlabbcmjflkpjknnicihkfnmbdfced/isolated.js:50:7508 Error: Could not establish connection. Receiving end does not exist.
+#58 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#59 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#60 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#61 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮€濮嬮噸杩?Error: Could not establish connection. Receiving end does not exist.
+#62 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮€濮嬮噸杩?Error: Could not establish connection. Receiving end does not exist.
+#63 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#64 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#65 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#66 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#67 error exception chrome-extension://mjhlabbcmjflkpjknnicihkfnmbdfced/isolated.js:50:7508 Error: Could not establish connection. Receiving end does not exist.
+#68 error log about:blank Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#69 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 閫氶亾涓嶅彲鐢紝璇锋墜鍔ㄥ埛鏂伴〉闈㈤噸璇?Error: Could not establish connection. Receiving end does not exist.
+#70 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 閫氶亾涓嶅彲鐢紝璇锋墜鍔ㄥ埛鏂伴〉闈㈤噸璇?Error: Could not establish connection. Receiving end does not exist.
+#71 error exception chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:20369 Error: Could not establish connection. Receiving end does not exist.
+#72 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#73 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#74 error log about:blank Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#75 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮€濮嬮噸杩?Error: Could not establish connection. Receiving end does not exist.
+#76 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮€濮嬮噸杩?Error: Could not establish connection. Receiving end does not exist.
+#77 error log about:blank Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#78 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮€濮嬮噸杩?ue: Could not establish connection. Receiving end does not exist.
+    at jV (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:22838)
+    at P8.sendViaBridge (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:25316)
+    at async P8.sendWithRouting (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:24569)
+    at async Object.sendMessage (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:23930)
+    at async I8.sendWithHealth (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:16711)
+    at async hCe (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:22285)
+    at async Se (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:20313)
+    at async qH (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5247:61654)
+    at async WH (chrome-extension://amkbmndfnliijdhojkp
+#79 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 閫氶亾涓嶅彲鐢紝璇锋墜鍔ㄥ埛鏂伴〉闈㈤噸璇?ue: Could not establish connection. Receiving end does not exist.
+    at jV (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:22838)
+    at P8.sendViaBridge (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:25316)
+    at async P8.sendWithRouting (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:24569)
+    at async Object.sendMessage (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:23930)
+    at async I8.sendWithHealth (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:16870)
+    at async hCe (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:22285)
+    at async Se (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:20313)
+    at async qH (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5247:61654)
+    at async WH (chrome-extension://amkbmndfnliij
+#80 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮€濮嬮噸杩?ue: Could not establish connection. Receiving end does not exist.
+    at jV (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:22838)
+    at P8.sendViaBridge (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:25316)
+    at async P8.sendWithRouting (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:24569)
+    at async Object.sendMessage (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:23930)
+    at async I8.sendWithHealth (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:16711)
+    at async hCe (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:22285)
+    at async Se (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:20313)
+    at async xt (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5219:28047)
+    at async jZe (chrome-extension://amkbmndfnliijdhojk
+#81 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮€濮嬮噸杩?ue: Could not establish connection. Receiving end does not exist.
+    at jV (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:22838)
+    at P8.sendViaBridge (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:25316)
+    at async P8.sendWithRouting (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:24569)
+    at async Object.sendMessage (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:23930)
+    at async I8.sendWithHealth (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:16711)
+    at async hCe (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:22285)
+    at async Se (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:20313)
+    at async xt (chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5219:28047)
+    at async RZe (chrome-extension://amkbmndfnliijdhojk
+#82 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#83 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#84 info console https://arena.ai/_next/static/chunks/2862-e368406882653840.js?dpl=dpl_5vShZo3ABtV7X2Hyi4Qtdk9rtCN2:1:13621 Visit ID: 01a0b209-9649-7519-ace1-202a94315a14
+#85 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#86 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+#87 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+bsk.exe : warning: console output truncated (next_since=87). Use --since / --limit / --max-text-chars to request a diff
+erent slice.
+所在位置 E:\0github\git-sync\BrowserSkill-01a0b237\code\agent_task.ps1:80 字符: 15
++     $cons2 = (& $bsk console --session $sid 2>&1 | Out-String)
++               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (warning: consol...ifferent slice.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+

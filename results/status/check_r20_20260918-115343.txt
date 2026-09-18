@@ -1,0 +1,139 @@
+check round 20 on LAPTOP-R77M5D6M - passed (exit 0)
+cmd: powershell -NoProfile -ExecutionPolicy Bypass -File code/local_check.ps1
+elapsed: 29s
+
+OK: all .ps1 files are ASCII-only
+OK: sync.config.json branch=arena/01a0b237-browserskill
+OK: sync.config.json branch matches HEAD (arena/01a0b237-browserskill)
+OK: root scripts identical to skills/git-sync/scripts
+OK: no drive-style variable typos ($var:)
+== exits in Invoke-PollRound: 6
+OK: every exit path sets its closing summary
+== exits in Invoke-PollOnce: 2 (lock held / crashed / normal)
+OK: loop closing lines covered (6 exit paths, all with their own summary)
+OK: every .ps1 parses
+   (gate ran via E:\hermes\git\bin\bash.exe [git])
+== accept 2a: silent push PROVEN (ls-remote + push --dry-run, prompts disabled)
+== auth: this clone is PINNED to gh account 'shaohuawen03-cyber' (other clones use the machine default)
+== accept 2b (fallback): one LONG-LIVED loop process - one brief flash per logon,
+   not per poll. For zero flash: admin PowerShell -> .\watch.ps1 -Unregister ;
+   .\watch.ps1 -Register -Headless   (or fix the launcher, see watch-*.log)
+== exits in Invoke-PollRound: 6
+OK: every exit path sets its closing summary
+== exits in Invoke-PollOnce: 2 (lock held / crashed / normal)
+OK: loop closing lines covered (6 exit paths, all with their own summary)
+== check_loop_summary PASSED
+== accept 2c: watcher closing lines verified (every exit path has its summary)
+== accept 2d: hands-free auto_pull/auto_push present in watch.ps1
+== success criteria: results/status/success_criteria.json
+   arena.ai browser-control task: evidence report + screenshots must exist on the LOCAL machine
+   OK   exists: deliverable/arena_chat_evidence.docx (90755 B)
+   OK   exists: deliverable/arena_chat_final_screenshot.png (58373 B)
+   OK   exists: deliverable/arena_agent_window_first_control.png (36175 B)
+   OK   size deliverable/arena_chat_evidence.docx: 90755 >= 50000
+   OK   size deliverable/arena_chat_final_screenshot.png: 58373 >= 40000
+   OK   size deliverable/arena_agent_window_first_control.png: 36175 >= 20000
+== agent task hook: running code\agent_task.ps1
+phaseF5: session ggpt
+phaseF5: console bytes=6567
+phaseF5: CONSOLE #1 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #2 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #3 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #4 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #5 error log https://www.googletagmanager.com/gtag/js?id=G-L5C4D55WJJ Failed to load resource: net::ERR_CONNECTION_CLOSED
+phaseF5: CONSOLE #6 error log https://arena.ai/:22 Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #7 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #8 error log https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495 Failed to load resource: net::ERR_CONN
+phaseF5: CONSOLE #9 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #10 error log chrome-extension://invalid/ Failed to load resource: net::ERR_FAILED
+phaseF5: CONSOLE #11 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #12 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #13 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #14 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮
+phaseF5: CONSOLE #15 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮
+phaseF5: CONSOLE #16 error exception chrome-extension://mjhlabbcmjflkpjknnicihkfnmbdfced/isolated.js:50:7508 Error: Could not establish connection. Receiving end does 
+phaseF5: CONSOLE #17 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #18 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #19 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #20 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #21 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #22 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #23 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #24 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #25 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #26 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #27 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 閫氶亾涓嶅彲鐢紝
+phaseF5: CONSOLE #28 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 閫氶亾涓嶅彲鐢紝
+phaseF5: CONSOLE #29 error exception chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:20369 Error: Could not establish connection. Receiving en
+phaseF5: CONSOLE #30 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #31 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #32 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #33 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #34 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #35 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #36 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #37 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮
+phaseF5: CONSOLE #38 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮
+phaseF5: CONSOLE #39 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #40 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #41 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #42 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #43 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #44 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #45 error exception chrome-extension://mjhlabbcmjflkpjknnicihkfnmbdfced/isolated.js:50:7508 Error: Could not establish connection. Receiving end does 
+phaseF5: CONSOLE #46 error log about:blank Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: CONSOLE #47 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: clear stores -> bsk.exe : error: unexpected argument 'cleared' found 所在位置 E:\0github\git-sync\Br
+phaseF5: sw registrations after clear -> 0
+phaseF5: still dead - console-after bytes=11578
+phaseF5: AFTER #38 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮
+phaseF5: AFTER #39 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #40 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #41 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #42 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #43 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #44 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #45 error exception chrome-extension://mjhlabbcmjflkpjknnicihkfnmbdfced/isolated.js:50:7508 Error: Could not establish connection. Receiving end does 
+phaseF5: AFTER #46 error log about:blank Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #47 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #48 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #49 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #50 error log https://arena.ai/:21 Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #51 error log https://arena.ai/:21 Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #52 error log https://www.googletagmanager.com/gtag/js?id=G-L5C4D55WJJ Failed to load resource: net::ERR_CONNECTION_CLOSED
+phaseF5: AFTER #53 error log https://arena.ai/:23 Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #54 error log https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495 Failed to load resource: net::ERR_CON
+phaseF5: AFTER #55 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #56 error log chrome-extension://invalid/ Failed to load resource: net::ERR_FAILED
+phaseF5: AFTER #57 error exception chrome-extension://mjhlabbcmjflkpjknnicihkfnmbdfced/isolated.js:50:7508 Error: Could not establish connection. Receiving end does 
+phaseF5: AFTER #58 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #59 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #60 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #61 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮
+phaseF5: AFTER #62 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮
+phaseF5: AFTER #63 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #64 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #65 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #66 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #67 error exception chrome-extension://mjhlabbcmjflkpjknnicihkfnmbdfced/isolated.js:50:7508 Error: Could not establish connection. Receiving end does 
+phaseF5: AFTER #68 error log about:blank Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #69 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 閫氶亾涓嶅彲鐢紝
+phaseF5: AFTER #70 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 閫氶亾涓嶅彲鐢紝
+phaseF5: AFTER #71 error exception chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5258:20369 Error: Could not establish connection. Receiving en
+phaseF5: AFTER #72 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #73 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #74 error log about:blank Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #75 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮
+phaseF5: AFTER #76 warning console chrome-extension://amkbmndfnliijdhojkpoglbnaaahippg/content_main.js:5215:1852 Immersive Translate WARN: [message-health] 鍙戦€佸け璐ワ紝寮
+phaseF5: AFTER #77 error log about:blank Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #82 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #83 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #85 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #86 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER #87 error log https://arena.ai/ Unchecked runtime.lastError: Could not establish connection. Receiving end does not exist.
+phaseF5: AFTER + CategoryInfo          : NotSpecified: (warning: consol...ifferent slice.:String) [], RemoteException
+phaseF5: AFTER + FullyQualifiedErrorId : NativeCommandError
+phaseF5: RESULT rendered=False
+phaseF5: done
+== agent task hook: ok
+== local checks passed

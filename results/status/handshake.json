@@ -1,9 +1,9 @@
 {
-  "round": 20,
-  "arena_state": "awaiting_check",
-  "local_state": "pending",
-  "arena_updated": "2026-09-18 03:52:40",
-  "local_updated": null,
-  "host": "",
-  "note": "stage4 F5: read console errors, clear site data, reload, poll"
+    "round":  20,
+    "arena_state":  "awaiting_check",
+    "local_state":  "passed",
+    "arena_updated":  "2026-09-18 03:52:40",
+    "local_updated":  "2026-09-18 11:54:12",
+    "host":  "LAPTOP-R77M5D6M",
+    "note":  "stage4 F5: read console errors, clear site data, reload, poll"
 }
