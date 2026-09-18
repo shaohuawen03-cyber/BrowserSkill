@@ -1,9 +1,9 @@
 {
   "round": 52,
-  "arena_state": "awaiting_check",
+  "arena_state": "accepted",
   "local_state": "pending",
-  "arena_updated": "2026-09-18 11:12:19",
+  "arena_updated": "2026-09-18 11:52:55",
   "local_updated": null,
   "host": "",
-  "note": "r52: census+cleanup stray PowerShell windows (kill only ours), then arena 3-round dispatch - USER CLICKS THE ARENA TAB when convenient (12min window)"
+  "note": "r52 CANCELLED by user - bridge loop stopped, no further requests will be sent"
 }
