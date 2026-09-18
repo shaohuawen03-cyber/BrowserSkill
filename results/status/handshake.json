@@ -1,9 +1,9 @@
 {
-    "round":  24,
-    "arena_state":  "awaiting_check",
-    "local_state":  "failed",
-    "arena_updated":  "2026-09-18 06:45:56",
-    "local_updated":  "2026-09-18 14:46:50",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "stage6 I: direct /agent run - defaults + send round-1 prompt (connect local + copyable PS block)"
+  "round": 25,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 06:47:51",
+  "local_updated": null,
+  "host": "",
+  "note": "verify r24 done"
 }
