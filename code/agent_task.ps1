@@ -162,13 +162,13 @@ for ($i = 1; $i -le 4; $i++) {
 }
 if (-not $echo) { Log 'phaseK5: WARN dispatch unconfirmed' }
 $found = $false
-for ($i = 1; $i -le 25; $i++) {
+for ($i = 1; $i -le 40; $i++) {
     Scroll-Bottom
     $sx = Snap ('k5_mon' + $i + '.txt')
-    $running = ($sx -match 'Stop generating')
+    $running = ($sx -match 'Stop generating') -or ($sx -match 'orchestrating') -or ($sx -match 'Running tools|using tool|Read |Bash ')
     Log ('phaseK5: mon ' + $i + ' running=' + $running + ' bytes=' + $sx.Length)
-    if (-not $running -and $i -gt 2) { $found = $true; Log ('phaseK5: generation finished at mon ' + $i); break }
-    $null = (& $bsk wait-ms 15s --session $sid 2>&1 | Out-String)
+    if (-not $running -and $i -gt 3) { $found = $true; Log ('phaseK5: agent appears finished at mon ' + $i); break }
+    $null = (& $bsk wait-ms 20s --session $sid 2>&1 | Out-String)
 }
 Scroll-Bottom
 $t = (& $bsk evaluate document.body.innerText --session $sid 2>&1 | Out-String)
