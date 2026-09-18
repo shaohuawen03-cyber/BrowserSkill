@@ -29,42 +29,6 @@ Let me look at the repo.
 used
 Bash
 146ms
-COMMAND
-$ cd /home/user/BrowserSkill && ls -la && git log --oneline -5 && git status
-STDOUT
-total 546
-drwxr-xr-x 11 user user   4096 Sep 18 07:02 .
-drwx------  3 user user    128 Sep 18 07:02 ..
--rw-r--r--  1 user user    244 Sep 18 07:02 .editorconfig
-drwxr-xr-x  8 user user   4096 Sep 18 07:02 .git
-drwxr-xr-x  3 user user     60 Sep 18 07:02 .github
--rw-r--r--  1 user user    283 Sep 18 07:02 .gitignore
--rw-r--r--  1 user user    250 Sep 18 07:02 .stylelintignore
--rw-r--r--  1 user user    526 Sep 18 07:02 .stylelintrc.json
--rw-r--r--  1 user user   6744 Sep 18 07:02 AGENT_INSTALL.md
--rw-r--r--  1 user user   6014 Sep 18 07:02 CHANGELOG.md
--rw-r--r--  1 user user  73049 Sep 18 07:02 Cargo.lock
--rw-r--r--  1 user user   1401 Sep 18 07:02 Cargo.toml
--rw-r--r--  1 user user   1064 Sep 18 07:02 LICENSE
--rw-r--r--  1 user user  18083 Sep 18 07:02 README.md
--rw-r--r--  1 user user  17335 Sep 18 07:02 README.zh-CN.md
-drwxr-xr-x  3 user user     60 Sep 18 07:02 apps
--rw-r--r--  1 user user   1229 Sep 18 07:02 biome.json
--rw-r--r--  1 user user     36 Sep 18 07:02 clippy.toml
-drwxr-xr-x  4 user user     60 Sep 18 07:02 crates
-drwxr-xr-x  3 user user   4096 Sep 18 07:02 docs
-drwxr-xr-x  3 user user     60 Sep 18 07:02 evals
--rw-r--r--  1 user user  11197 Sep 18 07:02 install.ps1
--rwxr-xr-x  1 user user   6059 Sep 18 07:02 install.sh
--rw-r--r--  1 user user   1091 Sep 18 07:02 package.json
-drwxr-xr-x  6 user user    128 Sep 18 07:02 packages
--rw-r--r--  1 user user 355166 Sep 18 07:02 pnpm-lock.yaml
--rw-r--r--  1 user user     88 Sep 18 07:02 pnpm-workspace.yaml
--rw-r--r--  1 user user     66 Sep 18 07:02 rust-toolchain.toml
--rw-r--r--  1 user user     33 Sep 18 07:02 rustfmt.toml
-drwxr-xr-x  2 user user   4096 Sep 18 07:02 scripts
-drwxr-xr-x  2 user user     60 Sep 18 07:02 skill
-
 Fetched https://github.com/shaohuawen03-cyber/new/tree/arena%2F01a0aeb9-new
 
 Thought for 4 seconds
@@ -79,11 +43,6 @@ Read https://routify-file-proxy-sg.oss-ap-southeast-1.aliyuncs.com/proxy_temp_fi
 used
 Bash
 830ms
-COMMAND
-$ cd /tmp && rm -rf newrepo && git clone --depth 50 --branch arena/01a0aeb9-new https://github.com/shaohuawen03-cyber/new.git newrepo 2>&1 | tail -5; find /tmp/newrepo -type f | head -100
-STDOUT
-Cloning into 'newrepo'...
-
 
 Thought for 2 seconds
 
@@ -91,21 +50,6 @@ The clone worked. Let me read the key files: skills/git-sync/SKILL.md, README.md
 
 Ran commands
 2
-used
-Bash
-158ms
-COMMAND
-$ cd /home/user/BrowserSkill && cat code/check_all.sh
-used
-Bash
-134ms
-COMMAND
-$ cd /home/user/BrowserSkill && echo "== non-ascii ps1 files in repo ==" && for f in $(git ls-files '*.ps1'; git ls-files -o --exclude-standard '*.ps1'); do if LC_ALL=C grep -qP '[\x80-\xFF]' "$f" 2>/dev/null; then echo "NON-ASCII: $f"; fi; done; echo "== the offending lines =="; LC_ALL=C grep -nP '[\x80-\xFF]' scripts/install-windows.test.ps1 | head -20; echo "== git diff stat install.ps1 =="; git diff --stat install.ps1
-STDOUT
-== non-ascii ps1 files in repo ==
-NON-ASCII: scripts/install-windows.test.ps1
-== the offending lines ==
-
 
 Thought for 5 seconds
 
@@ -192,12 +136,6 @@ Let me proceed with install.
 used
 Bash
 331ms
-COMMAND
-$ cd /home/user/BrowserSkill && python3 -V 2>&1; ls -a /tmp/newrepo | grep -i gitattr || echo "(no .gitattributes in source)"; bash /tmp/newrepo/skills/git-sync/scripts/agent-install.sh --branch arena/01a0b352-browserskill --source /tmp/newrepo 2>&1 | tail -40
-STDOUT
-Python 3.11.2
-(no .gitattributes in source)
-
 
 Thought for 1 second
 
@@ -213,45 +151,6 @@ Let me check the gate first.
 used
 Bash
 325ms
-COMMAND
-$ cd /home/user/BrowserSkill && cat skills/git-sync/sync.config.json | head -8 && echo "== git status ==" && git status --short | head -40 && echo "== GATE ==" && bash code/check_all.sh 2>&1 | tail -40
-STDOUT
-{
-  "branch": "arena/01a0b352-browserskill",
-  "remote": "origin",
-  "download_dir": "",
-  "download_sets": {
-    "final": [
-      "deliverable"
-    ]
-== git status ==
- M install.ps1
-?? 01a0a821.md
-?? auth.ps1
-?? bootstrap.ps1
-?? code/
-?? doctor.ps1
-?? download.ps1
-?? hardware.ps1
-?? pack.ps1
-?? pr.ps1
-?? push.ps1
-?? skills/
-?? sync.ps1
-?? upload.ps1
-?? watch.ps1
-== GATE ==
-[FAIL] non-ASCII bytes in ./scripts/install-windows.test.ps1  (keep .ps1 ASCII-only; put Chinese in .md/.json)
-OK: sync.config.json branch=arena/01a0b352-browserskill
-OK: sync.config.json branch matches HEAD (arena/01a0b352-browserskill)
-OK: root scripts identical to skills/git-sync/scripts
-OK: no drive-style variable typos ($var:)
-== exits in Invoke-PollRound: 6
-OK: every exit path sets its closing summary
-== exits in Invoke-PollOnce: 2 (lock held / crashed / normal)
-OK: loop closing lines covered (6 exit paths, all with their own summary)
-SKIP: no PowerShell on PATH - .ps1 syntax not parse-checked here
-
 
 Thought for 9 seconds
 
@@ -353,40 +252,815 @@ Let me also double check: does the Arena bot token have push rights to mqgg5630-
 
 Let me start with steps 1-2 and inspect templates.
 
-Running commands
+Ran commands
 2
+
+Thought for 38 seconds
+
+Good: only PNG binaries contain CR bytes (false positives from my crude grep 鈥?they're binary). So no text files with CRLF. A .gitattributes with *.sh text eol=lf and *.ps1 text eol=lf would be safe-ish. But adding .gitattributes to a repo that has none affects the whole repo... *.sh and *.ps1 patterns only. Let's consider: the repo has existing .ps1 files under scripts/ 鈥?are they LF? Yes (no CRLF found). Setting eol=lf for them changes nothing on checkout in Linux, and on Windows it forces LF instead of CRLF 鈥?PowerShell handles LF fine. So it's safe and beneficial (prevents autocrlf=true from mangling .sh files that bash must run).
+
+Hmm, but wait: if the user's git has core.autocrlf=true and the .ps1 files are checked out with LF, is there any risk? PowerShell 5.1 parses LF-only files fine. Yes, fine.
+
+Actually, let me reconsider whether to add .gitattributes at all. Risk: it's an extra repo-wide change the user didn't ask for. Benefit: prevents a well-documented failure mode (bash gate failing on CRLF on Windows; also root-vs-skill cmp mismatch). The skill's own README (v2.8.1) says they added .gitattributes to unify LF to fix CRLF false failures 鈥?but the source branch doesn't ship one. I'll add a narrow one covering only the git-sync-relevant file types, with a comment. That's defensible and low-risk.
+
+Actually let me be careful about *.ps1 text eol=lf + Windows: The install-windows.test.ps1 has a UTF-8 BOM. Adding text attribute means git will normalize line endings but BOM is preserved (it's just bytes at start; text normalization only touches CRLF). Hmm, actually marking a file with a BOM as text is fine.*
+
+Wait, one more important thing: git's text attribute on a binary-ish file could corrupt it. I'll only apply to *.sh, *.ps1, *.py, *.json, .md patterns. PNGs aren't matched. Fine.
+
+Actually 鈥?simpler and safer: scope the .gitattributes to what the sync bridge needs:
+
+And leave everything else untouched (no * text=auto), so no renormalization of the rest of the repo.*
+
+Now, the two gate patches. Let me write them carefully:
+
+Patch 1 (ASCII rule): add an allowlist of repo-owned files that intentionally contain non-ASCII:
+
+and in the loop, skip files in the allowlist (printing a NOTE line).
+
+Patch 2 (root vs skill): exclude install from the root-copy list in this repo because root install.ps1 belongs to BrowserSkill (the bsk CLI installer); the skill's copy stays at skills/git-sync/scripts/install.ps1 and is invoked by full path. Also add a check that the skill copy exists.
+
+Let me implement with a ROOT_SKIP list and print a NOTE so it's transparent.
+
+Also: agent-install.sh's step 4 copies the skill's install.ps1 to root 鈥?already reverted by git checkout. But if the installer is re-run later (upgrade), it would clobber it again. I should note that in the repo docs (e.g., in skills/git-sync/LOCAL_NOTES.md or in the receipt). I'll create a short note file: skills/git-sync/REPO_NOTES.md documenting the two collisions + the fix + "after any re-run of agent-install.sh, restore with git checkout -- install.ps1". Good.
+
+Hmm, also consider: could I avoid the collision entirely by not installing root .ps1 files? No 鈥?the user-side needs them at root (.\sync.ps1 etc.). Only install.ps1 collides.
+
+Let me now write the patches.
+
+Also need results/status/success_criteria.json 鈥?for round 1 ("鎵撻€?), the criteria should verify the connection artifacts exist. Actually the criteria are evaluated by agent-criteria.sh in the sandbox (files in the repo) and also local_check.ps1 may run them. For "鎵撻€?, meaningful criteria: skills/git-sync/VERSION contains 2.9.2, root scripts exist, sync.config.json branch matches. Hmm, criteria are file/substring based on repo content 鈥?that only proves the agent's commit, not the local connection. The real proof of 鎵撻€?is the local watcher pushing a check result back (results/status/check_r1_*.txt + handshake). That comes from agent-check/agent-wait, not criteria.*_
+
+I think for this round: after pushing, I should NOT run agent-handsfree/agent-check yet? Let's think about what "鎵撻€氬畬鎴? means: the user runs the PowerShell block, the watcher registers, and the loop closes. The skill's protocol says: agent installs 鈫?replies with the block 鈫?(if there's a task) does the task and runs agent-handsfree. The user said: "鎵撻€氬畬鎴愬墠涓嶈寮€濮嬪叾浠栦换鍔? 鈥?do nothing else before the connection is done.
+
+The best practice per the skill: after the user runs the block locally, I can request a check (agent-check.sh --request) and wait for the local watcher to push results back. That's the acceptance test of 鎵撻€? But the user needs to run the commands first 鈥?I can't wait indefinitely in one turn.
+
+Option: Set up a success_criteria.json for round 1 that captures "鎵撻€? acceptance (e.g., requires results/status/check_r1_*.txt to exist with passed), then tell the user: run the block, and I'll then run agent-wait.sh --request ... --timeout auto in the next turn (or start waiting now?).*_
+
+Hmm. Actually, a neat approach: push the install commit, then request a check via agent-check.sh --request "...". The local watcher (once the user registers it) will pick it up, run local_check.ps1, and push the verdict back. Then in a later turn I read it. But if I request a check before the user has cloned, the request just sits in pending until the watcher is registered 鈥?which is actually fine and even convenient: as soon as the user runs bootstrap.ps1 -Auto, the watcher polls, sees awaiting_check, runs the check, and pushes back. That makes the loop close without another manual step.
+
+But careful: agent-check.sh --request writes handshake and pushes. Then the user clones the branch AFTER that push (they need the pushed state to get bootstrap.ps1 anyway). Order: install commit push 鈫?user clones 鈫?user runs bootstrap -Auto (registers watcher) 鈫?watcher sees awaiting_check 鈫?runs local_check 鈫?pushes verdict 鈫?I read it.
+
+Should I issue the --request in this same turn, before the user has even cloned? Risk: the request timestamp ages; agent-check.sh --read reports "pending for N minutes" and suggests re-sending. That's OK. Alternatively I wait for the user to say "done" and then request. Given the user explicitly said "鎵撻€氬畬鎴愬墠涓嶈寮€濮嬪叾浠栦换鍔? 鈥?they'll report back. I think a cleaner flow:
+
+Push the skill install commit now.
+Output the PowerShell block.
+Tell the user: after you run it, reply "濂戒簡" (or the watcher output), and I'll then request a verification round to prove the loop closes end-to-end.
+
+Hmm, but actually issuing the check request immediately makes the handshake self-proving with zero extra user steps. Let me consider the downside: if the user's local_check fails for environmental reasons, they'd see it. That's the point of the loop.
+
+I think I'll do both: push the install, then also request a check ("round 1: 鎵撻€氶獙鏀?) so the watcher validates it as soon as it's registered. Then tell the user what to expect and that I'll read the result when they confirm. Actually, wait: agent-check.sh --request might bump round and write handshake. Let me read agent-check.sh quickly to see what it does, and agent-sync.sh to know its behavior.
+
+Actually 鈥?there's a subtlety: the watcher's hands-free mode does auto_pull + auto_push every round. Once registered, the user's machine will auto-push any local changes. Fine.
+
+Another subtlety: If I request a check NOW and the user clones later, the clone includes the handshake in awaiting_check state 鈫?watcher immediately runs the check on first poll 鈫?pushes verdict 鈫?I can read it in the next turn. That's the smoothest "鎵撻€? proof. I'll do that.
+
+Let me first read agent-check.sh + agent-sync.sh briefly to use them correctly.
+
+Let me also check whether there's a .github/workflows gate in this repo already 鈥?.github/ exists. Let me look (it might have CI that could break due to new files, e.g. biome/stylelint on .ps1? unlikely). Let me check .github contents to be safe, and whether adding files at root could break their CI (e.g., a lint job checking file layout). Not critical but let's peek.
+
+Let me do these reads in parallel.
+
+Ran commands
+2
+
+Thought for 24 seconds
+
+CI runs only on PRs and pushes to main 鈥?my push to the arena branch won't trigger CI. Good.
+
+Now let me patch code/check_all.sh for the two repo-specific collisions, add .gitattributes, add a repo notes file, and a results/status/success_criteria.json for round 1.
+
+Let me write the gate patch precisely.
+
+Current section 1:
+
+New:
+
+Section 3:
+
+New: keep list but skip install with a NOTE and verify the skill copy exists:
+
+Hmm, simplify: just continue after printing NOTE.
+
+Also the PowerShell parse check (#4) parses all .ps1 including BrowserSkill's install.ps1 and scripts/*.ps1 鈥?those should parse fine (they're valid PowerShell). But wait: BrowserSkill's install.ps1 contains non-ASCII? No, only the test file does, which has a BOM 鈥?PowerShell parses BOM files fine.
+
+Hmm, but one more risk for the local machine's parse check: scripts/install-windows.test.ps1 鈥?fine.
+
+Now .gitattributes: I'll add
+
+Should I include *.py, *.json, *.md? The scan_ps_var_colon.py and check_loop_summary.py are run by python 鈥?CRLF is fine for python. JSON read by PowerShell/ python 鈥?fine. Keep it minimal: .sh and .ps1.
+
+Careful: adding *.ps1 text eol=lf 鈥?will git see the existing repo .ps1 files as modified? They're already LF in the index and working tree, and normalization on add would keep LF. So no change. Let me verify with git status after adding.
+
+Now results/status/success_criteria.json. What should round-1 criteria be? Since criteria check files in the repo (agent side + local side), for the "鎵撻€? round the meaningful assertion is: the skill is installed and consistent. I'll write:
+
+Let me check actual sizes to set sane min_bytes. Let me check agent-criteria.sh semantics first (require_contains substring, min_bytes). Also check whether missing success_criteria.json causes a failure in agent-handsfree. I'll just create it.
+
+Then run agent-sync.sh with a commit message, then agent-check.sh --request.
+
+Wait 鈥?does agent-sync.sh run the gate? Yes. Let me read agent-sync.sh quickly for its flags/behavior (e.g., does it push, write receipt).
+
+Let me now do the edits.
+
+Now let me adapt the gate for two name/content collisions with this repo's own files, and add LF normalization for the bridge scripts:
+
+Thought for 1 second
+
+Now add .gitattributes, results/status/success_criteria.json, and a repo notes doc. Let me check file sizes first for min_bytes.
+
+Edit
+code/check_all.sh
++45
+鈭?1
+脳2
+used
+Bash
+140ms
+
+Thought for 13 seconds
+
+Now let me create:
+
+.gitattributes
+results/status/success_criteria.json (round-1 鎵撻€?acceptance)
+skills/git-sync/REPO_NOTES.md (documenting the BrowserSkill-specific adaptations) 鈥?maybe better placed at deliverable/? The skill uses deliverable/ for deliverables. I'll put it at skills/git-sync/REPO_NOTES.md 鈥?hmm, but on upgrade agent-install.sh does rm -rf skills/git-sync 鈫?my notes would be deleted. Better location: code/README-git-sync.md or root-level docs. Let me put it in code/GIT_SYNC_LOCAL.md? The code/ dir is repo-owned and preserved (create-only files). Actually agent-install only creates files in code/ when missing, doesn't delete. So code/GIT_SYNC_REPO_NOTES.md is safe. Hmm, but maybe better visibility: deliverable/README.md? deliverable/ is the delivery folder for the user's downloads.
+
+I'll go with code/GIT_SYNC_NOTES.md 鈥?documenting: what was installed, the two collisions and their handling, the account policy for this repo (mqgg5630-cyber), and the local commands. Good.
+
+Also should I create results/status/success_criteria.json? Yes 鈥?it makes agent-handsfree.sh/agent-criteria.sh meaningful. Round-1 criteria: the bridge is installed correctly + the local watcher proved itself. Note criteria only check repo files; the real "鎵撻€? proof is the check result file results/status/check_r1_*.txt pushed by the local machine. I can include a glob requirement results/status/check_r1_* in require_files 鈥?that will only pass AFTER the local machine runs a check. That makes the criteria express "鎵撻€?completed" precisely. But careful: agent-handsfree would fail criteria until the local pushes... which is exactly the semantics we want for round 1 (accept only after local proves). However, agent-check.sh --accept doesn't run criteria; agent-handsfree.sh does. Since I'm not running handsfree this turn (the user must act first), it's fine 鈥?but if criteria require check_r1_, then later when I run criteria they'll pass only after the local round. That's the right definition of "鎵撻€氬畬鎴?._
+
+Hmm, but there's a subtlety: the file name pattern from watch.ps1 鈥?README says results/status/check_rN_<鏃堕棿>.txt (the source repo has results/status/check_r1_20260917-175028.txt). Let me check the local_check/watch naming: in the new repo: results/status/check_r1_20260917-175028.txt. So glob results/status/check_r* works. Let me use results/status/check_r1_*.
+
+Also require_contains on the handshake: results/status/handshake.json should contain "local_state": "passed". Careful: PowerShell writes JSON with BOM/indent; the substring "local_state": "passed" should match if indent=2 style. Let me check the handshake.json in the source repo to see the exact format.
+
+Let me check /tmp/newrepo/results/status/handshake.json.
+
+Also success_criteria.json's require_contains with exact spacing is fragile. I'll use a regex instead: "local_state"\\s*:\\s*"passed". require_regex uses python re.search 鈥?good.
+
+Let me look at handshake.json format first.
+
+used
+Bash
+139ms
+
+Thought for 11 seconds
+
+Now I have a clear picture of the round-1 artifacts. Let me create:
+
+.gitattributes
+results/status/success_criteria.json 鈥?round-1 "鎵撻€? acceptance criteria
+code/GIT_SYNC_NOTES.md 鈥?documenting the repo-specific adaptations
+Then run gate, then agent-sync.sh (commit+push), then agent-check.sh --request, then agent-handoff.sh to generate the exact block.
+
+Note about 01a0a821.md at root 鈥?the installer copied the short-prompt mapping page. That's fine, though its content references the other session. Let me check it briefly; maybe I should leave it (it's part of the skill protocol). It says "short prompt maps to GitHub clone; do not open arena.ai". Keep.
+
+Let's write the files.
+
+For success_criteria: since round 1 is only about 鎵撻€? criteria:
+
+require_files: the 12 root scripts? Only 11 at root (install excluded). Let me require: sync.ps1, push.ps1, upload.ps1, download.ps1, pack.ps1, doctor.ps1, bootstrap.ps1, pr.ps1, hardware.ps1, watch.ps1, auth.ps1, skills/git-sync/VERSION, skills/git-sync/sync.config.json, code/check_all.sh, code/local_check.ps1, code/check_loop_summary.ps1, code/check_loop_summary.py, code/scan_ps_var_colon.py, results/status/handshake.json, and glob results/status/check_r1_* (proof the local machine ran a round).
+forbid_files: ["local/inbox"] (the skill forbids fake local bridge)
+require_contains: VERSION 2.9.2; sync.config.json branch = arena/01a0b352-browserskill; hands_free true
+require_regex: handshake.json "local_state"\s*:\s*"passed"; and the check log? glob can't be used in require_contains (needs a path). I'll use handshake regex + require_files glob for the log.
+min_bytes: watch.ps1 20000, auth.ps1 20000.*_
+
+Careful with require_contains on sync.config.json: "branch": "arena/01a0b352-browserskill" 鈥?the installer writes with indent=2, so the exact string "branch": "arena/01a0b352-browserskill" appears. Good. But if PowerShell rewrites the config later... it doesn't. OK.
+
+Now .gitattributes content 鈥?keep minimal and explain.
+
+Then the notes file.
+
+Let me write them.
+
+Edited files
++58
+
+Thought for 3 seconds
+
+Now the notes file code/GIT_SYNC_NOTES.md. It documents:
+
+what was installed, from where (shaohuawen03-cyber/new @ arena/01a0aeb9-new, skill v2.9.2)
+branch: arena/01a0b352-browserskill
+the two collisions and how they're handled
+account policy: this repo belongs to mqgg5630-cyber 鈫?pin the local clone to that account
+local quick start commands (Windows), clone dir E:\0github, new folder, don't overwrite
+upgrade note: after re-running agent-install.sh, git checkout -- install.ps1
+
+Then run the gate.
+
+Write
+code/GIT_SYNC_NOTES.md
++111
+
+Thought for 1 second
+
+Wait: success_criteria.json has require_contains: {"code/GIT_SYNC_NOTES.md": "install.ps1"} 鈥?satisfied.
+
+Now run the gate to verify it passes.
+
+Also note: the notes file is .md with Chinese 鈥?allowed (only .ps1 must be ASCII).
+
+Let's run the gate.
+
+used
+Bash
+322ms
+
+Thought for 17 seconds
+
+Two issues:
+
+The restored root install.ps1 (BrowserSkill's own) contains non-ASCII bytes! Let's check what: probably an em-dash "鈥? in the synopsis ("install.ps1 鈥?install the bsk CLI"). Yes, line 3: install.ps1 鈥?install the bsk CLI on Windows from GitHub Releases. That's a non-ASCII em dash. And it may not have a BOM 鈫?on Windows PowerShell 5.1 this could actually break... but that's the repo's own file, not mine to fix (it's their released installer; upstream repo Tencent/BrowserSkill). Actually hmm 鈥?an em dash in a BOM-less .ps1 read as GBK by PS 5.1 could mangle a comment line. It's inside a comment block <# ... #>. GBK-decoding UTF-8 em dash bytes (E2 80 94) yields 3 garbage chars, no quotes 鈫?harmless in practice.
+
+So I need to add ./install.ps1 to the ASCII allowlist too, with a clear reason (repo-owned file, not part of the skill; contains a UTF-8 em dash in its comment block).
+
+Wait 鈥?but careful. If the allowlist includes './install.ps1', and the skill's install.ps1 ever lands at root (after an upgrade re-run), then a genuinely broken non-ASCII root install.ps1 wouldn't be caught... minor. Better approach: make the allowlist entry for root install.ps1 conditional? Overkill. I'll note it in the notes file: after re-running the installer, restore root install.ps1 (the gate's section-3 NOTE won't catch it since it's skipped... hmm).
+
+Alternative cleaner approach: since ROOT_SKIP already declares root install.ps1 as repo-owned, I can tie the ASCII allowlist to the same list: files in ROOT_SKIP that exist at root are repo-owned 鈫?skip the ASCII check for them too, but ALSO verify the repo-owned file matches git HEAD (i.e., it hasn't been clobbered by the installer). That's a much better guard! If agent-install.sh clobbers root install.ps1, git diff --quiet -- install.ps1 fails 鈫?gate FAILs with a clear message "root install.ps1 was overwritten by the installer; restore with git checkout -- install.ps1".
+
+That's elegant and self-policing. Let me implement:
+
+In section 1, skip allowlisted files. In section 3, for ROOT_SKIP files: check git diff --quiet HEAD -- <file> (only if tracked and git available) 鈫?if it differs from HEAD, FAIL with restore instructions.
+
+Hmm, but "differs from HEAD" would also fail if the user legitimately edits their own install.ps1 locally. That's a false positive... but in the sync workflow, local edits get committed anyway. Hmm, risky? If the user modifies install.ps1 in their clone without committing, the watcher round would fail the gate. That's annoying but rare and the message is clear.
+
+Alternative: instead of comparing to HEAD, compare to the skill copy: if root install.ps1 == skills/git-sync/scripts/install.ps1 then it was clobbered 鈫?FAIL "restore with git checkout -- install.ps1". That's precise, no false positives with legitimate edits! Excellent. Let me do that.
+
+So section 3 for ROOT_SKIP files:
+
+And section 1 allowlist gets ./install.ps1 with the reason "repo-owned (bsk CLI installer), carries a UTF-8 em dash in its comment header; not a skill file".
+
+Let me apply both edits.
+
+Thought for 1 second
+
+Wait 鈥?the allowlist check function uses local p="$1" a and iterates. But install.ps1's path from find is ./install.ps1. Good.
+
+Now update section 3's ROOT_SKIP branch to actively detect clobbering.
+
+Current text after my edit:
+
+Replace the NOTE with the clobber detection.
+
+Hmm, careful: case "$ROOT_SKIP" in *" $f "*) 鈥?with ROOT_SKIP=" install", for f=install: pattern " install " vs string " install" 鈫?does NOT match because the string is " install" without trailing space! I need case " $ROOT_SKIP " in hmm. Let me check: ROOT_SKIP=" install". Test string in case is $ROOT_SKIP = " install". Pattern *" $f "* = * install * which requires a trailing space. " install" doesn't have it 鈫?no match. That's why the FAIL happened ("install.ps1 differs from ..."). Wait, but it printed "[FAIL] install.ps1 differs" 鈥?confirming the skip didn't trigger. Yes, bug in my edit.
+
+Fix: use case " $ROOT_SKIP " in *" $f "*). With " install " 鈫?matches " install ". Let me restructure more simply:
+
+Simpler and robust. Let me rewrite that whole block.
+
+Thought for 1 second
+
+Also I need to update the success_criteria require_contains? No, it requires "install.ps1" in GIT_SYNC_NOTES.md 鈥?satisfied.
+
+Also update the notes doc to mention that root install.ps1 is also in the ASCII allowlist. Let me update 搂2.1 and 搂2.2 accordingly.
+
+Now run the gate again.
+
+Edit
+code/check_all.sh
++34
+鈭?9
+脳3
+used
+Bash
+397ms
+
+Thought for 2 seconds
+
+Gate passes. One cosmetic issue: the NOTE for ./install.ps1 says "repo-owned Unicode test fixture" which is wrong wording for install.ps1. Let me make the message generic: "(repo-owned file, see ASCII_ALLOWLIST comment)". Let me fix that message.
+
+Also verify the clobber-detection works: temporarily copy skill install.ps1 to root, run gate, expect FAIL, then restore. Good test.
+
+Then update the notes doc for 搂2.1/2.2 wording.
+
+Let me do the message fix + the test.
+
+Thought for 1 second
+
+Wait 鈥?the gate checks all .ps1 files for ASCII. But install.ps1 at root is BrowserSkill's own installer which contains non-ASCII (an em dash in the header comment). That's a pre-existing repo file, not something I introduced. I added it to the allowlist. Good.
+
+Now let me verify the clobber detection works, then run agent-sync to commit and push.
+
+Actually, let me test the clobber-detection branch quickly by simulating. But I don't want to actually overwrite install.ps1. Let me just trust the logic 鈥?actually let me test it safely in a temp copy.
+
+Let me now run agent-sync.sh to commit and push. First let me read it to understand what it does.
+
+Edit
+code/check_all.sh
++1
+鈭?
+Ran commands
+2
+
+Thought for 1 second
+
+Clobber detection works. Now let me clean up /tmp/gatetest and update the notes doc wording, then run agent-sync.sh.
+
+Update notes 搂2.1/搂2.2 to reflect that root install.ps1 is also ASCII-allowlisted and that the gate now actively detects clobbering.
+
+used
+Bash
+146ms
+
+Thought for 1 second
+
+Now run agent-sync.sh to commit + push. Commit message: "feat: install git-sync skill v2.9.2 (local <-> arena bridge)".
+
+Let me run it and see if push works.
+
+Edit
+code/GIT_SYNC_NOTES.md
++14
+鈭?0
+used
+Bash
+2.6s
+
+Thought for 7 seconds
+
+The push succeeded: branch arena/01a0b352-browserskill now exists on the remote with commit 21bf572.
+
+Now generate the handoff block with agent-handoff.sh. It will print with parent E:\0github\git-sync 鈥?the user wants E:\0github\. I'll take the generated values (folder name, url, branch) and adjust the cd line to E:\0github\. The script says "do not retype" 鈥?but the user explicitly requested E:\0github\ as the clone dir. I'll run the generator to get the exact folder/branch/url, then adapt only the parent directory line (documented deviation per user's instruction).
+
+Let me run it.
+
+Then: should I also issue agent-check.sh --request now so the watcher validates as soon as it's registered? Let's think about the flow again:
+
+User clones the branch 鈫?gets handshake (currently absent since I haven't requested)
+If I request a check now, handshake.json gets pushed with arena_state=awaiting_check, round=1. The user then clones (getting that state), registers the watcher 鈫?first poll sees awaiting_check 鈫?runs local_check.ps1 鈫?pushes verdict 鈫?done. Zero extra steps for the user, and the "鎵撻€? is proven by a real round trip.
+
+The only downside: agent-check.sh --read later would report "pending for N minutes" if the user takes long. Not a problem.
+
+I think requesting the check now is the right move 鈥?it makes the bridge self-verifying the moment the user finishes their side. Also the success_criteria requires results/status/check_r1_* which only exists after the local round.*_
+
+Let me run agent-handoff.sh first, then agent-check.sh --request with a note.
+
+Order matters: the request push will include the handshake. Then the user clones. Good.
+
+Let me run both: handoff (read-only, prints) and then check --request.
+
 used
 Bash
 1.5s
-COMMAND
-$ cd /home/user/BrowserSkill && echo "== CRLF check on tracked files ==" && git ls-files | while read -r f; do if head -c 8000 "$f" 2>/dev/null | LC_ALL=C grep -q $'\r'; then echo "CRLF: $f"; fi; done | head -20; echo "== done =="; echo "== restore BrowserSkill's own install.ps1 ==" && git checkout -- install.ps1 && git status --short install.ps1 && head -12 install.ps1
-STDOUT
-== CRLF check on tracked files ==
-CRLF: apps/extension/assets/logo.png
-CRLF: apps/extension/assets/record-icon.png
-CRLF: docs/assets/browserskill-chrome-web-store-screenshot-1280x800.png
-CRLF: docs/assets/browserskill-readme-banner.png
-CRLF: docs/assets/harnesses/hermes.png
+
+Thought for 18 seconds
+
+The generated block is correct except the parent dir E:\0github\git-sync 鈥?the user asked for E:\0github\. I'll change only that line to cd E:\0github\ (and add a guard so it doesn't overwrite an existing folder 鈥?the user said "涓嶈瑕嗙洊宸叉湁鐩綍"). git clone into an existing non-empty dir fails by itself, so it's inherently safe. I could add a if (Test-Path ...) { throw } guard line. Let me add a small safety line:
+
+Hmm, return at script scope in an interactive console works (it just stops). Actually in an interactive prompt, return is allowed and just exits the current "script block"? In PowerShell console, return at top level terminates the current invocation... it can throw "ControlCannotLeaveScript"? Let me not overthink 鈥?use throw which is clear and safe:
+
+That's a nice touch honoring "涓嶈瑕嗙洊宸叉湁鐩綍". But if they paste the whole block at once, the throw stops execution of the rest? When pasting multiple lines into PowerShell, each line executes as it's parsed... Actually pasting a multi-line block into the console: PowerShell reads the whole block and executes statement by statement; a throw will terminate the current pipeline/statement and print an error, but subsequent pasted lines may still execute (they're fed as separate input lines). Hmm, that could mean the clone still runs? No 鈥?the throw happens before clone, and subsequent lines would still be fed. Risky.
+
+Better approach: keep it simple, and rely on git clone failing naturally if the folder exists (git refuses to clone into an existing non-empty directory; into an existing EMPTY directory it succeeds, which is harmless). I'll instead add a one-line Test-Path informational check BEFORE, and put the clone on a subsequent line. Simpler: just mention in prose that git clone refuses to overwrite a non-empty folder, and add the check as a separate "鍏堣窇杩欎竴琛岀湅鐪嬫湁娌℃湁閲嶅悕" step.
+
+Actually, cleanest: make the block start with a check that picks a unique folder automatically? That complicates the watcher naming. No 鈥?keep the deterministic folder name; git itself is the guard. I'll include a first line cd E:\0github\ and then a Test-Path echo line so the user sees whether the name is taken:
+
+If it prints True, they'd stop. That's informative and harmless (a Test-Path that returns True doesn't halt subsequent lines, but the user sees it). Hmm, but then the clone would run and fail with "destination path already exists and is not an empty directory" 鈥?which is safe (no overwrite). Good: the failure mode is safe by construction.
+
+I'll include the Test-Path line as a pre-flight echo. Keep it.
+
+Now, should I issue agent-check.sh --request now? Let me think about what happens on the user's machine:
+
+watch.ps1 registered via bootstrap -Auto. First poll: auto_pull (sync.ps1), auto_push, then sees handshake awaiting_check 鈫?runs local_check.ps1 鈫?writes results/status/check_r1_.txt 鈫?pushes verdict. That proves 鎵撻€?end-to-end without any further user action. Then I run agent-check.sh --read in the next turn (or agent-wait.sh), see passed, and --accept._
+
+That's ideal. The request note should say what to verify: "round 1 (鎵撻€?only): gate + silent push + watcher on the real machine; no other task in scope".
+
+One concern: local_check.ps1 section 2b requires zero-window watcher etc. It might report "accept 2b (fallback)" but still pass (exit 0) as in the sample log. Fine.
+
+Another concern: local_check.ps1 may check things like deliverable/OFFICE_HASHES.json (SKIP if absent). Fine.
+
+Let me look at what local_check.ps1 checks regarding success_criteria 鈥?it may run agent-criteria equivalent, and my criteria require results/status/check_r1_* which doesn't exist during round 1 鈫?local check might FAIL because criteria aren't met yet (chicken-and-egg!). Let me check local_check.ps1's criteria section.*_
+
+That's an important detail. Let me read the rest of local_check.ps1.
 
 used
 Bash
-134ms
-COMMAND
-$ cd /home/user/BrowserSkill && echo "===== templates/success_criteria.example.json =====" && cat skills/git-sync/templates/success_criteria.example.json && echo "===== code/local_check.ps1 (head 80) =====" && head -80 code/local_check.ps1
-STDOUT
-===== templates/success_criteria.example.json =====
+166ms
 
+Thought for 16 seconds
 
+Confirmed the chicken-and-egg problem: local_check.ps1 evaluates success_criteria.json and requires every require_files entry to exist. My criteria include:
 
+results/status/check_r1_* 鈥?a glob! The PowerShell side does Join-Path + Test-Path -LiteralPath 鈫?literal path with * 鈫?fails (Test-Path -LiteralPath treats * literally) 鈫?FAIL.
+results/status/handshake.json 鈥?exists after the request push. OK.
+Also require_regex on handshake for "local_state"\s*:\s*"passed" 鈥?during round 1, the local machine runs the check BEFORE writing the verdict, so handshake would still say pending 鈫?regex FAIL 鈫?the round would fail. Chicken-and-egg!*_
 
+So my criteria would make round 1 fail on the local machine. I must design criteria that are verifiable at check time:
 
-Agent
+Drop results/status/check_r1_* from require_files (glob unsupported by the PS side).
+Drop the handshake local_state: passed regex (it can't be true during the round that's supposed to prove it).
+Keep: skill files exist, VERSION 2.9.2, config branch, hands_free true, min_bytes, forbid local/inbox, notes mention install.ps1.*_
 
-BrowserSkill
-arena/01a0b352-browserskill
-No Changes
-Create PR
+The proof that the local machine ran comes from the pushed verdict + check log, which I read via agent-check.sh --read (exit 0 = passed). Then agent-handsfree.sh/agent-criteria.sh after that round would see check_r1 file existing... but criteria are also evaluated on the local machine each round; if I later add check_r1_* requirement it'd break future rounds. So keep criteria time-independent.*_
+
+Let me also double check the agent-side agent-criteria.sh supports globs (yes, per docs) but PS side doesn't. Keep it simple: no globs.
+
+Also require_contains on code/GIT_SYNC_NOTES.md: reads with Get-Content -Encoding UTF8 on the local machine 鈥?the file has Chinese; contains check for "install.ps1" works. OK.
+
+Hmm, one more: on the local Windows machine, require_contains for skills/git-sync/sync.config.json: "branch": "arena/01a0b352-browserskill" 鈥?the config is committed with that exact formatting. But watch out: does anything rewrite sync.config.json on the local side? No. OK.
+
+Let me rewrite success_criteria.json accordingly.
+
+Then commit that fix and push (agent-sync), then request the check.
+
+Also: does the results/status/ directory conflict with .gitignore? No, .gitignore has evals/browser/results/ only. Fine. But hmm: results/ at root 鈥?BrowserSkill has evals/browser/results/ ignored. Our results/ is new and tracked. Fine.
+
+One more consideration: The repo is a Rust/JS project; adding root-level .ps1 files and code/, results/, skills/ dirs. The code/ dir: does BrowserSkill have any tooling that would trip? e.g., biome.json includes? Let me check biome.json / package.json scripts to ensure code/*.py/.ps1 don't break lint. Biome only handles JS/TS/JSON files typically. biome.json might have "files": {"include": [...]}. Also there's a .stylelintrc.json. And CI runs pnpm biome ci . maybe 鈫?would it try to format results/status/*.json? Biome lints JSON files! If CI runs biome ci . on the repo, my sync.config.json, success_criteria.json, handshake.json might fail formatting rules (e.g., JSON formatting). CI only runs on PRs to main and pushes to main 鈥?not on my arena branch. But if the user later opens a PR, CI could fail on JSON formatting.
+
+Let me check biome.json config for includes/ignores to assess. If needed, I can add the sync dirs to biome's ignore (but modifying biome.json is a repo change...). Actually the skill's JSON files are machine-written; adding them to .gitignore-like ignore in biome would be prudent. Let me look at biome.json and package.json scripts first.
+
+used
+Bash
+156ms
+
+Thought for 16 seconds
+
+Important: CI runs pnpm lint = biome check . with files.includes: ["**", ...]. Biome's check includes JSON formatting for .json files. My new JSON files:**
+
+skills/git-sync/sync.config.json (indent 2, no trailing commas 鈫?probably fine)
+results/status/success_criteria.json (indent 2 鈫?fine)
+results/status/handshake.json (written by python json.dump indent=2 鈫?fine)
+results/status/check_rN_*.txt 鈫?not JSON.
+.md files 鈫?biome doesn't format markdown.
+.sh, .ps1, .py 鈫?not biome's.*_
+
+Biome formatter for JSON: indentWidth 2, lineWidth 100. My success_criteria.json has lines under 100 chars and 2-space indent 鈫?likely passes. But biome check also flags things like a missing trailing newline? Biome's format check requires files to be formatted exactly as biome would. Let me actually verify by running biome if available (pnpm install would be needed 鈥?node_modules excluded from snapshot, and installing may be slow/offline?). Let me check if node/pnpm exist and if node_modules is present.
+
+Actually, CI only runs on PR 鈫?main and push 鈫?main. My arena branch push doesn't trigger CI. But the user might later open a PR. Being safe is good but installing pnpm deps could be heavy. Let me check if pnpm/node exist and whether node_modules exists (it's excluded from snapshots but might exist in the sandbox?).
+
+Let me check quickly. If biome is runnable, I'll validate my JSON files with biome check on just those paths. If not available, I'll manually ensure formatting matches biome's style (2-space indent, LF, trailing newline, lineWidth 100 鈫?no line exceeds 100 chars... note biome's JSON formatter would also collapse? No, it keeps structure but enforces its own layout: arrays/objects expanded multi-line if they don't fit on one line within lineWidth. Hmm 鈥?biome might want to COLLAPSE small arrays onto one line if they fit in 100 chars! E.g. "forbid_files": ["local/inbox"] 鈥?biome would format that as a single line if it fits. That would make biome check fail on my multi-line version.
+
+This is a real risk for CI (only on PR to main). Options:
+
+Add the git-sync paths to biome's files.includes ignore list (like !skills/git-sync/**, !results/status/**, !code/**). That's a small, justified repo change: these are machine-written bridge files, not project source. It prevents CI churn from handshake rewrites every round (handshake.json is rewritten by python/watch.ps1 constantly 鈫?biome would flag it).**
+
+That's clearly the right call: the watcher writes results/status/handshake.json with python's json.dump 鈥?if biome's style differs, every PR would fail lint. So ignoring these paths in biome.json is necessary for the bridge to coexist with the repo's CI.
+
+Let me add to biome.json files.includes:
+
+Hmm, !code/** 鈥?the repo has no code/ dir of its own, so it's fine. But careful: ignoring code/** in biome is harmless.
+
+Wait 鈥?should I also worry about 01a0a821.md at root and root .ps1 files? Biome doesn't handle .ps1/.md. Fine.
+
+Also stylelint: stylelint "**/*.css" 鈥?no new CSS. Fine.*
+
+Let me also double check: does biome check the .gitattributes? No.
+
+Now let me also reconsider whether adding files at repo root could break the Rust/JS build: no.
+
+Let me check if node/pnpm/biome are available to verify.
+
+Then:
+
+Update success_criteria.json (remove glob + handshake regex).
+Update biome.json ignores.
+Gate + agent-sync push.
+agent-check.sh --request.
+Output the PowerShell block.
+
+Let me check tooling availability first.
+
+used
+Bash
+137ms
+
+Thought for 3 seconds
+
+node exists, pnpm doesn't, no node_modules. I could npx @biomejs/biome@2.4.15 check <paths> 鈥?that downloads the package (network available since git clone worked). Let me try it to validate formatting of my JSON files. It's worth it to avoid CI churn. Let me try with a timeout.
+
+Actually, regardless of the outcome, I've decided to add biome ignores for the bridge paths (because handshake.json is machine-rewritten each round). So validation is less critical. But let me still verify that biome.json itself remains valid after my edit, and check whether biome would complain about anything else new.
+
+Let me try npx biome quickly (may take 20-60s).
+
+Meanwhile, update success_criteria.json.
+
+Note: npx downloads to a cache dir 鈥?the workspace root excludes .cache/.npm from snapshots; but npx cache goes to ~/.npm which is /home/user/.npm 鈥?excluded from snapshots. Fine.
+
+Let me run both in parallel: rewrite success_criteria.json, and edit biome.json.
+
+Write
+results/status/success_criteria.json
++45
+
+Thought for 1 second
+
+Wait: install.ps1 (root, BrowserSkill's own) is checked by biome? Biome doesn't parse .ps1. Fine.
+
+Now, the biome.json edit adds ignores. Let me validate JSON syntax and, if possible, run biome to check that the repo still passes biome check with the new files. Let me try npx --yes @biomejs/biome@2.4.15 check . 鈥?that could take a while (it will scan the whole repo, rust/node files). Let me limit to the changed paths plus a full check with a generous timeout. Actually a full biome check . requires node_modules? No, biome is a standalone binary. It should work.
+
+Let me try with timeout 300. If it fails to download, skip.
+
+Also: I should double check that ignoring code/** and results/** in biome doesn't accidentally ignore something the repo needs 鈥?the repo has no code/ or results/ dirs of its own (only evals/browser/results/, already ignored). Good.
+
+Let me run the validation, then push.
+
+Edit
+biome.json
++4
+鈭?
+used
+Bash
+4.6s
+
+Thought for 4 seconds
+
+Biome passes on the whole repo with my changes (445 files checked, no errors).
+
+Now let me run the gate and push this round (criteria + biome ignore), then request the local check.
+
+Commit message: "chore: round-1 acceptance criteria + keep biome off the bridge files".
+
+Then agent-check.sh --request "round 1 (鎵撻€?only) ...".
+
+Note: agent-check.sh --request will run git add -A and commit/push. Let me check whether agent-check pushes (from the snippet: it does git add -A then presumably commit+push). Yes.
+
+Let me do agent-sync first (so the receipt captures the change), then agent-check --request.
+
+Actually, agent-check.sh --request itself commits and pushes the handshake. So I can do: agent-sync "..." then agent-check --request "...". Two commits 鈥?fine. Or combine: agent-sync then request. Let's do that.
+
+used
+Bash
+2.4s
+
+Thought for 2 seconds
+
+Pushed. Now request the round-1 check so the local watcher proves the bridge the moment it's registered.
+
+bash skills/git-sync/scripts/agent-check.sh --request "round 1: prove the bridge - gate + silent push + watcher on the real machine (no other task in scope)"
+
+Note the note text must be ASCII-safe for the handshake JSON (python writes it; UTF-8 fine). I'll use English/ASCII to be safe since watch.ps1 reads it with UTF8.
+
+Let me run it.
+
+used
+Bash
+2.0s
+
+Thought for 3 seconds
+
+The check request is pushed. Now the user's machine, once it clones and registers the watcher, will run the check and push back the verdict.
+
+Let me verify the remote state: handshake.json on origin. And confirm what's committed.
+
+Then generate the final PowerShell block for the user.
+
+Let me check the handshake content and the log.
+
+used
+Bash
+141ms
+
+Thought for 4 seconds
+
+Everything is in place. Note install.ps1 in the tracked list is BrowserSkill's original (unmodified 鈥?git status showed no modification).
+
+Let me double-check git status is clean and that root install.ps1 is untouched vs HEAD~3 (the baseline).
+
+Also verify the 01a0a821.md file content is appropriate (it's the short-prompt mapping page). Let me peek at it 鈥?it may reference the other session/repo, which could be confusing in this repo. Let me check and possibly leave as is (it's the skill's protocol file). Quick look.
+
+Then output the final block. Also I should present the notes file to the user? The deliverable is the PowerShell command block. I might present code/GIT_SYNC_NOTES.md in the viewer. That's a reasonable "deliverable" for this round. But careful: present_file opens a workspace file 鈥?/home/user/BrowserSkill/code/GIT_SYNC_NOTES.md. That's fine.
+
+Let me verify install.ps1 unchanged and peek at 01a0a821.md.
+
+used
+Bash
+139ms
+
+Thought for 28 seconds
+
+Working tree clean, install.ps1 untouched, everything pushed.
+
+01a0a821.md is the skill's short-prompt mapping page 鈥?fine to keep (it documents the mapping and account policy).
+
+Now the final deliverable: the PowerShell command block for the user, with cd E:\0github\ per their instruction, new folder BrowserSkill-01a0b352 (no overwrite), account pin mqgg5630-cyber.
+
+One consideration on the Test-Path pre-flight line: I'll include a line that shows whether the folder name is free, and note that git clone refuses to overwrite a non-empty folder anyway.
+
+Also: should I include .\watch.ps1 -Focus? bootstrap -Auto registers the watcher, which by default parks other git-sync-watch-* tasks on that machine. The user may have other sessions' watchers (per the skill docs, they have HQ clones). Parking others is the default v2.6.9 behavior 鈥?I should warn them: if they want other sessions' watchers to keep running, use -Register -KeepOthers instead of the automatic parking... but bootstrap -Auto registers with default (parks others). I'll mention .\watch.ps1 -RestoreParked to bring them back.*
+
+Let me also mention what happens next: since I already pushed a round-1 check request, the watcher will run code/local_check.ps1 automatically within ~2 minutes of registration and push the verdict back; then they just tell me "濂戒簡" and I'll read it with agent-check.sh --read and accept.
+
+Also add a fallback: if the local check fails or gh account differs, run .\auth.ps1 -Accounts.
+
+Also worth including: .\hardware.ps1 -Deep? Not needed for round 1 (and it's for compute tasks). Skip 鈥?keep the block minimal and focused ("鍏堝彧鍋氫笌鏈満鎵撻€氳繖涓€浠朵簨").
+
+Let me write the final block carefully. Must be PowerShell-safe ASCII. The comments in the block: I'll keep them ASCII inside the code block to avoid any paste/encoding weirdness? PowerShell console pasting UTF-8 Chinese comments is generally fine (it's typed input, not a file). But the user's console codepage may mangle it. Safer: keep in-block comments in English/ASCII, and put Chinese explanations outside the block. Good idea 鈥?the skill's own iron rule is ASCII-only for .ps1; for pasted console lines, ASCII is safest.
+
+Final block:
+
+Wait: bootstrap.ps1 -Auto already does auth setup and register. Order per handoff: bootstrap -Auto, then -Account pin, then doctor, then watch -Status. Adding .\auth.ps1 -Verify after the pin is good (per README: "閽夊畬绔嬪埢璇佹槑").
+
+Hmm, one issue: bootstrap.ps1 -Auto registers the watcher BEFORE the account pin. The watcher's first poll might push with the wrong account 鈫?403. But the machine default is likely mqgg5630-cyber anyway (per the skill README, this user's machine default IS mqgg5630-cyber). And the pin happens seconds later. Fine. Alternatively pin before registering: clone 鈫?Set-ExecutionPolicy 鈫?.\auth.ps1 -Account ...? But auth.ps1's pin uses gh auth token -u NAME and needs the repo's remote; it can run right after clone, before bootstrap. Order: bootstrap does identity+branch+auth setup+watcher. Hmm, if I pin before auth.ps1 -Setup (in bootstrap -Auto), would -Setup undo the pin? -Setup says "鍏堟帰娴嬶紝鑳介潤榛樻嬁鍒板嚟鎹氨涓嶅姩閰嶇疆" 鈥?if a pin exists, the probe would succeed silently and it wouldn't change config. But there's risk it writes global-ish config... -Setup writes repo-local config (credential.helper) which could conflict with the pin. Safer to follow the generated order: bootstrap -Auto first, then pin, then verify. That's what agent-handoff.sh generates (the field-tested order). Keep it.
+
+Also should I include .\watch.ps1 -Test? It forces an immediate run rather than waiting up to 2 min. Given I already pushed a check request, -Test would immediately execute the round 鈫?the verdict comes back faster. Nice addition. The README: -Test "绔嬪埢璺戜竴娆′换鍔★紝楠岃瘉鐪熺殑浼氳窇". Let me include it as an optional-but-recommended last line:
+
+Good. Then .\watch.ps1 -Status after.
+
+Let me structure the block:
+
+With inline ASCII comments.
+
+Then explain what I did, what's next (they reply, I read the verdict), and the notes file.
+
+Let me also present the notes file in the viewer. And maybe show the receipt. I'll present code/GIT_SYNC_NOTES.md.
+
+One more check: is gh required for -Account? Yes (uses gh auth token -u). If the user doesn't have gh or isn't logged in as mqgg5630-cyber, that line errors 鈥?I'll note the fallback: skip it if the machine default already is mqgg5630-cyber (.\auth.ps1 -Accounts to check), and that a 403 is the symptom that means the pin is needed.
+
+Also mention: if they've already cloned this branch before 鈫?use the alternative (cd <folder>; .\sync.ps1; .\watch.ps1 -Focus; .\doctor.ps1).
+
+Let me finalize. Also state clearly: 鎵撻€氬畬鎴愬墠涓嶅仛鍏朵粬浠诲姟 鈥?I've only done the bridge; round-1 criteria explicitly scope to the bridge.
+
+Let me present the file and write the answer.
+
+Thought for 7 seconds
+
+Now write the final answer with the PowerShell block.
+
+Summary of what I did:
+
+Cloned the skill source from the user-specified branch arena/01a0aeb9-new (skill v2.9.2, identical to arena/01a0ae7a-new except config branch).
+Installed into BrowserSkill on branch arena/01a0b352-browserskill with agent-install.sh: skills/git-sync/ + 12 root .ps1 + code/ gate & local_check + 01a0a821.md.
+Resolved 2 collisions with the repo's own files:
+root install.ps1 = BrowserSkill's bsk installer 鈫?restored, gate now skips comparison AND fails if the installer clobbers it
+scripts/install-windows.test.ps1 = intentional Unicode test fixture 鈫?ASCII allowlist (only these two, all skill .ps1 still strictly ASCII)
+Added .gitattributes (.sh/.ps1 鈫?LF) so bash gate works on Windows checkouts.
+Added biome ignores so CI lint doesn't trip on machine-written bridge JSON (verified: biome check . passes, 445 files).
+Wrote round-1 success_criteria.json scoped to the bridge only.
+Pushed 3 commits; requested round-1 check (handshake awaiting_check) so the watcher proves the loop automatically.
+
+Gate passes; biome passes; branch pushed.
+
+Then the block + what to expect + what I'll do next.
+
+Keep it in Chinese since the user writes Chinese.
+
+宸插畬鎴愩€屼笌鏈満鎵撻€氥€嶈繖涓€浠朵簨锛屽叾浠栦换鍔′竴寰嬫病鍔ㄣ€?
+鎴戝仛浜嗕粈涔堬紙娌欑渚э級
+姝ラ	缁撴灉
+鎷夊彇鎶€鑳芥簮	shaohuawen03-cyber/new 鍒嗘敮 arena/01a0aeb9-new锛堟妧鑳?v2.9.2锛屼笌 arena/01a0ae7a-new 浠呴厤缃垎鏀笉鍚岋級
+瀹夎鍒版湰浠撳簱	agent-install.sh --branch arena/01a0b352-browserskill锛歴kills/git-sync/ 鍏ㄥ + 鏍圭洰褰?11 涓?.ps1 + code/check_all.sh銆乧ode/local_check.ps1 绛?澶勭悊 2 澶勪笌鏈粨搴撶殑鍐茬獊	鈶?鏍圭洰褰?install.ps1 鏄?BrowserSkill 鑷繁鐨?bsk 瀹夎鍣?鈫?宸茶繕鍘燂紙git diff 瀵瑰熀绾夸负绌猴級锛岄椄闂ㄦ敼涓恒€屼笉姣旇緝锛屼絾涓€鏃﹀畨瑁呭櫒瑕嗙洊瀹冨氨 FAIL銆嶏紱鈶?scripts/install-windows.test.ps1 鏄晠鎰忕殑 Unicode 娴嬭瘯鍥轰欢 鈫?杩?ASCII 鐧藉悕鍗曪紙鎶€鑳借嚜甯︾殑 .ps1 浠?100% 涓ユ牸 ASCII锛?鏂板 .gitattributes	鍙袱琛岋細*.sh/*.ps1 寮哄埗 LF锛岄槻 Windows autocrlf=true 璁?bash code/check_all.sh 鍋囧け璐?淇濇姢浠撳簱 CI	biome.json 蹇界暐 skills/git-sync/**銆乺esults/**銆乧ode/**锛堟彙鎵?JSON 姣忚疆琚満鍣ㄩ噸鍐欙紝鍚﹀垯 PR 浼氫竴鐩?lint 澶辫触锛夈€傚凡瀹炶窇 biome check .锛?45 files锛岄€氳繃
+闂搁棬	bash code/check_all.sh 鈫?exit 0
+鎺ㄩ€?3 涓彁浜ゅ凡涓?origin/arena/01a0b352-browserskill锛?1bf572 瀹夎 鈫?45cdfb7 楠屾敹鏍囧噯/biome 鈫?7548618 璇锋眰绗?1 杞鏌ワ級
+绗?1 杞獙鏀舵爣鍑?results/status/success_criteria.json锛屽彧楠屻€屾墦閫氥€嶏紝涓嶅惈浠讳綍涓氬姟浠诲姟锛涘苟宸?agent-check.sh --request锛屾彙鎵嬬幇涓?awaiting_check / round 1
+
+缁嗚妭閮藉啓鍦?code/GIT_SYNC_NOTES.md锛堝凡鎵撳紑缁欎綘鐪嬶級銆?
+浣犲湪鏈満 PowerShell 閲屾墽琛岋紙鏁存澶嶅埗锛?PowerShell
+# prerequisite: Git for Windows (git + bash); GitHub CLI (gh) for the account pin
+cd E:\0github\
+Test-Path .\BrowserSkill-01a0b352    # must print False: a brand-new folder, nothing is overwritten
+git clone -b arena/01a0b352-browserskill https://github.com/mqgg5630-cyber/BrowserSkill.git BrowserSkill-01a0b352
+cd BrowserSkill-01a0b352
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+.\bootstrap.ps1 -Auto                # identity + branch + silent-push auth + register the watcher
+.\auth.ps1 -Account mqgg5630-cyber   # repo owner = mqgg5630-cyber, pins THIS clone only
+.\auth.ps1 -Verify                   # must end with: push --dry-run PASSED
+.\watch.ps1 -Test                    # run one poll now: it picks up round 1 and pushes the verdict back
+.\doctor.ps1                         # branch=arena/01a0b352-browserskill, ahead/behind 0/0, watcher+heartbeat+auth OK
+.\watch.ps1 -Status                  # hands-free: master=True auto_pull=True auto_push=True
+
+璇存槑涓庡厹搴曪細
+
+鐩綍鍚嶅浐瀹氫负 E:\0github\BrowserSkill-01a0b352锛堟柊鏂囦欢澶癸級銆俫it clone 鏈韩灏辨嫆缁濆啓杩涘凡瀛樺湪鐨勯潪绌虹洰褰曪紝鎵€浠ヤ笉浼氳鐩栦綘浠讳綍鐜版湁鐩綍锛涜嫢 Test-Path 鎵撳嵃 True锛屾妸鏈€鍚庝竴琛屾崲鎴愬埆鐨勫悕瀛楀嵆鍙紙渚嬪 BrowserSkill-01a0b352-b锛夈€?.\auth.ps1 -Account mqgg5630-cyber 鎸夋妧鑳界殑璐﹀彿绛栫暐銆岃皝浠撳簱鐨勪細璇濆氨鐢ㄨ皝璐﹀彿銆嶃€傝嫢鎶ラ敊锛堟湰鏈烘病鐧诲綍杩欎釜鍙凤級锛屽厛璺?.\auth.ps1 -Accounts 鐪嬫湁璋併€佽皝鑳芥帹鏈粨搴擄紱鏈満榛樿鍙锋湰鏉ュ氨鏄?mqgg5630-cyber 鏃惰繖琛屽彲璺宠繃銆傜湅鍒?403 Permission to mqgg5630-cyber/BrowserSkill.git denied to <鍒殑鍙? 灏辨槸杩欒娌＄敓鏁堛€?娉ㄥ唽鍊煎畧浼氭殏鍋滄湰鏈哄叾浠?git-sync-watch-* 浠诲姟锛堜笉鍒犻櫎锛夈€傝鍏ㄦ仮澶嶏細.\watch.ps1 -RestoreParked锛涘彧鎯崇暀鏈細璇濓細.\watch.ps1 -Focus銆?濡傛灉杩欎釜鍒嗘敮浣犱互鍓嶅凡缁忓厠闅嗚繃锛氬埆閲嶆柊鍏嬮殕锛宑d <閭ｄ釜鐩綍> ; .\sync.ps1 ; .\watch.ps1 -Focus ; .\doctor.ps1銆?鎵撻€氭€庝箞绠楀畬鎴?
+鎴戝凡缁忔妸绗?1 杞鏌ヨ姹傛帹涓婂幓浜嗭紝鎵€浠ヤ綘璺戝畬 bootstrap.ps1 -Auto锛堟垨 watch.ps1 -Test锛夊悗锛屾湰鏈轰細鑷姩璺?code/local_check.ps1锛堥椄闂?+ 鍏嶇偣鍑绘帹閫?+ 鍊煎畧涓夐」纭獙鏀讹級锛屾妸 passed/failed 鍜屽畬鏁存棩蹇楁帹鍥炲垎鏀€備綘鍥炰竴鍙ャ€岃窇瀹屼簡銆嶏紝鎴戝氨鐢?agent-check.sh --read 璇荤粨璁猴細exit 0 鎴戠珛鍒?--accept 鏀跺熬骞舵姤鍛婃墦閫氭垚鍔燂紱exit 2 鎴戞寜鏃ュ織淇畬鍐嶆潵涓€杞€傚湪鎷垮埌杩欎釜寰€杩旇瘉鎹箣鍓嶏紝鎴戜笉浼氬紑濮嬩换浣曞叾浠栦换鍔°€?
+姝や换鍔℃垚鍔熶簡鍚楋紵
+Esc
+鏄?鍚?缁х画宸ヤ綔
 Diff
-Checks
-View all changes
+Branch
+Unified
+Split
+.gitattributes
++13
+01a0a821.md
++83
+auth.ps1
++993
+biome.json
++3
+bootstrap.ps1
++143
+code/GIT_SYNC_NOTES.md
++114
+code/check_all.sh
++277
+code/check_loop_summary.ps1
++136
+code/check_loop_summary.py
++155
+code/local_check.ps1
++315
+code/scan_ps_var_colon.py
++38
+doctor.ps1
++325
+download.ps1
++171
+hardware.ps1
++268
+pack.ps1
++105
+pr.ps1
++115
+push.ps1
++302
+results/status/handshake.json
++9
+results/status/success_criteria.json
++44
+results/sync/history/20260918-071111.md
++24
+results/sync/history/20260918-071310.md
++10
+results/sync/last_sync.md
++10
+skills/git-sync/CASE_STUDY.md
++200
+skills/git-sync/README.md
++351
+skills/git-sync/SKILL.md
++355
+skills/git-sync/VERSION
++1
+skills/git-sync/scripts/agent-check.sh
++234
+skills/git-sync/scripts/agent-criteria.sh
++171
+skills/git-sync/scripts/agent-handoff.sh
++142
+skills/git-sync/scripts/agent-handsfree.sh
++122
+skills/git-sync/scripts/agent-hardware.sh
++57
+skills/git-sync/scripts/agent-install.sh
++338
+skills/git-sync/scripts/agent-pr.sh
++77
+skills/git-sync/scripts/agent-recover.sh
++65
+skills/git-sync/scripts/agent-sync.sh
++220
+skills/git-sync/scripts/agent-wait.sh
++142
+skills/git-sync/scripts/auth.ps1
++993
+skills/git-sync/scripts/bootstrap.ps1
++143
+skills/git-sync/scripts/doctor.ps1
++325
+skills/git-sync/scripts/download.ps1
++171
+skills/git-sync/scripts/hardware.ps1
++268
+skills/git-sync/scripts/install.ps1
++145
+skills/git-sync/scripts/pack.ps1
++105
+skills/git-sync/scripts/pr.ps1
++115
+skills/git-sync/scripts/push.ps1
++302
+skills/git-sync/scripts/sync.ps1
++185
+skills/git-sync/scripts/upload.ps1
++142
+skills/git-sync/scripts/watch.ps1
++1699
+skills/git-sync/sync.config.json
++47
+skills/git-sync/templates/01a0a821.md
++50
+skills/git-sync/templates/USER_PROMPT.md
++16
+skills/git-sync/templates/check_all.sh
++228
+skills/git-sync/templates/check_loop_summary.ps1
++136
+skills/git-sync/templates/check_loop_summary.py
++155
+skills/git-sync/templates/connect-local.ps1
++77
+skills/git-sync/templates/gate.yml
++40
+skills/git-sync/templates/health.yml
++104
+skills/git-sync/templates/install-one-liner.md
++69
+skills/git-sync/templates/local-runner.md
++39
+skills/git-sync/templates/local_check.ps1
++315
+skills/git-sync/templates/new-session-prompt.md
++30
+skills/git-sync/templates/one-sentence.md
++140
+skills/git-sync/templates/scan_ps_var_colon.py
++38
+skills/git-sync/templates/success_criteria.example.json
++12
+skills/git-sync/templates/task-loop.md
++43
+sync.ps1
++185
+upload.ps1
++142
+watch.ps1
++1699
 
