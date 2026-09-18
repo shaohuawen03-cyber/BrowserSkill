@@ -1,0 +1,94 @@
+﻿@vom 1
+@view 1043x900
+@layers 1 focus=L1
+L1 page
+  RootWebArea "Agent Mode | Autonomous AI Agents for Real-World Tasks"
+    region "Notifications alt+T"
+    @e1 button "Toggle Sidebar"
+    list
+      listitem
+        @e2 button
+    @e3 button
+    list
+      listitem
+        @e4 link "New Chat"
+      listitem
+        @e5 link "Leaderboard [has-submenu]"
+      listitem
+        @e6 link "Search"
+    StaticText "Today"
+    list
+      listitem
+        @e7 button "More options [has-submenu]"
+      listitem
+        @e8 button "More options [has-submenu]"
+      listitem
+        @e9 button "More options [has-submenu]"
+    StaticText "Yesterday"
+    list
+      listitem
+        @e10 button "More options [has-submenu]"
+      listitem
+        @e11 button "More options [has-submenu]"
+      listitem
+        @e12 button "More options [has-submenu]"
+      listitem
+        @e13 button "More options [has-submenu]"
+    StaticText "Older"
+    list
+      listitem
+        @e14 button "More options [has-submenu]"
+      listitem
+        @e15 button "More options [has-submenu]"
+      listitem
+        @e16 button "More options [has-submenu]"
+      listitem
+        @e17 button "More options [has-submenu]"
+      listitem
+        @e18 button "More options [has-submenu]"
+      listitem
+        @e19 button "More options [has-submenu]"
+      listitem
+        @e20 button "More options [has-submenu]"
+      listitem
+        @e21 button "More options [has-submenu]"
+      listitem
+        @e22 button "More options [has-submenu]"
+      listitem
+        @e23 button "More options [has-submenu]"
+      listitem
+        @e24 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?骞跺疄鐜拌嚜寰幆浠诲姟锛屽皢杩欎釜鐢熲€?
+        @e25 button "More options [has-submenu]"
+      listitem
+        @e26 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?```"
+        @e27 button "More options [has-submenu]"
+      listitem
+        @e28 link "Coding session ```markdown 瀹夎https://arena.ai/agent/01a0a821-3f3c-7bbe-bf99-6e6793c45d81鐨剆kills銆備笌鏈湴鎵撻€?```"
+        @e29 button "More options [has-submenu]"
+    list
+      @e30 button "mqgg5630@gmail.com"
+    group
+      @e31 link "Terms of Use"
+      @e32 link "Privacy Policy"
+      @e33 button "Cookies"
+    main "绗竴杞换鍔★細鍏堝彧鍋氥€屼笌鏈満鎵撻€氥€嶈繖涓€浠朵簨锛氬畨瑁?鐨?skills锛堟垜鐨勬満鍣ㄦ槸 Windows锛屽厠闅嗙洰褰曟斁 E:\\0github\\锛屼笉瑕佽鐩栧凡鏈夌洰褰曪級锛屽畬鎴愬悗鎶婇渶瑕佹垜鍦ㄦ湰鏈?PowerShell 閲屾墽琛岀殑瀹屾暣鍛戒护鏀捐繘涓€涓唬鐮佸潡閲岃緭鍑猴紝鏂逛究鎴戠洿鎺ュ鍒讹紱鎵撻€氬畬鎴愬墠涓嶈寮€濮嬪叾浠栦换鍔°€?orchestrating What would you like to do? Workspace"
+      @e34 button "Toggle workspace sidebar" [disabled]
+      log "绗竴杞换鍔★細鍏堝彧鍋氥€屼笌鏈満鎵撻€氥€嶈繖涓€浠朵簨锛氬畨瑁?鐨?skills锛堟垜鐨勬満鍣ㄦ槸 Windows锛屽厠闅嗙洰褰曟斁 E:\\0github\\锛屼笉瑕佽鐩栧凡鏈夌洰褰曪級锛屽畬鎴愬悗鎶婇渶瑕佹垜鍦ㄦ湰鏈?PowerShell 閲屾墽琛岀殑瀹屾暣鍛戒护鏀捐繘涓€涓唬鐮佸潡閲岃緭鍑猴紝鏂逛究鎴戠洿鎺ュ鍒讹紱鎵撻€氬畬鎴愬墠涓嶈寮€濮嬪叾浠栦换鍔°€?orchestrating"
+        paragraph "绗竴杞换鍔★細鍏堝彧鍋氥€屼笌鏈満鎵撻€氥€嶈繖涓€浠朵簨锛氬畨瑁?鐨?skills锛堟垜鐨勬満鍣ㄦ槸 Windows锛屽厠闅嗙洰褰曟斁 E:\\0github\\锛屼笉瑕佽鐩栧凡鏈夌洰褰曪級锛屽畬鎴愬悗鎶婇渶瑕佹垜鍦ㄦ湰鏈?PowerShell 閲屾墽琛岀殑瀹屾暣鍛戒护鏀捐繘涓€涓唬鐮佸潡閲岃緭鍑猴紝鏂逛究鎴戠洿鎺ュ鍒讹紱鎵撻€氬畬鎴愬墠涓嶈寮€濮嬪叾浠栦换鍔°€?
+          @e35 link "https://github.com/shaohuawen03-cyber/new/tree/arena%2F01a0aeb9-new" [鈫?github.com]
+          StaticText "绗竴杞换鍔★細鍏堝彧鍋氥€屼笌鏈満鎵撻€氥€嶈繖涓€浠朵簨锛氬畨瑁?
+          StaticText "鐨?skills锛堟垜鐨勬満鍣ㄦ槸 Windows锛屽厠闅嗙洰褰曟斁 E:\\0github\\锛屼笉瑕佽鐩栧凡鏈夌洰褰曪級锛屽畬鎴愬悗鎶婇渶瑕佹垜鍦ㄦ湰鏈?PowerShell 閲屾墽琛岀殑瀹屾暣鍛戒护鏀捐繘涓€涓唬鐮佸潡閲岃緭鍑猴紝鏂逛究鎴戠洿鎺ュ鍒讹紱鎵撻€氬畬鎴愬墠涓嶈寮€濮嬪叾浠栦换鍔°€?
+        StaticText "orchestrating"
+      @e36 textbox "What would you like to do?" [empty]
+        paragraph "What would you like to do?"
+          StaticText "What would you like to do?"
+      @e37 button "Add files" [disabled]
+      @e38 combobox "Agent [has-submenu]" ="Agent"
+      @e39 button
+      @e40 button "Send message" [disabled]
+      StaticText "Workspace"
+    alert
+    group "grammarly-integration"
+      StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
+@warning geometry incomplete: some page or frame content has no top-level coordinates.
+
