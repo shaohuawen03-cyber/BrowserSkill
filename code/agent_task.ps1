@@ -1,8 +1,9 @@
-# agent_task.ps1 - stage 3 PHASE E3: foreground session + render diagnostics.
-# E2 hypothesis: the --no-focus Agent Window gets JS-throttled by Edge and the
-# SPA never finishes rendering. E3 opens a FOCUSED session (visible window),
-# polls render state with readyState/title/href diagnostics + screenshots,
-# reloads once, then flips Agent mode and captures the GitHub menus.
+# agent_task.ps1 - stage 4 PHASE F1: pick the repository in Agent mode.
+# E3 screenshot showed: Agent mode ON, a repo dropdown showing "Loading...",
+# a branch dropdown "main", and a gear button. So GitHub is ALREADY connected;
+# F1 waits for the repo list to finish loading, opens the repo dropdown,
+# selects mqgg5630-cyber/BrowserSkill (inner-button click + keyboard fallback),
+# verifies the selection, screenshots. No message is sent yet.
 
 $ErrorActionPreference = 'Continue'
 Set-Location (Split-Path -Parent $PSScriptRoot)
@@ -12,9 +13,9 @@ if (-not (Test-Path -LiteralPath $bsk)) {
     $f = Get-ChildItem -Path (Join-Path $env:USERPROFILE '.local') -Recurse -Filter 'bsk.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($f) { $bsk = $f.FullName }
 }
-$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseE3'
+$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseF1'
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
-$logPath = Join-Path $outDir 'phaseE3.log'
+$logPath = Join-Path $outDir 'phaseF1.log'
 $lines = New-Object System.Collections.Generic.List[string]
 function Log([string]$s) { $script:lines.Add($s) | Out-Null; Write-Output $s }
 function Snap([string]$name) {
@@ -30,102 +31,111 @@ function Test-Rendered([string]$s) {
 }
 
 $env:BSK_AUTO_START = '0'
-
-# 0. stop any old sessions, start ONE FOCUSED session
-$null = (& $bsk session stop --all 2>&1 | Out-String)
-$st = (& $bsk session start --name 'arena-agent-mode' --json 2>&1 | Out-String)
-$st | Set-Content -LiteralPath (Join-Path $outDir 'session_start.json') -Encoding UTF8
-$m = [regex]::Match($st, '"session_id"\s*:\s*"([^"]+)"')
-if (-not $m.Success) { $m = [regex]::Match($st, '"id"\s*:\s*"([^"]+)"') }
 $sid = ''
-if ($m.Success) { $sid = $m.Groups[1].Value }
-if (-not $sid) { Log ('[FAIL] no session: ' + (($st -replace '\s+', ' ').Trim().Substring(0, [Math]::Min(200, $st.Trim().Length)))); $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
-$sid | Set-Content -LiteralPath (Join-Path (Get-Location).Path 'results\status\bsk_session.txt') -Encoding Ascii
-Log ('phaseE3: focused session ' + $sid)
-
-# 1. navigate + poll render with diagnostics
-$rendered = $false
-for ($try = 1; $try -le 2 -and -not $rendered; $try++) {
-    $null = (& $bsk navigate 'https://arena.ai' --session $sid 2>&1 | Out-String)
-    for ($i = 1; $i -le 6; $i++) {
-        $null = (& $bsk wait-ms 10s --session $sid 2>&1 | Out-String)
-        $rs = (& $bsk evaluate document.readyState --session $sid 2>&1 | Out-String)
-        $ttl = (& $bsk evaluate document.title --session $sid 2>&1 | Out-String)
-        $s0 = Snap ('e3_s_try' + $try + '_poll' + $i + '.txt')
-        Log ('phaseE3: try' + $try + ' poll' + $i + ' ready=' + $rs.Trim() + ' title=' + $ttl.Trim().Substring(0, [Math]::Min(40, $ttl.Trim().Length)) + ' bytes=' + $s0.Length)
-        if ($i -eq 2) { $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir ('e3_try' + $try + '_early.png')) 2>&1 | Out-String) }
-        if (Test-Rendered $s0) { $rendered = $true; Log ('phaseE2: rendered on try ' + $try + ' poll ' + $i); break }
-    }
-    if (-not $rendered) { Log ('phaseE3: try ' + $try + ' failed - reloading'); $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
+$sidFile = Join-Path (Get-Location).Path 'results\status\bsk_session.txt'
+if (Test-Path -LiteralPath $sidFile) { $sid = (Get-Content -LiteralPath $sidFile -Raw).Trim() }
+$lst = (& $bsk session list --json 2>&1 | Out-String)
+if (-not $sid -or $lst -notmatch [regex]::Escape($sid)) {
+    $null = (& $bsk session stop --all 2>&1 | Out-String)
+    $st = (& $bsk session start --name 'arena-agent-repo' --json 2>&1 | Out-String)
+    $m = [regex]::Match($st, '"session_id"\s*:\s*"([^"]+)"')
+    if (-not $m.Success) { $m = [regex]::Match($st, '"id"\s*:\s*"([^"]+)"') }
+    if ($m.Success) { $sid = $m.Groups[1].Value } else { Log ('[FAIL] no session'); $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
+    $sid | Set-Content -LiteralPath $sidFile -Encoding Ascii
 }
-$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'e3_rendered.png') 2>&1 | Out-String)
-if (-not $rendered) { Log '[FAIL] arena.ai still not rendering - evidence captured'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
+Log ('phaseF1: session ' + $sid)
 
-# 2. promo
+# 0. land + render-wait
+$rendered = $false
+for ($i = 1; $i -le 7 -and -not $rendered; $i++) {
+    if ($i -eq 1) { $null = (& $bsk navigate 'https://arena.ai' --session $sid 2>&1 | Out-String) }
+    $null = (& $bsk wait-ms 10s --session $sid 2>&1 | Out-String)
+    $s0 = Snap ('f1_s0_poll' + $i + '.txt')
+    if (Test-Rendered $s0) { $rendered = $true; Log ('phaseF1: rendered at poll ' + $i) }
+}
+if (-not $rendered) { Log '[FAIL] not rendering'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
+
+# 1. promo
 $hideRef = [regex]::Match($s0, '@(e\d+) button "Hide this').Groups[1].Value
 if ($hideRef) {
     $null = (& $bsk click ('@' + $hideRef) --session $sid 2>&1 | Out-String)
     $null = (& $bsk wait-ms 2s --session $sid 2>&1 | Out-String)
-    $s0 = Snap 'e3_s0b_nopromo.txt'
-    Log ('phaseE3: hid promo @' + $hideRef)
+    $s0 = Snap 'f1_s0b_nopromo.txt'
 }
 
-# 3. Agent mode (three recipes)
-if (Test-AgentMode $s0) {
-    Log 'phaseE3: already Agent'
-} else {
-    $done = $false
-    foreach ($recipe in @('AD', 'TA', 'AU')) {
+# 2. Agent mode if needed (AU recipe first - it won twice)
+if (-not (Test-AgentMode $s0)) {
+    $recipes = @('AU', 'AD', 'TA')
+    foreach ($r in $recipes) {
         $cbRef = [regex]::Match($s0, '@(e\d+) combobox').Groups[1].Value
-        if (-not $cbRef) { $s0 = Snap 'e3_refind.txt'; $cbRef = [regex]::Match($s0, '@(e\d+) combobox').Groups[1].Value }
-        if (-not $cbRef) { Log 'phaseE3: no combobox trigger'; break }
+        if (-not $cbRef) { $s0 = Snap 'f1_refind.txt'; $cbRef = [regex]::Match($s0, '@(e\d+) combobox').Groups[1].Value }
         $null = (& $bsk click ('@' + $cbRef) --session $sid 2>&1 | Out-String)
         $null = (& $bsk wait-ms 1500ms --session $sid 2>&1 | Out-String)
-        if ($recipe -eq 'AD') { $null = (& $bsk press ArrowDown --session $sid 2>&1 | Out-String) }
-        elseif ($recipe -eq 'TA') { $null = (& $bsk press a --session $sid 2>&1 | Out-String) }
-        else { $null = (& $bsk press ArrowUp --session $sid 2>&1 | Out-String) }
+        if ($r -eq 'AU') { $null = (& $bsk press ArrowUp --session $sid 2>&1 | Out-String) }
+        elseif ($r -eq 'AD') { $null = (& $bsk press ArrowDown --session $sid 2>&1 | Out-String) }
+        else { $null = (& $bsk press a --session $sid 2>&1 | Out-String) }
         $null = (& $bsk wait-ms 400ms --session $sid 2>&1 | Out-String)
         $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
         $null = (& $bsk wait-ms 2500ms --session $sid 2>&1 | Out-String)
-        $s0 = Snap ('e3_s1_after_' + $recipe + '.txt')
-        if (Test-AgentMode $s0) { $done = $true; Log ('phaseE3: Agent mode via ' + $recipe); break }
-        Log ('phaseE3: recipe ' + $recipe + ' did not stick')
+        $s0 = Snap ('f1_s1_after_' + $r + '.txt')
+        if (Test-AgentMode $s0) { Log ('phaseF1: Agent via ' + $r); break }
     }
-    if (-not $done) { Log 'phaseE3: WARN mode flip failed - continuing with evidence' }
 }
+if (-not (Test-AgentMode $s0)) { Log 'phaseF1: WARN not in Agent mode - dumping and stopping'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
 
-# 4. GitHub settings menu
-$s2 = Snap 'e3_s2_agent.txt'
-$ghRef = [regex]::Match($s2, '@(e\d+) button "GitHub settings').Groups[1].Value
-Log ('phaseE3: GitHub settings @' + $ghRef)
-if ($ghRef) {
-    $null = (& $bsk click ('@' + $ghRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseE3: clicked GitHub settings (exit ' + $LASTEXITCODE + ')')
-    $null = (& $bsk wait-ms 4s --session $sid 2>&1 | Out-String)
-    $null = Snap 'e3_s3_gh_menu.txt'
-    $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'e3_gh_menu.png') 2>&1 | Out-String)
-    $tabs = (& $bsk tab list --session $sid --json 2>&1 | Out-String)
-    $tabs | Set-Content -LiteralPath (Join-Path $outDir 'e3_tabs.json') -Encoding UTF8
-    Log ('phaseE3: tabs -> ' + (($tabs -replace '\s+', ' ').Trim().Substring(0, [Math]::Min(240, $tabs.Trim().Length))))
-    $url = (& $bsk evaluate location.href --session $sid 2>&1 | Out-String)
-    Log ('phaseE3: url -> ' + $url.Trim().Substring(0, [Math]::Min(140, $url.Trim().Length)))
-    $null = (& $bsk press Escape --session $sid 2>&1 | Out-String)
-    $null = (& $bsk wait-ms 1200ms --session $sid 2>&1 | Out-String)
+# 3. wait for the repo dropdown to finish loading (text stops being Loading...)
+$repoRef = ''
+for ($i = 1; $i -le 6; $i++) {
+    $s2 = Snap ('f1_s2_repolist_poll' + $i + '.txt')
+    $repoRef = [regex]::Match($s2, '@(e\d+) (?:combobox|button)[^\r\n]*(?:Loading|repository|BrowserSkill|mqgg5630)').Groups[1].Value
+    if ($s2 -notmatch 'Loading\.\.\.') { Log ('phaseF1: repo list settled at poll ' + $i); break }
+    $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
 }
+Log ('phaseF1: repo dropdown ref @' + $repoRef)
 
-# 5. Add files and connections menu
-$s3 = Snap 'e3_s4_fresh.txt'
-$addRef = [regex]::Match($s3, '@(e\d+) button "Add files and connections').Groups[1].Value
-Log ('phaseE3: Add files and connections @' + $addRef)
-if ($addRef) {
-    $null = (& $bsk click ('@' + $addRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseE3: clicked Add files and connections (exit ' + $LASTEXITCODE + ')')
-    $null = (& $bsk wait-ms 3s --session $sid 2>&1 | Out-String)
-    $null = Snap 'e3_s5_add_menu.txt'
-    $null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'e3_add_menu.png') 2>&1 | Out-String)
-    $null = (& $bsk press Escape --session $sid 2>&1 | Out-String)
-    $null = (& $bsk wait-ms 1s --session $sid 2>&1 | Out-String)
+# 4. open the repo dropdown and capture the option list
+$opened = $false
+if ($repoRef) {
+    $null = (& $bsk click ('@' + $repoRef) --session $sid 2>&1 | Out-String)
+    Log ('phaseF1: clicked repo dropdown (exit ' + $LASTEXITCODE + ')')
+    $null = (& $bsk wait-ms 2500ms --session $sid 2>&1 | Out-String)
+    $s3 = Snap 'f1_s3_repo_menu.txt'
+    $hasOptions = ($s3 -match 'option') -or ($s3 -match 'BrowserSkill')
+    if ($hasOptions) { $opened = $true } else {
+        # maybe the click closed it; try the keyboard route on a second click
+        $null = (& $bsk click ('@' + $repoRef) --session $sid 2>&1 | Out-String)
+        $null = (& $bsk wait-ms 2000ms --session $sid 2>&1 | Out-String)
+        $s3 = Snap 'f1_s3b_repo_menu_retry.txt'
+        $opened = ($s3 -match 'option') -or ($s3 -match 'BrowserSkill')
+    }
 }
-Log 'phaseE3: done'
+$sel = $false
+if ($opened) {
+    # inner button of the BrowserSkill option first
+    $optBtn = [regex]::Match($s3, '@(e\d+) button "[^"]*BrowserSkill').Groups[1].Value
+    if ($optBtn) {
+        $null = (& $bsk click ('@' + $optBtn) --session $sid 2>&1 | Out-String)
+        Log ('phaseF1: clicked BrowserSkill option button @' + $optBtn)
+    } else {
+        $optRef = [regex]::Match($s3, '@(e\d+) option "[^"]*BrowserSkill').Groups[1].Value
+        if ($optRef) {
+            $null = (& $bsk click ('@' + $optRef) --session $sid 2>&1 | Out-String)
+            Log ('phaseF1: clicked BrowserSkill option @' + $optRef)
+        } else {
+            Log 'phaseF1: BrowserSkill not in the list - trying typeahead b'
+            $null = (& $bsk press b --session $sid 2>&1 | Out-String)
+        }
+        $null = (& $bsk wait-ms 500ms --session $sid 2>&1 | Out-String)
+        $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
+    }
+    $null = (& $bsk wait-ms 3000ms --session $sid 2>&1 | Out-String)
+    $s4 = Snap 'f1_s4_after_select.txt'
+    $sel = ($s4 -match 'combobox[^\r\n]*BrowserSkill') -or ($s4 -match '="BrowserSkill') -or ($s4 -match 'mqgg5630-cyber/BrowserSkill')
+    if ($sel) { Log 'phaseF1: SUCCESS - BrowserSkill selected as the repo' } else { Log 'phaseF1: WARN selection not confirmed - evidence captured' }
+} else {
+    Log 'phaseF1: repo dropdown did not open with options - full snapshots saved'
+}
+$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'f1_final.png') 2>&1 | Out-String)
+Log 'phaseF1: done'
 $lines | Set-Content -LiteralPath $logPath -Encoding UTF8
 exit 0
