@@ -1,8 +1,8 @@
-# agent_task.ps1 - stage 3 PHASE D1: switch the arena.ai composer to AGENT
-# mode (it defaulted to Battle) and recon the agent-mode UI (GitHub connect /
-# repo picker). Steps: new chat -> dismiss promo -> open the mode combobox ->
-# snapshot the menu -> click the Agent option -> verify + recon artifacts.
-# No typing yet; the agent scripts the GitHub flow from the evidence.
+# agent_task.ps1 - stage 3 PHASE D2: actually select Agent Mode.
+# D1 evidence: the menu option is @eN option "Agent Mode..." wrapping an inner
+# @eM button; clicking the option element did not register. D2 clicks the inner
+# BUTTON, verifies the combobox value flipped to Agent, falls back to keyboard
+# navigation (ArrowDown + Enter), then recon modes/repo UI and screenshots.
 
 $ErrorActionPreference = 'Continue'
 Set-Location (Split-Path -Parent $PSScriptRoot)
@@ -12,11 +12,9 @@ if (-not (Test-Path -LiteralPath $bsk)) {
     $f = Get-ChildItem -Path (Join-Path $env:USERPROFILE '.local') -Recurse -Filter 'bsk.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($f) { $bsk = $f.FullName }
 }
-if (-not (Test-Path -LiteralPath $bsk)) { Write-Output '[FAIL] bsk.exe not found'; exit 1 }
-
-$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseD1'
+$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseD2'
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
-$logPath = Join-Path $outDir 'phaseD1.log'
+$logPath = Join-Path $outDir 'phaseD2.log'
 $lines = New-Object System.Collections.Generic.List[string]
 function Log([string]$s) { $script:lines.Add($s) | Out-Null; Write-Output $s }
 function Snap([string]$name) {
@@ -34,67 +32,64 @@ if (-not $sid -or $lst -notmatch [regex]::Escape($sid)) {
     $st = (& $bsk session start --no-focus --name 'arena-agent-mode' --json 2>&1 | Out-String)
     $m = [regex]::Match($st, '"session_id"\s*:\s*"([^"]+)"')
     if (-not $m.Success) { $m = [regex]::Match($st, '"id"\s*:\s*"([^"]+)"') }
-    if ($m.Success) { $sid = $m.Groups[1].Value } else { Log ('[FAIL] no session: ' + $st.Substring(0, [Math]::Min(250, $st.Length))); $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
+    if ($m.Success) { $sid = $m.Groups[1].Value } else { Log ('[FAIL] no session'); $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
     $sid | Set-Content -LiteralPath $sidFile -Encoding Ascii
 }
-Log ('phaseD1: session ' + $sid)
+Log ('phaseD2: session ' + $sid)
 
-# 0. land on arena.ai (a stopped session restarts on a blank page)
-$null = (& $bsk navigate 'https://arena.ai' --session $sid 2>&1 | Out-String)
-$null = (& $bsk wait-ms 10s --session $sid 2>&1 | Out-String)
-$s0 = Snap 'd1_s0_home.txt'
-Log ('phaseD1: s0 bytes=' + $s0.Length)
-
-# 1. start a NEW chat so the old Battle conversation is not reused
-$newRef = [regex]::Match($s0, '@(e\d+) link "New Chat"').Groups[1].Value
-if ($newRef) {
-    $null = (& $bsk click ('@' + $newRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseD1: clicked New Chat @' + $newRef)
-    $null = (& $bsk wait-ms 4s --session $sid 2>&1 | Out-String)
-} else {
-    Log 'phaseD1: no New Chat link - staying on the current view'
+# 0. current state
+$s0 = Snap 'd2_s0.txt'
+if ($s0 -notmatch 'textbox|combobox') {
+    $null = (& $bsk navigate 'https://arena.ai' --session $sid 2>&1 | Out-String)
+    $null = (& $bsk wait-ms 10s --session $sid 2>&1 | Out-String)
+    $s0 = Snap 'd2_s0b_home.txt'
 }
-
-# 2. dismiss the promo card if it reappeared
-$s1 = Snap 'd1_s1_newchat.txt'
-$hideRef = [regex]::Match($s1, '@(e\d+) button "Hide this').Groups[1].Value
-if ($hideRef) {
-    $null = (& $bsk click ('@' + $hideRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseD1: hid promo @' + $hideRef)
+if ($s0 -match 'combobox[^\r\n]*="Agent"') { Log 'phaseD2: already in Agent mode - nothing to do' }
+else {
+    # 1. open the mode menu
+    $cbRef = [regex]::Match($s0, '@(e\d+) combobox').Groups[1].Value
+    $null = (& $bsk click ('@' + $cbRef) --session $sid 2>&1 | Out-String)
+    Log ('phaseD2: opened menu @' + $cbRef + ' (exit ' + $LASTEXITCODE + ')')
     $null = (& $bsk wait-ms 2s --session $sid 2>&1 | Out-String)
-    $s1 = Snap 'd1_s1b_nopromo.txt'
+    $s1 = Snap 'd2_s1_menu.txt'
+
+    # 2. click the inner button of the Agent option
+    $btnRef = [regex]::Match($s1, '@(e\d+) button "Agent Mode').Groups[1].Value
+    $ok = $false
+    if ($btnRef) {
+        $null = (& $bsk click ('@' + $btnRef) --session $sid 2>&1 | Out-String)
+        Log ('phaseD2: clicked inner button @' + $btnRef + ' (exit ' + $LASTEXITCODE + ')')
+        $null = (& $bsk wait-ms 3s --session $sid 2>&1 | Out-String)
+        $s2 = Snap 'd2_s2_after_btn.txt'
+        $ok = ($s2 -match 'combobox[^\r\n]*="Agent"') -or ($s2 -match 'active: Agent')
+    } else { $s2 = $s1 }
+
+    # 3. keyboard fallback: open menu, ArrowDown to Agent, Enter
+    if (-not $ok) {
+        Log 'phaseD2: button click did not flip the mode - keyboard fallback'
+        $cbRef2 = [regex]::Match($s2, '@(e\d+) combobox').Groups[1].Value
+        if ($cbRef2) {
+            $null = (& $bsk click ('@' + $cbRef2) --session $sid 2>&1 | Out-String)
+            $null = (& $bsk wait-ms 1s --session $sid 2>&1 | Out-String)
+        }
+        $null = (& $bsk press ArrowDown --session $sid 2>&1 | Out-String)
+        $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
+        $null = (& $bsk wait-ms 3s --session $sid 2>&1 | Out-String)
+        $s2 = Snap 'd2_s3_after_keys.txt'
+        $ok = ($s2 -match 'combobox[^\r\n]*="Agent"') -or ($s2 -match 'active: Agent')
+    }
+    if ($ok) { Log 'phaseD2: SUCCESS - mode is now Agent' }
+    else { Log 'phaseD2: WARN mode still not Agent - state dumped' }
 }
 
-# 3. open the mode combobox (currently "Battle")
-$cbRef = [regex]::Match($s1, '@(e\d+) combobox').Groups[1].Value
-Log ('phaseD1: mode combobox @' + $cbRef)
-if (-not $cbRef) { Log '[FAIL] mode combobox not found'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
-$null = (& $bsk click ('@' + $cbRef) --session $sid 2>&1 | Out-String)
-Log ('phaseD1: clicked combobox (exit ' + $LASTEXITCODE + ')')
-$null = (& $bsk wait-ms 2s --session $sid 2>&1 | Out-String)
-
-# 4. the open menu: snapshot and click the Agent option
-$s2 = Snap 'd1_s2_menu_open.txt'
-$optRef = ''
-foreach ($pat in '@(e\d+) (?:button|option|menuitem|link) "Agent', '@(e\d+) [^\r\n]*"Agent\b') {
-    $mm = [regex]::Match($s2, $pat)
-    if ($mm.Success) { $optRef = $mm.Groups[1].Value; break }
-}
-Log ('phaseD1: Agent option @' + $optRef)
-if ($optRef) {
-    $null = (& $bsk click ('@' + $optRef) --session $sid 2>&1 | Out-String)
-    Log ('phaseD1: clicked Agent option (exit ' + $LASTEXITCODE + ')')
-    $null = (& $bsk wait-ms 3s --session $sid 2>&1 | Out-String)
-} else {
-    Log 'phaseD1: WARN no Agent option found in the open menu - snapshot captured for analysis'
-}
-
-# 5. verify + recon the agent-mode composer
-$s3 = Snap 'd1_s3_after_select.txt'
-$modeNow = [regex]::Match($s3, '@e\d+ combobox "([^"]*)"').Groups[1].Value
-Log ('phaseD1: mode combobox now reads: ' + $modeNow)
-$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'd1_agent_mode.png') 2>&1 | Out-String)
-Log ('phaseD1: mode line present: ' + ($s3 -match 'Agent'))
-Log 'phaseD1: done'
+# 4. recon the agent-mode composer: look for GitHub / repo UI
+$s3 = Snap 'd2_s4_agent_ui.txt'
+$gh = [regex]::Matches($s3, '@e\d+ [^\r\n]*[^\r\n]')
+$hits = @()
+foreach ($x in $gh) { if ($x.Value -match 'GitHub|github|Connect|Repo|repository') { $hits += $x.Value.Trim() } }
+if ($hits.Count) { foreach ($h in $hits[0..([Math]::Min(8, $hits.Count - 1))]) { Log ('phaseD2: UI ' + $h.Substring(0, [Math]::Min(110, $h.Length))) } }
+else { Log 'phaseD2: no GitHub/repo UI visible yet in the snapshot' }
+$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'd2_agent_mode.png') 2>&1 | Out-String)
+Log 'phaseD2: done'
 $lines | Set-Content -LiteralPath $logPath -Encoding UTF8
 exit 0
