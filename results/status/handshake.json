@@ -1,9 +1,9 @@
 {
-  "round": 5,
-  "arena_state": "awaiting_check",
-  "local_state": "pending",
-  "arena_updated": "2026-09-18 03:07:44",
-  "local_updated": null,
-  "host": "",
-  "note": "stage2 phase A: open arena.ai in Agent Window, capture aria snapshot + screenshot"
+    "round":  5,
+    "arena_state":  "awaiting_check",
+    "local_state":  "passed",
+    "arena_updated":  "2026-09-18 03:07:44",
+    "local_updated":  "2026-09-18 11:09:50",
+    "host":  "LAPTOP-R77M5D6M",
+    "note":  "stage2 phase A: open arena.ai in Agent Window, capture aria snapshot + screenshot"
 }
