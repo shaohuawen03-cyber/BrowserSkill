@@ -1,1 +1,1 @@
-ok bsk=bsk 0.3.0 daemon=up
+ok 5373026 sha256=0eb2b40aff955898d21c1adfc70a3d6c84da9730b39b6fd4d5c12457274d0260
