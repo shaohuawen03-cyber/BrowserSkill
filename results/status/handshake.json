@@ -1,9 +1,9 @@
 {
-  "round": 16,
-  "arena_state": "awaiting_check",
-  "local_state": "pending",
-  "arena_updated": "2026-09-18 03:42:19",
-  "local_updated": null,
-  "host": "",
-  "note": "stage4 F1: wait repo list, select mqgg5630-cyber/BrowserSkill, verify"
+    "round":  16,
+    "arena_state":  "awaiting_check",
+    "local_state":  "failed",
+    "arena_updated":  "2026-09-18 03:42:19",
+    "local_updated":  "2026-09-18 11:43:42",
+    "host":  "LAPTOP-R77M5D6M",
+    "note":  "stage4 F1: wait repo list, select mqgg5630-cyber/BrowserSkill, verify"
 }
