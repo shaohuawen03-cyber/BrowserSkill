@@ -1,0 +1,34 @@
+check round 1 on LAPTOP-R77M5D6M - passed (exit 0)
+cmd: powershell -NoProfile -ExecutionPolicy Bypass -File code/local_check.ps1
+elapsed: 19s
+
+OK: all .ps1 files are ASCII-only
+OK: sync.config.json branch=arena/01a0b237-browserskill
+OK: sync.config.json branch matches HEAD (arena/01a0b237-browserskill)
+OK: root scripts identical to skills/git-sync/scripts
+OK: no drive-style variable typos ($var:)
+== exits in Invoke-PollRound: 6
+OK: every exit path sets its closing summary
+== exits in Invoke-PollOnce: 2 (lock held / crashed / normal)
+OK: loop closing lines covered (6 exit paths, all with their own summary)
+OK: every .ps1 parses
+   (gate ran via E:\hermes\git\bin\bash.exe [git])
+== accept 2a: silent push PROVEN (ls-remote + push --dry-run, prompts disabled)
+== auth: this clone is PINNED to gh account 'shaohuawen03-cyber' (other clones use the machine default)
+== accept 2b (fallback): one LONG-LIVED loop process - one brief flash per logon,
+   not per poll. For zero flash: admin PowerShell -> .\watch.ps1 -Unregister ;
+   .\watch.ps1 -Register -Headless   (or fix the launcher, see watch-*.log)
+== exits in Invoke-PollRound: 6
+OK: every exit path sets its closing summary
+== exits in Invoke-PollOnce: 2 (lock held / crashed / normal)
+OK: loop closing lines covered (6 exit paths, all with their own summary)
+== check_loop_summary PASSED
+== accept 2c: watcher closing lines verified (every exit path has its summary)
+== accept 2d: hands-free auto_pull/auto_push present in watch.ps1
+== success criteria: results/status/success_criteria.json
+   self-loop test: both deliverables must exist on the LOCAL machine (pulled via git) with sane sizes
+   OK   exists: deliverable/selfloop_test_report.docx (37752 B)
+   OK   exists: deliverable/selfloop_test_report.pptx (30402 B)
+   OK   size deliverable/selfloop_test_report.docx: 37752 >= 20000
+   OK   size deliverable/selfloop_test_report.pptx: 30402 >= 20000
+== local checks passed
