@@ -1,9 +1,9 @@
 {
   "round": 36,
-  "arena_state": "awaiting_check",
+  "arena_state": "accepted",
   "local_state": "pending",
-  "arena_updated": "2026-09-18 07:22:21",
+  "arena_updated": "2026-09-18 08:02:47",
   "local_updated": null,
   "host": "",
-  "note": "stage7 K: reuse connected convo, continue, send 3-round self-loop prompt, monitor"
+  "note": "obsolete: round-36 executor was parked by the round-1 bootstrap; orchestration moves to the arena bridge"
 }
