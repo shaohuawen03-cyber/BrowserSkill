@@ -185,10 +185,10 @@
       "scope": "user"
     },
     {
-      "tab_id": 1201901005,
+      "tab_id": 1201900985,
       "title": "about:blank",
       "url": "about:blank",
-      "window_id": 1201901004,
+      "window_id": 1201900984,
       "active": true,
       "scope": "agent"
     }
