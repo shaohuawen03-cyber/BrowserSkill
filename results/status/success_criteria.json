@@ -1,0 +1,11 @@
+{
+  "description": "self-loop test: both deliverables must exist on the LOCAL machine (pulled via git) with sane sizes",
+  "require_files": [
+    "deliverable/selfloop_test_report.docx",
+    "deliverable/selfloop_test_report.pptx"
+  ],
+  "min_bytes": {
+    "deliverable/selfloop_test_report.docx": 20000,
+    "deliverable/selfloop_test_report.pptx": 20000
+  }
+}
