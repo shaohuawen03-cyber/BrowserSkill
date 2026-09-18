@@ -1,9 +1,9 @@
 {
-    "round":  3,
-    "arena_state":  "awaiting_check",
-    "local_state":  "passed",
-    "arena_updated":  "2026-09-18 02:14:48",
-    "local_updated":  "2026-09-18 10:16:04",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "agent task round 2: download bsk tarball to results/jobs (powershell.exe fix)"
+  "round": 3,
+  "arena_state": "accepted",
+  "local_state": "passed",
+  "arena_updated": "2026-09-18 02:16:27",
+  "local_updated": "2026-09-18 10:16:04",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "hands-free: bsk tarball fetched, sha256 verified"
 }
