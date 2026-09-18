@@ -1,9 +1,9 @@
 {
-  "round": 2,
-  "arena_state": "awaiting_check",
-  "local_state": "pending",
-  "arena_updated": "2026-09-18 02:11:35",
-  "local_updated": null,
-  "host": "",
-  "note": "agent task: download official bsk v0.3.0 linux tarball into sources/ (code/agent_task.ps1)"
+    "round":  2,
+    "arena_state":  "awaiting_check",
+    "local_state":  "passed",
+    "arena_updated":  "2026-09-18 02:11:35",
+    "local_updated":  "2026-09-18 10:13:31",
+    "host":  "LAPTOP-R77M5D6M",
+    "note":  "agent task: download official bsk v0.3.0 linux tarball into sources/ (code/agent_task.ps1)"
 }
