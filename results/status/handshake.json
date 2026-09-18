@@ -1,9 +1,9 @@
 {
-    "round":  47,
-    "arena_state":  "awaiting_check",
-    "local_state":  "failed",
-    "arena_updated":  "2026-09-18 09:09:00",
-    "local_updated":  "2026-09-18 17:10:20",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "stage7 K5b: monitor the 3-round self-loop to completion (round-2 prompt already dispatched)"
+  "round": 47,
+  "arena_state": "accepted",
+  "local_state": "failed",
+  "arena_updated": "2026-09-18 09:11:38",
+  "local_updated": "2026-09-18 17:10:20",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "hands-free: r47 closed - activation cooldown ~30min confirmed; final skill write-up proceeds"
 }
