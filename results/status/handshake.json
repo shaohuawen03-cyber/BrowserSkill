@@ -1,9 +1,9 @@
 {
-    "round":  51,
-    "arena_state":  "awaiting_check",
-    "local_state":  "failed",
-    "arena_updated":  "2026-09-18 09:40:05",
-    "local_updated":  "2026-09-18 17:42:23",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "r51 K6: dispatch 3-round plan - USER WILL CLICK THE ARENA TAB within 8 min, hook waits for the warm-up"
+  "round": 51,
+  "arena_state": "accepted",
+  "local_state": "failed",
+  "arena_updated": "2026-09-18 09:46:58",
+  "local_updated": "2026-09-18 17:42:23",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "r51 closed - tab still cold after 8min; pausing Edge hooks until user confirms a click"
 }
