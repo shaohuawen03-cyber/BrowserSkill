@@ -57,14 +57,37 @@ Log ('phaseK: borrow exit ' + $LASTEXITCODE)
 if ($LASTEXITCODE -ne 0) { Log '[FAIL] borrow failed'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
 $null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String)
 
-# 2. open the connected conversation
+# 2. open the connected conversation (deep link first; on "couldn't load"
+#    fall back to /agent and click the newest Today chat entry)
 $null = (& $bsk navigate 'https://arena.ai/agent/01a0b237-fad1-7168-8115-d3f52e550489' --session $sid 2>&1 | Out-String)
 $rendered = $false
-for ($i = 1; $i -le 30; $i++) {
+for ($i = 1; $i -le 20; $i++) {
     $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
     $s0 = Snap ('k_poll' + $i + '.txt')
     if (($s0 -match 'textbox') -and ($s0 -match 'combobox')) { $rendered = $true; Log ('phaseK: conversation rendered at poll ' + $i); break }
-    if ($i -eq 10 -or $i -eq 20) { $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
+    if ($s0 -match "couldn't load this chat") { Log ('phaseK: deep link failed at poll ' + $i); break }
+}
+if (-not $rendered) {
+    Log 'phaseK: falling back to /agent + newest Today chat'
+    $null = (& $bsk navigate 'https://arena.ai/agent' --session $sid 2>&1 | Out-String)
+    $home = $false
+    for ($i = 1; $i -le 20 -and -not $home; $i++) {
+        $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
+        $s0 = Snap ('k_home_poll' + $i + '.txt')
+        if ($s0 -match 'textbox') { $home = $true }
+    }
+    Scroll-Bottom
+    $s0 = Snap 'k_home_list.txt'
+    $chatRef = [regex]::Match($s0, '@(e\d+) link[^(\r\n]{0,80}').Groups[1].Value
+    Log ('phaseK: newest Today chat @' + $chatRef)
+    if ($chatRef) {
+        $null = (& $bsk click ('@' + $chatRef) --session $sid 2>&1 | Out-String)
+        for ($i = 1; $i -le 20; $i++) {
+            $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
+            $s0 = Snap ('k_conv_poll' + $i + '.txt')
+            if (($s0 -match 'textbox') -and ($s0 -match 'combobox')) { $rendered = $true; Log ('phaseK: conversation open via list click (poll ' + $i + ')'); break }
+        }
+    }
 }
 if (-not $rendered) { Log '[FAIL] conversation did not render'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
 Scroll-Bottom
