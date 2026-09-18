@@ -79,6 +79,26 @@ for ($cycle = 1; $cycle -le 3 -and -not $rendered; $cycle++) {
         if (Test-Shell $s0) { $null = (& $bsk tab select $tid --session $sid 2>&1 | Out-String); $null = (& $bsk reload --session $sid 2>&1 | Out-String) }
     }
     if ($rendered) { break }
+    Log ('phaseK4: cycle ' + $cycle + ' home failed - trying the LIST in a soft way (no full recycle)')
+    # the alert-only home still has a working sidebar: open the connected chat
+    # via the deep link from the alive app shell; a hydrated-but-empty home is
+    # enough for SPA-internal navigation
+    Scroll-Bottom
+    $s1 = Snap ('k4_softlist_c' + $cycle + '.txt')
+    $anyLink = ''
+    foreach ($mm in [regex]::Matches($s1, '@(e\d+) link[^\r\n]*')) {
+        if ($mm.Value -match '01a0aeb9') { $anyLink = $mm.Groups[1].Value; break }
+    }
+    if ($anyLink) {
+        Log ('phaseK4: soft list has the chat @' + $anyLink)
+        $null = (& $bsk click ('@' + $anyLink) --session $sid 2>&1 | Out-String)
+        for ($i = 1; $i -le 24; $i++) {
+            $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
+            $s0 = Snap ('k4_softconv_c' + $cycle + '_p' + $i + '.txt')
+            if (($s0 -match 'textbox') -and ($s0 -match 'combobox')) { $rendered = $true; Log ('phaseK4: conversation open via soft list (poll ' + $i + ')'); break }
+        }
+    }
+    if ($rendered) { break }
     Log ('phaseK4: cycle ' + $cycle + ' failed - recycling')
 }
 if (-not $rendered) { Log '[FAIL] no awake tab after 3 cycles - the bridge needs user activity (open arena.ai once)'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
