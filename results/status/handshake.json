@@ -1,9 +1,9 @@
 {
-  "round": 43,
-  "arena_state": "accepted",
-  "local_state": "failed",
-  "arena_updated": "2026-09-18 08:53:00",
-  "local_updated": "2026-09-18 16:51:54",
-  "host": "LAPTOP-R77M5D6M",
-  "note": "hands-free: r43 closed - K4b soft-list addendum"
+  "round": 44,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 08:53:03",
+  "local_updated": null,
+  "host": "",
+  "note": "stage7 K4b: wake + soft list + deep route, 3-round prompt"
 }
