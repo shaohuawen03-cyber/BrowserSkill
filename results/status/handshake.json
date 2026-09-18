@@ -1,9 +1,9 @@
 {
-  "round": 33,
-  "arena_state": "accepted",
-  "local_state": "passed",
-  "arena_updated": "2026-09-18 07:10:14",
-  "local_updated": "2026-09-18 15:09:50",
-  "host": "LAPTOP-R77M5D6M",
-  "note": "stage6 M2b: monitor until the final PowerShell block is out"
+  "round": 34,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 07:10:47",
+  "local_updated": null,
+  "host": "",
+  "note": "stage6 M2c: wait for the finished PS block"
 }
