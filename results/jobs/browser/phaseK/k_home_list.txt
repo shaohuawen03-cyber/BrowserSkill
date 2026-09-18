@@ -1,8 +1,8 @@
 ﻿@vom 1
-@view 1043x914
+@view 1043x924
 @layers 1 focus=L1
 L1 page
-  RootWebArea "Arena | Benchmark & Compare the Best AI Models"
+  RootWebArea "Agent Mode | Autonomous AI Agents for Real-World Tasks"
     alert
 @warning geometry incomplete: some page or frame content has no top-level coordinates.
 
