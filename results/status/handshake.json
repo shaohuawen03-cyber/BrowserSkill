@@ -1,9 +1,9 @@
 {
-  "round": 21,
-  "arena_state": "accepted",
-  "local_state": "passed",
-  "arena_updated": "2026-09-18 04:00:26",
-  "local_updated": "2026-09-18 11:58:54",
-  "host": "LAPTOP-R77M5D6M",
-  "note": "hands-free: F6 done - arena still blocked, evidence collected, resume prepared"
+  "round": 22,
+  "arena_state": "awaiting_check",
+  "local_state": "pending",
+  "arena_updated": "2026-09-18 06:38:47",
+  "local_updated": null,
+  "host": "",
+  "note": "stage5 G: full agent-mode run with the round-1 prompt (connect local + copyable block)"
 }
