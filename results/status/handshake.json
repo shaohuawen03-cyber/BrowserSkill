@@ -1,9 +1,9 @@
 {
-  "round": 17,
-  "arena_state": "awaiting_check",
-  "local_state": "pending",
-  "arena_updated": "2026-09-18 03:44:37",
-  "local_updated": null,
-  "host": "",
-  "note": "stage4 F2: patient render + select BrowserSkill repo"
+    "round":  17,
+    "arena_state":  "awaiting_check",
+    "local_state":  "failed",
+    "arena_updated":  "2026-09-18 03:44:37",
+    "local_updated":  "2026-09-18 11:46:11",
+    "host":  "LAPTOP-R77M5D6M",
+    "note":  "stage4 F2: patient render + select BrowserSkill repo"
 }
