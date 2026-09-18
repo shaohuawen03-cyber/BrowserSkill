@@ -1,0 +1,11 @@
+﻿bsk.exe : evaluate threw: ReferenceError: main is not defined
+所在位置 E:\0github\git-sync\BrowserSkill-01a0b237\code\agent_task.ps1:97 字符: 9
++ $ev2 = (& $bsk evaluate $ext --session $sid 2>&1 | Out-String)
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (evaluate threw:... is not defined:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    at <anonymous>:1:43
+    at <anonymous>:1:99
+  at line 1, column 42
+

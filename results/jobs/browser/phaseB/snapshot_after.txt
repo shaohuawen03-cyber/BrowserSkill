@@ -1,0 +1,47 @@
+﻿@vom 1
+@view 1043x907
+@layers 2 focus=L1
+L1 modal cover=77%
+  @e1 button "Toggle Sidebar"
+  list
+    listitem
+      @e2 button
+  @e3 button
+  list
+    listitem
+      @e4 link "New Chat"
+    listitem
+      @e5 link "Leaderboard [has-submenu]"
+    listitem
+      @e6 link "Search"
+  @e7 link [鈫?www.youtube.com]
+  heading "Get More Done With Agents"
+    StaticText "Get More Done With Agents"
+  paragraph "Start evaluating agentic AI on Arena today."
+    @e8 link "Learn more"
+    StaticText "Start evaluating agentic AI on Arena today."
+  @e9 link "Try it now"
+  @e10 button "Hide this"
+  list
+    @e11 button "mqgg5630@gmail.com"
+  group
+    @e12 link "Terms of Use"
+    @e13 link "Privacy Policy"
+    @e14 button "Cookies"
+  @e15 button "New Chat [has-submenu]"
+  list
+  form "Inputs are processed by third-party AI and responses may be inaccurate."
+    @e16 textbox "Ask followup鈥? [empty] placeholder="Ask followup鈥?
+    @e17 button "Add files [has-submenu]"
+    @e18 combobox "Battle [has-submenu]" ="Battle"
+    @e19 button "Modality: Auto [has-submenu]" [disabled]
+    @e20 button
+    @e21 button "Send message" [disabled]
+    paragraph "Inputs are processed by third-party AI and responses may be inaccurate."
+      StaticText "Inputs are processed by third-party AI and responses may be inaccurate."
+  alert
+  group "grammarly-integration"
+    StaticText "{\"mode\":\"full\",\"isActive\":true,\"isUserDisabled\":false}"
+L2 page 鈥?occluded by L1 (~6 nodes, not actionable)
+@warning geometry incomplete: some page or frame content has no top-level coordinates.
+

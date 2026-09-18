@@ -1,0 +1,9 @@
+﻿bsk.exe : evaluate threw: SyntaxError: Unexpected token ':'
+所在位置 E:\0github\git-sync\BrowserSkill-01a0b237\code\agent_task.ps1:67 字符: 9
++ $ev1 = (& $bsk evaluate $probe --session $sid 2>&1 | Out-String)
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (evaluate threw:...ected token ':':String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  at line 1, column 355
+
