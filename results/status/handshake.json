@@ -1,9 +1,9 @@
 {
-  "round": 48,
-  "arena_state": "awaiting_check",
-  "local_state": "pending",
-  "arena_updated": "2026-09-18 09:19:14",
-  "local_updated": null,
-  "host": "",
-  "note": "housekeeping: close the leftover r47 automation window (also validates the just-restored watcher)"
+    "round":  48,
+    "arena_state":  "awaiting_check",
+    "local_state":  "passed",
+    "arena_updated":  "2026-09-18 09:19:14",
+    "local_updated":  "2026-09-18 17:21:21",
+    "host":  "LAPTOP-R77M5D6M",
+    "note":  "housekeeping: close the leftover r47 automation window (also validates the just-restored watcher)"
 }
