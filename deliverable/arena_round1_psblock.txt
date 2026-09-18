@@ -1,0 +1,15 @@
+# Fetched by BrowserSkill automation from the arena.ai Agent conversation
+# (mqgg5630-cyber/BrowserSkill branch arena/01a0b352-browserskill, 2026-09-18)
+
+# prerequisite: Git for Windows (git + bash); GitHub CLI (gh) for the account pin
+cd E:\0github\
+Test-Path .\BrowserSkill-01a0b352    # must print False: a brand-new folder, nothing is overwritten
+git clone -b arena/01a0b352-browserskill https://github.com/mqgg5630-cyber/BrowserSkill.git BrowserSkill-01a0b352
+cd BrowserSkill-01a0b352
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+.\bootstrap.ps1 -Auto                # identity + branch + silent-push auth + register the watcher
+.\auth.ps1 -Account mqgg5630-cyber   # repo owner = mqgg5630-cyber, pins THIS clone only
+.\auth.ps1 -Verify                   # must end with: push --dry-run PASSED
+.\watch.ps1 -Test                    # run one poll now: it picks up round 1 and pushes the verdict back
+.\doctor.ps1                         # branch=arena/01a0b352-browserskill, ahead/behind 0/0, watcher+heartbeat+auth OK
+.\watch.ps1 -Status
