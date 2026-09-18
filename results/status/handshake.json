@@ -1,9 +1,9 @@
 {
-    "round":  38,
-    "arena_state":  "awaiting_check",
-    "local_state":  "failed",
-    "arena_updated":  "2026-09-18 08:33:07",
-    "local_updated":  "2026-09-18 16:34:55",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "stage7 K2: conversation via fallback, continue-click, 3-round prompt, monitor"
+  "round": 38,
+  "arena_state": "accepted",
+  "local_state": "failed",
+  "arena_updated": "2026-09-18 08:37:33",
+  "local_updated": "2026-09-18 16:34:55",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "hands-free: r38 closed - K3 own-tab route"
 }
