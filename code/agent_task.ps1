@@ -1,14 +1,14 @@
-# agent_task.ps1 - stage 2 PHASE B: adaptive chat attempt on arena.ai.
-# Reuses the phase-A session, waits for the SPA to fully render, locates the
-# chat input (textarea or contenteditable), types a test message, presses
-# Enter, waits for the AI reply and captures snapshot + screenshot + reply
-# text. Every step is logged with its exit code; a failed send does NOT abort
-# the round - diagnostics come back either way.
+# agent_task.ps1 - stage 2 PHASE C: reliable send via snapshot refs.
+# Lessons from phase B: the CSS-selector fill did not stick (React state),
+# the promo card overlays the page, and complex JS in `evaluate` breaks under
+# PS 5.1 native quoting. Phase C therefore: clicks "Hide this" on the promo,
+# takes a FRESH snapshot, addresses elements by their @eN refs, VERIFIES the
+# text stuck before sending, clicks the real "Send message" button, then
+# captures three timed snapshots + a final screenshot as evidence.
 
 $ErrorActionPreference = 'Continue'
 Set-Location (Split-Path -Parent $PSScriptRoot)   # repo root
 
-$psExe = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
 $bsk = Join-Path $env:USERPROFILE '.local\bin\bsk.exe'
 if (-not (Test-Path -LiteralPath $bsk)) {
     $f = Get-ChildItem -Path (Join-Path $env:USERPROFILE '.local') -Recurse -Filter 'bsk.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
@@ -16,87 +16,100 @@ if (-not (Test-Path -LiteralPath $bsk)) {
 }
 if (-not (Test-Path -LiteralPath $bsk)) { Write-Output '[FAIL] bsk.exe not found'; exit 1 }
 
-$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseB'
+$outDir = Join-Path (Get-Location).Path 'results\jobs\browser\phaseC'
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
-$logPath = Join-Path $outDir 'phaseB.log'
+$logPath = Join-Path $outDir 'phaseC.log'
 $lines = New-Object System.Collections.Generic.List[string]
 function Log([string]$s) { $script:lines.Add($s) | Out-Null; Write-Output $s }
-function Clip([string]$s, [int]$n) {
-    $t = ($s -replace '\s+', ' ').Trim()
-    if ($t.Length -gt $n) { return $t.Substring(0, $n) + ' ...' }
-    return $t
+function Snap([string]$name) {
+    $s = (& $bsk snapshot --session $script:sid --max-tokens 30000 2>&1 | Out-String)
+    $s | Set-Content -LiteralPath (Join-Path $outDir $name) -Encoding UTF8
+    return $s
 }
 
 $env:BSK_AUTO_START = '0'
 $sid = ''
 $sidFile = Join-Path (Get-Location).Path 'results\status\bsk_session.txt'
 if (Test-Path -LiteralPath $sidFile) { $sid = (Get-Content -LiteralPath $sidFile -Raw).Trim() }
-
-# 0. session: reuse if alive, else open a new Agent Window
-if ($sid) {
-    $lst = (& $bsk session list --json 2>&1 | Out-String)
-    if ($lst -match [regex]::Escape($sid)) {
-        Log ('phaseB: reusing session ' + $sid)
-    } else {
-        Log 'phaseB: previous session gone - starting a new one'
-        $sid = ''
-    }
-}
-if (-not $sid) {
-    $st = (& $bsk session start --no-focus --name 'arena-ai-chat' --json 2>&1 | Out-String)
-    $st | Set-Content -LiteralPath (Join-Path $outDir 'session_start.json') -Encoding UTF8
+$lst = (& $bsk session list --json 2>&1 | Out-String)
+if (-not $sid -or $lst -notmatch [regex]::Escape($sid)) {
+    $st = (& $bsk session start --no-focus --name 'arena-ai-chat-c' --json 2>&1 | Out-String)
     $m = [regex]::Match($st, '"session_id"\s*:\s*"([^"]+)"')
     if (-not $m.Success) { $m = [regex]::Match($st, '"id"\s*:\s*"([^"]+)"') }
-    if ($m.Success) { $sid = $m.Groups[1].Value }
-    if (-not $sid) { Log ('[FAIL] no session: ' + (Clip $st 250)); $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
+    if ($m.Success) { $sid = $m.Groups[1].Value } else { Log ('[FAIL] no session: ' + $st.Substring(0, [Math]::Min(250, $st.Length))); $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
     $sid | Set-Content -LiteralPath $sidFile -Encoding Ascii
-    Log ('phaseB: started session ' + $sid)
+}
+Log ('phaseC: session ' + $sid)
+
+# 0. page state right now (no reload - keep the rendered SPA state)
+$s0 = Snap 'snapshot_0.txt'
+Log ('phaseC: snapshot_0 bytes=' + $s0.Length)
+
+# 1. dismiss the promo card if present (its refs die on re-render, so re-snap after)
+$hideRef = [regex]::Match($s0, '@(e\d+) button "Hide this').Groups[1].Value
+if ($hideRef) {
+    $null = (& $bsk click ('@' + $hideRef) --session $sid 2>&1 | Out-String)
+    Log ('phaseC: clicked Hide this @' + $hideRef + ' (exit ' + $LASTEXITCODE + ')')
+    $null = (& $bsk wait-ms 2s --session $sid 2>&1 | Out-String)
+    $null = Snap 'snapshot_1_nopromo.txt'
+} else {
+    Log 'phaseC: no promo card visible'
 }
 
-# 1. reload arena.ai and let the SPA fully render
-$null = (& $bsk navigate 'https://arena.ai' --session $sid 2>&1 | Out-String)
-$null = (& $bsk wait-ms 15s --session $sid 2>&1 | Out-String)
-Log 'phaseB: navigated, waited 15s'
+# 2. fresh snapshot -> find the composer + send refs
+$s1 = Snap 'snapshot_2_fresh.txt'
+$tbRef = [regex]::Match($s1, '@(e\d+) textbox').Groups[1].Value
+$sendRef = [regex]::Match($s1, '@(e\d+) button "Send message').Groups[1].Value
+Log ('phaseC: textbox=@' + $tbRef + ' send=@' + $sendRef)
+if (-not $tbRef) { Log '[FAIL] composer textbox not found in snapshot'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
 
-# 2. recon: snapshot + screenshot + input candidates
-$snap1 = (& $bsk snapshot --session $sid --max-tokens 30000 2>&1 | Out-String)
-$snap1 | Set-Content -LiteralPath (Join-Path $outDir 'snapshot_before.txt') -Encoding UTF8
-Log ('phaseB: snapshot_before bytes=' + $snap1.Length)
-$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'before.png') 2>&1 | Out-String)
-$probe = '(function(){var ta=document.querySelector("textarea");var ce=document.querySelector("[contenteditable=\"true\"]");var btns=[].slice.call(document.querySelectorAll("button")).map(function(b){return (b.getAttribute("aria-label")||b.innerText||"").slice(0,30)}).filter(Boolean).slice(0,12);return JSON.stringify({textarea:!!ta,ph:(ta&&ta.placeholder)||"",contenteditable:!!ce,buttons:btns});})()'
-$ev1 = (& $bsk evaluate $probe --session $sid 2>&1 | Out-String)
-$ev1 | Set-Content -LiteralPath (Join-Path $outDir 'probe.json') -Encoding UTF8
-Log ('phaseB: probe -> ' + (Clip $ev1 400))
-
-# 3. type the test message and send
+# 3. fill by ref, then VERIFY the text stuck
 $msg = 'Hello! This message was sent by BrowserSkill browser automation (bsk CLI) as a connectivity test. Please reply with one short sentence.'
-$sent = $false
-$null = (& $bsk fill --selector 'textarea' --value $msg --session $sid 2>&1 | Out-String)
-if ($LASTEXITCODE -eq 0) {
-    $sent = $true; Log 'phaseB: filled textarea'
-} else {
-    $null = (& $bsk fill --selector '[contenteditable="true"]' --value $msg --session $sid 2>&1 | Out-String)
-    if ($LASTEXITCODE -eq 0) { $sent = $true; Log 'phaseB: filled contenteditable' }
-    else { Log 'phaseB: WARN no input could be filled (page may need a mode/model pick first)' }
+$null = (& $bsk fill ('@' + $tbRef) --value $msg --session $sid 2>&1 | Out-String)
+Log ('phaseC: fill exit ' + $LASTEXITCODE)
+$null = (& $bsk wait-ms 1s --session $sid 2>&1 | Out-String)
+$s2 = Snap 'snapshot_3_afterfill.txt'
+$stillEmpty = $s2 -match 'textbox[^\r\n]*\[empty\]'
+if ($stillEmpty) {
+    Log 'phaseC: WARN text did not stick - trying selector fill + click-focus fallback'
+    $null = (& $bsk click ('@' + $tbRef) --session $sid 2>&1 | Out-String)
+    $null = (& $bsk fill 'textarea' --value $msg --session $sid 2>&1 | Out-String)
+    $null = (& $bsk wait-ms 1s --session $sid 2>&1 | Out-String)
+    $s2 = Snap 'snapshot_3b_retry.txt'
+    $stillEmpty = $s2 -match 'textbox[^\r\n]*\[empty\]'
 }
-if ($sent) {
-    $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
-    Log ('phaseB: Enter pressed, exit ' + $LASTEXITCODE)
-    $null = (& $bsk wait-ms 20s --session $sid 2>&1 | Out-String)
-    Log 'phaseB: waited 20s for the reply'
+if ($stillEmpty) {
+    Log '[FAIL] composer will not hold text - dumping state for the agent'
+    $lines | Set-Content -LiteralPath $logPath -Encoding UTF8
+    exit 1
+}
+Log 'phaseC: text verified in composer'
+
+# 4. send: the real button first, Enter as fallback
+if ($sendRef) {
+    $null = (& $bsk click ('@' + $sendRef) --session $sid 2>&1 | Out-String)
+    Log ('phaseC: clicked Send @' + $sendRef + ' (exit ' + $LASTEXITCODE + ')')
 } else {
-    $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String)
+    $null = (& $bsk press Enter --session $sid 2>&1 | Out-String)
+    Log ('phaseC: Enter fallback (exit ' + $LASTEXITCODE + ')')
 }
 
-# 4. after: snapshot + screenshot + visible text extract
-$snap2 = (& $bsk snapshot --session $sid --max-tokens 30000 2>&1 | Out-String)
-$snap2 | Set-Content -LiteralPath (Join-Path $outDir 'snapshot_after.txt') -Encoding UTF8
-Log ('phaseB: snapshot_after bytes=' + $snap2.Length)
-$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'after.png') 2>&1 | Out-String)
-$ext = '(function(){var t=(document.querySelector("main")||document.body).innerText;return t.slice(-3000);})()'
-$ev2 = (& $bsk evaluate $ext --session $sid 2>&1 | Out-String)
-$ev2 | Set-Content -LiteralPath (Join-Path $outDir 'page_text.txt') -Encoding UTF8
-Log ('phaseB: page_text bytes=' + $ev2.Length)
-Log 'phaseB: done'
+# 5. watch for the echo of our message (=sent), then let a reply arrive
+$echoAt = -1
+for ($i = 1; $i -le 4; $i++) {
+    $null = (& $bsk wait-ms 12s --session $sid 2>&1 | Out-String)
+    $sx = Snap ('snapshot_send' + $i + '.txt')
+    if ($sx -match 'BrowserSkill browser automation') { $echoAt = $i; Log ('phaseC: message echo visible at check ' + $i); break }
+}
+if ($echoAt -lt 0) { Log 'phaseC: WARN no echo of the message found - state captured anyway' }
+$null = (& $bsk wait-ms 20s --session $sid 2>&1 | Out-String)
+$null = Snap 'snapshot_reply1.txt'
+$null = (& $bsk wait-ms 15s --session $sid 2>&1 | Out-String)
+$sFinal = Snap 'snapshot_reply2.txt'
+$null = (& $bsk screenshot --session $sid --out (Join-Path $outDir 'final.png') 2>&1 | Out-String)
+$t = (& $bsk evaluate document.title --session $sid 2>&1 | Out-String)
+Log ('phaseC: title -> ' + $t.Trim())
+if ($sFinal -match 'Battle|Model|response') { Log 'phaseC: reply snapshot captured' }
+Log 'phaseC: done'
 $lines | Set-Content -LiteralPath $logPath -Encoding UTF8
 exit 0
