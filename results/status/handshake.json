@@ -1,9 +1,9 @@
 {
-    "round":  21,
-    "arena_state":  "awaiting_check",
-    "local_state":  "passed",
-    "arena_updated":  "2026-09-18 03:56:40",
-    "local_updated":  "2026-09-18 11:58:54",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "stage4 F6: challenge probe + patient wait, continue if alive"
+  "round": 21,
+  "arena_state": "accepted",
+  "local_state": "passed",
+  "arena_updated": "2026-09-18 04:00:26",
+  "local_updated": "2026-09-18 11:58:54",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "hands-free: F6 done - arena still blocked, evidence collected, resume prepared"
 }
