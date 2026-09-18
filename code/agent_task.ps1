@@ -62,7 +62,7 @@ for ($pass = 1; $pass -le 4 -and -not $chatRef; $pass++) {
     Scroll-Bottom
     $s0 = Snap ('k3_list_pass' + $pass + '.txt')
     foreach ($mm in [regex]::Matches($s0, '@(e\d+) link[^\r\n]*')) {
-        if ($mm.Value -match '01a0aeb9' -or $mm.Value -match '瀹夎［\[https://github.com/shaohuawen03-cyber/new/tree/arena') { $chatRef = $mm.Groups[1].Value; Log ('phaseK3: connected chat @' + $chatRef); break }
+        if ($mm.Value -match '01a0aeb9' -or $mm.Value -match '\[https://github.com/shaohuawen03-cyber/new/tree/arena') { $chatRef = $mm.Groups[1].Value; Log ('phaseK3: connected chat @' + $chatRef); break }
     }
     if (-not $chatRef) { Log ('phaseK3: pass ' + $pass + ' - connected chat not in list yet'); $null = (& $bsk wait-ms 5s --session $sid 2>&1 | Out-String) }
 }
