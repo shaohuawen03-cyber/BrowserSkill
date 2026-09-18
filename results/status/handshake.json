@@ -1,9 +1,9 @@
 {
-    "round":  42,
-    "arena_state":  "awaiting_check",
-    "local_state":  "failed",
-    "arena_updated":  "2026-09-18 08:46:06",
-    "local_updated":  "2026-09-18 16:48:02",
-    "host":  "LAPTOP-R77M5D6M",
-    "note":  "stage7 K2 retry: borrow live tab, open connected convo (fallback to list), continue-click, send 3-round prompt, monitor"
+  "round": 42,
+  "arena_state": "accepted",
+  "local_state": "failed",
+  "arena_updated": "2026-09-18 08:49:34",
+  "local_updated": "2026-09-18 16:48:02",
+  "host": "LAPTOP-R77M5D6M",
+  "note": "hands-free: r42 closed - K4 wake-aware borrow"
 }
