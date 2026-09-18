@@ -1,5 +1,5 @@
 ﻿@vom 1
-@view 1043x913
+@view 1043x915
 @layers 1 focus=L1
 L1 page
   RootWebArea "Agent Mode | Autonomous AI Agents for Real-World Tasks"
