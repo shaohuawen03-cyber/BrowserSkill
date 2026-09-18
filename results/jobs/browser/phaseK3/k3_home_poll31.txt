@@ -1,10 +1,6 @@
-﻿bsk.exe : error: requested resource does not exist
-所在位置 E:\0github\git-sync\BrowserSkill-01a0b237\code\agent_task.ps1:23 字符: 11
-+     $s = (& $bsk snapshot --session $script:sid --max-tokens 30000 2> ...
-+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (error: requested resource does not exist:String) [], RemoteException
-    + FullyQualifiedErrorId : NativeCommandError
- 
-hint: the session, tab, or browser may have stopped; run `bsk session list` / `bsk browsers` to see current state
-details: session not registered or already stopped
+﻿@vom 1
+@view 834x725
+@layers 1 focus=L1
+L1 page
+  RootWebArea
 
