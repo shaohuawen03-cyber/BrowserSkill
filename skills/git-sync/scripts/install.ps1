@@ -58,7 +58,7 @@ Write-Host "  copied skills\git-sync (docs + scripts + templates)"
 
 # 2. the user-side scripts at the repo root
 $files = @('sync.ps1', 'push.ps1', 'upload.ps1', 'download.ps1',
-           'where.ps1', 'where.cmd',
+           'where.ps1', 'where.cmd', 'SKILLS.md',
            'doctor.ps1', 'pack.ps1', 'bootstrap.ps1', 'pr.ps1',
            'hardware.ps1', 'watch.ps1', 'auth.ps1', 'install.ps1')
 foreach ($f in $files) {

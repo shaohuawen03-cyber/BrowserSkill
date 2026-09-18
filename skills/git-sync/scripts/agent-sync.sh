@@ -117,6 +117,12 @@ if [ "$RUN_GATE" = 1 ] && [ -n "$GATE" ]; then
   fi
 fi
 
+# ------------------------------------------------------------ 4.5 skills index
+# refresh the root SKILLS.md AUTO-INDEX so every sync carries the catalog
+if [ -f skills/gen_skills_index.sh ]; then
+  bash skills/gen_skills_index.sh || echo "[warn] skills index refresh failed" >&2
+fi
+
 # --------------------------------------------- 5. receipt (the sync report)
 # one markdown file the user can read after .\sync.ps1 to see what this round
 # changed and which of their commits were picked up (config key: "receipt")
