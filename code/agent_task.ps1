@@ -55,7 +55,7 @@ Log ('phaseH: arena tab candidate ' + $tid)
 if (-not $tid) { Log '[FAIL] no arena.ai tab found in the browser - open arena.ai first'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
 
 # 2. borrow it (user may need to approve; wait up to 150s)
-$bo = (& $bsk tab borrow $tid --session $sid --timeout 150 2>&1 | Out-String)
+$bo = (& $bsk tab borrow $tid --session $sid --timeout 300 2>&1 | Out-String)
 $bo | Set-Content -LiteralPath (Join-Path $outDir 'h_borrow.json') -Encoding UTF8
 Log ('phaseH: borrow exit ' + $LASTEXITCODE + ' -> ' + (($bo -replace '\s+', ' ').Trim().Substring(0, [Math]::Min(160, $bo.Trim().Length))))
 if ($LASTEXITCODE -ne 0) { Log '[FAIL] borrow not approved or failed'; $lines | Set-Content -LiteralPath $logPath -Encoding UTF8; exit 1 }
