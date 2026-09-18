@@ -1,9 +1,9 @@
 {
-  "round": 43,
-  "arena_state": "awaiting_check",
-  "local_state": "pending",
-  "arena_updated": "2026-09-18 08:49:37",
-  "local_updated": null,
-  "host": "",
-  "note": "stage7 K4: wake the borrowed tab, open connected convo, continue, 3-round prompt"
+    "round":  43,
+    "arena_state":  "awaiting_check",
+    "local_state":  "failed",
+    "arena_updated":  "2026-09-18 08:49:37",
+    "local_updated":  "2026-09-18 16:51:54",
+    "host":  "LAPTOP-R77M5D6M",
+    "note":  "stage7 K4: wake the borrowed tab, open connected convo, continue, 3-round prompt"
 }
