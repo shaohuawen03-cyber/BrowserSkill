@@ -1,5 +1,5 @@
 ﻿@vom 1
-@view 834x726
+@view 834x646
 @layers 1 focus=L1
 L1 page
   RootWebArea
