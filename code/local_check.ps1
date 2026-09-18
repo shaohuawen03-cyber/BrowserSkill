@@ -318,7 +318,10 @@ if (Test-Path -LiteralPath $critAbs) {
 $taskHook = Join-Path (Get-Location) 'code\agent_task.ps1'
 if (Test-Path -LiteralPath $taskHook) {
     Write-Output '== agent task hook: running code\agent_task.ps1'
-    $taskOut = (& powershell -NoProfile -ExecutionPolicy Bypass -File $taskHook 2>&1 | Out-String)
+    # absolute powershell.exe: a bare 'powershell' resolved mid-pipeline to a
+    # non-executable file on some machines ("cannot run a document in a pipeline")
+    $psExe = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
+    $taskOut = (& $psExe -NoProfile -ExecutionPolicy Bypass -File $taskHook 2>&1 | Out-String)
     $taskCode = $LASTEXITCODE
     if ($taskOut) { Write-Output $taskOut.TrimEnd() }
     if ($taskCode -ne 0) {
