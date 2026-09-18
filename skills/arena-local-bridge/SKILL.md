@@ -167,5 +167,6 @@ Get-CimInstance Win32_Process -Filter "Name='powershell.exe' OR Name='pwsh.exe'"
 | fill exit 3 / 输入不粘 | 换剪贴板 Ctrl+v；先 click 聚焦再粘贴 |
 | 值守 30+ 分钟无判定 | 用户跑 `.\watch.ps1 -Unregister ; .\watch.ps1 -Register` |
 | 值守被别的克隆抢焦点 | `.\watch.ps1 -Focus`（恢复本克隆）/ `-RestoreParked` |
+| push 403 "denied to <账号>" | 账号归属问题：`.\auth.ps1 -Account <仓库主> ; .\auth.ps1 -Verify`（应 READY） |
 | 推送被拒 workflows 权限 | 别推 .github/workflows；历史里删掉再重做提交 |
 | conversation 深链 404/Cloudflare | SPA 内部导航（列表点击/DOM click），别整页跳转 |

@@ -33,6 +33,7 @@ $roots = @()
 $cur = $start
 while ($cur -and $cur -ne (Split-Path -Parent $cur)) { $roots += $cur; $cur = Split-Path -Parent $cur }
 $roots += 'E:\0zhongqi'
+$roots += 'E:\0github\git-sync'
 foreach ($r in ($roots | Select-Object -Unique)) {
     if (-not (Test-Path -LiteralPath $r)) { continue }
     Get-ChildItem -LiteralPath $r -Directory | ForEach-Object { Add-Cand $_.FullName }
